@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机验证码</title>
+</head>
+<body>
+<script>
+    var tagStr='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    //从[0-61]索引中随机产生四个整数索引，通过charAt(index)找到对应字符即可
+    var createRandCodes=function(){
+        var randCodes=[];
+        for(var i=0;i<4;i++){
+            var index=Math.round(Math.random()*61);
+            var singleNum=tagStr.charAt(index);
+            randCodes.push(singleNum);
+        }
+        return randCodes.join('');
+    }
+    var showNums=createRandCodes();
+    var oDiv=document.createElement('div');
+    oDiv.style.width='100px';
+    oDiv.style.height='40px';
+    oDiv.style.backgroundColor='lightblue';
+    oDiv.style.webkitUserSelect='none';
+    oDiv.innerHTML=showNums;
+    document.body.appendChild(oDiv);
+    oDiv.onclick=function(){
+        var test=createRandCodes();
+        oDiv.innerHTML=test;
+    }
+
+</script>
+</body>
+</html>

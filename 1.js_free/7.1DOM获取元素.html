@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Object Model</title>
+</head>
+<body>
+<div id="tab" class="ctab">
+    <ul class="cul">
+        <li>选项一</li>
+        <li>选项二</li>
+        <li>选项三</li>
+    </ul>
+    <div name="jiasong">内容一</div>
+    <div>内容二</div>
+    <div name="jiasong">内容三</div>
+</div>
+
+<!--全选和非全选-->
+<div class="all">
+    <input class="toggle" type="checkbox" name="toggle" value="全选" />
+    <input id="ggg" class="test inList" type="checkbox" name="val1" value="选框一" />
+    <input class="inList" type="checkbox" name="val2" value="选框二" />
+    <input class="inList" type="checkbox" name="val3" value="选框三" />
+    <input class="inList" type="checkbox" name="val4" value="选框四" />
+    <input class="inList" type="checkbox" name="val5" value="选框五" />
+</div>
+<script>
+    //DOM:document object model 文档对象模型(描述html页面中节点关系的图谱)
+    /*
+    * 1、获取页面中元素的方法：
+    *   document.getElementById('ID');如果没有获取到元素返回null
+    *   注意：如果页面中id重复了，那么该方法默认只获取第一个元素；
+    *       在IE6、7中，会把表单元素的name属性值当做ID来使用
+    *       在IE6、7中，不会区分ID的大小写；
+    *       可以直接用元素的id来代表当前元素对象(不推荐)
+    *
+    * 3、document.getElementsByName() 通过元素name属性值获取一组元素
+    *   上下文对象必须为document
+    *
+    * 2、通过元素标签名来获取一组元素(有几个获取几个)
+    *   context.getElementsByTagName('元素标签名');
+    *   获取的是一个对象数据类型，并且是一个类数组(一数字作为索引，索引从0开始，逐级递增，索引代表的是当前元素对应的某一个元素，并且有一个叫做length的属性)
+    *
+    * 4、context.getElementsByClassName()
+    *   项目中最常用的一种方法，但是在IE6~8中会报错
+    *   解决办法：使用jquery；自己重写getElementsByClassName()方法如下：
+    *       //解决IE8之类不支持getElementsByClassName
+            if (!document.getElementsByClassName) {
+                document.getElementsByClassName = function (className, element) {
+                    var children = (element || document).getElementsByTagName('*');
+                    var elements = new Array();
+                    for (var i = 0; i < children.length; i++) {
+                        var child = children[i];
+                        var classNames = child.className.split(' ');
+                        for (var j = 0; j < classNames.length; j++) {
+                            if (classNames[j] == className) {
+                                elements.push(child);
+                                break;
+                            }
+                        }
+                    }
+                    return elements;
+                };
+            }
+    *
+    * 5、document.documentElement    获取HTML元素
+    *   document.body   获取body元素
+    *
+    * 6、在移动端获取元素的常用的方法(IE6~8下不兼容)
+    *   document.querySelector()    获取一个
+    *   document.querySelectorAll() 获取多个，类数组集合
+    *
+    *
+    * */
+    var oDiv=document.getElementById('tab');
+//    document称之为上下文(context)，限定当前获取元素的范围;
+//    注意：getElementById的上下文对象只能是document，因为id具有唯一性
+//    获取多个的这几个方法，即使你获取的只有一个，也是类数组，也是一个集合，哪怕只有一个也需要[0]来获取
+    var oTab=document.getElementById('tab');
+    var oLis=oDiv.getElementsByTagName('li');
+    console.log(oLis);
+    var oDivs=document.getElementsByName('jiasong');
+    console.dir(oDivs);
+    var cTab=document.getElementsByClassName('ctab')[0];
+    console.dir(cTab);
+    var cUl=cTab.getElementsByClassName('cul');
+    console.dir(cUl);
+
+    //兼容我所有浏览器的获取当前屏幕的宽高
+    var curWidth=document.documentElement.clientWidth||document.body.clientWidth;
+    var curHeight=document.documentElement.clientHeight||document.body.clientHeight;
+    console.log(curWidth+'||'+curHeight);
+
+    var qDiv=document.querySelector('#tab');
+    var qLis=document.querySelectorAll('#tab li');
+    console.log(qDiv);
+    console.log(qLis);
+    var checkboxs=document.querySelectorAll('input[type="checkbox"]');
+
+    console.log(typeof(document.getElementById('ggg').className));
+
+/*
+* 复选框全选和非全选
+* */
+    var toggle=document.getElementsByClassName('toggle')[0];
+    var oInputs=document.getElementsByClassName('inList');
+    toggle.onclick=function(){
+        for(var i=0;i<oInputs.length;i++) {
+            toggle.checked === true ? oInputs[i].checked = true : oInputs[i].checked = false;
+        }
+    }
+    var num=0;
+    for(var i=0;i<oInputs.length;i++){
+        (function(index){
+            oInputs[index].onclick=function(){
+                oInputs[index].checked===true?num++:num--;
+                num===5?toggle.checked=true : toggle.checked=false;
+            }
+        })(i);
+    }
+</script>
+</body>
+</html>

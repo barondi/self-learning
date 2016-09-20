@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+	<script type="text/javascript">
+    	var obj={
+			x:10,
+			y:20,
+			fn:function(x,y){
+				//this-->obj
+				var zxt=this;
+				var mx=function(x,m,n){
+					zxt.x=x;	
+					//this-->window
+					console.log(this);
+				}
+				var my=function(y,m,n){
+					zxt.y=y;
+					//this-->window	
+				}
+				mx(x);
+				my(y);
+			}	
+		};
+		obj.fn(100,200);
+		
+		
+		
+    
+    </script>
+</body>
+</html>

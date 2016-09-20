@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+	<script type="text/javascript">
+/*		var n=12;
+		function fn(){
+			s="test";
+			console.log(window.s);//test
+			n=6;
+			console.log(window.n);//6
+		}
+		fn();*/
+
+
+
+
+/*		var n=9;
+		function fn(){
+//			var n;
+
+			console.log(n);
+
+			s="珠峰培训";
+			console.log(s);
+			n=7;
+			var n=6;
+			console.log(s);
+		}
+		fn();
+		console.log(n);
+		console.log(s);
+
+		b=12;*/
+
+	//预解释：浏览器解析js的时候，首先在代码执行前找到所有带var 和function关键字的，提前声明(定义)，然后找完了，在从上倒下执行(预解释是一点节操都没有的)
+		//var 预解释
+			//代码执行前先 声明declare
+			//接下来代码从上倒下执行
+			//在把对应的值安排好
+			//让当前声明的变量和值进行关联 =
+			//只声明，并没有赋值(定义 define)，默认值是undefined
+		
+		//function 预解释
+			//代码执行前 先声明declare 但是和var不同的，在这个步骤的时候连定义(define)也完成了
+		
+		//预解释只发生在[当前的作用域]
+		//刚开始，只预解释window下的，当函数执行的时候，我们在私有作用域下在重新的预解释
+		
+    	//在私有作用域下，首先也要预解释，声明(定义的)变量和函数都属于私有作用域的,所以一个函数中出现了变量，如果想看他是全局的还是私有的，就看有没有预解释就可以了，有的话是私有的，没有的话往上一级找，直到找到window，如果还没有的话报错;
+
+
+		/*console.log(a);
+		var a = 12;*/  //undefined
+
+		/*console.log(a);
+		a = 12;*/	//报错
+
+
+	 /*console.log(a);
+     var a;
+     console.log(a);
+     function a() {
+       console.log(1);
+     }
+     function a(){
+       console.log(2);
+     }
+     console.log(a);
+     var a=3;
+     console.log(a);*/
+	 //发现相重的，不重复声明
+    
+/*	 //预解释是不管条件的
+     if(!("a" in window)){
+       var a=12;
+       console.log(1);
+     }else{
+		var a='glbal';
+       	console.log(2);
+     }
+	 
+	 //只预解释=左边的，右边不预解释
+	 //var fn;
+	 console.log(fn);
+	 console.log(a);
+	 var fn=function a(){
+		 return 1;
+	 }
+	 console.log(fn);*/
+	 
+	 //function中return后面的返回值 不预解释
+	/*function fn(){
+		console.log(b);
+		console.log(a);
+		return function a(){
+
+		}
+		var b=12;
+	}
+	fn();*/
+	 
+	 //预解释发生在一个脚本块中，不同的脚本块中不预解释
+	 console.log(a);
+    </script>
+    <script type="text/javascript">
+		
+    	var a=12;
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM增删改查</title>
+    <style>
+        *{margin:0;padding:0;}
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+        input{width:100px;height:30px;line-height:30px;margin:20px auto;display:block;}
+        .wrapper{background-color:rgba(0,0,0,0.3);}
+        .content{width:300px;height:200px;background-color:#666666;position:absolute;top:50%;margin-top:-100px;left:50%;margin-left:-150px;}
+        /***layer***/
+        .layer{
+            margin-top: -135px;
+            width: 78.125%;
+            position: fixed;
+            height: 270px;
+            left:10.9375% ;
+            top: 50%;
+            background: #70bf3b;
+            border-radius: 8px;
+            z-index: 100;
+        }
+        .mask{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: rgba(0,0,0,0.4);
+            z-index: 10;
+            top: 0;
+            left: 0;
+        }
+        .layer h2{
+            color: #fafafa;
+            font-size: 24px;
+            text-align: center;
+            margin: 30px 0 15px;
+            font-weight: normal;
+        }
+        .layer p,.layer .layer-call{
+            font-size: 15px;
+            color: #fafafa;
+            text-align: center;
+        }
+        .btn-list{
+            width: 84%;
+            margin: 0 auto;
+        }
+        .btn-list a{
+            width: 45%;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            color: #969696;
+            font-size: 14px;
+            background: #efeff4;
+            border-radius: 4px;
+            margin-top: 25px;
+        }
+        .btn-list a:nth-child(1){
+            float: left;
+        }
+        .btn-list a:nth-child(2){
+            float: right;
+        }
+        .layer .line{
+            display: block;
+            border-top: 1px solid #fafafa;
+            width: 80%;
+            margin:  25px auto;
+        }
+        .layer-single-btn a{
+            line-height: 30px;
+            color: #70bf3b;
+            font-size: 14px;
+        }
+        /***end layer**/
+    </style>
+</head>
+<body>
+<!--<script>
+    /*
+    * 1、动态创建一个元素标签
+    *   document.createElement
+    * 2、appendChild 把这个元素添加到指定容器的末尾处
+    *   容器.appendChild(element)
+    * 3、insertBefore()把新元素添加到老元素之前
+    *   ！！！oldEle.parentNode.insertBefore(newEle,oldEle);
+    * 4、oldEle.parentNode.removeChild(oldEle);
+    * 5、curEle.cloneNode(param) 克隆元素，param为true：把元素里面的子孙都克隆
+    *   param不写默认为false，只克隆当前的
+    * 6、oldEle.parentNode.replaceChild(newEle,oldEle)
+    * 7、node.hasChildNodes()
+    *
+    * */
+    var oDiv=document.createElement('div');
+    oDiv.id='div1';
+    oDiv.style.width='300px';
+    oDiv.style.height='200px';
+    oDiv.style.backgroundColor='lightblue';
+    document.body.appendChild(oDiv);
+
+    var oBefore=document.createElement('p');
+    oBefore.id='p1';
+    oBefore.style.width='300px';
+    oBefore.style.height='200px';
+    oBefore.style.border='10px solid lightblue';
+    document.body.insertBefore(oBefore,oDiv);//在此直到oDiv的parentNode，《==》oDiv.parentNode.insertBefore(oBefore,oDiv);
+
+    oDiv.parentNode.removeChild(oDiv);//删除元素
+
+    var cloneEle=oBefore.cloneNode();//克隆元素
+    cloneEle.style.backgroundColor='yellow';
+    document.body.appendChild(cloneEle);
+
+    var oDiv1=document.createElement('div');
+    oDiv1.style.width='300px';
+    oDiv1.style.height='200px';
+    oDiv1.style.border='10px solid red';
+    oBefore.parentNode.replaceChild(oDiv1,oBefore);
+
+//    将新节点插入到最前面：
+    var node=document.createElement('div');
+    var newNode=document.createElement('p');
+    if(node.hasChildNodes()){
+        node.insertBefore(newNode,node.firstChild);
+    }else{
+        node.appendChild(newNode);
+    }
+
+
+    /*
+    * 增加自定义属性
+    *   1、把元素看做一个对象数据类型，在其开辟的空间中增加一个属性
+    *       ele.jiaSong
+    *       ele['jiasong']
+    *   2、setAttribute()    设置元素的属性(包含自定义属性)
+    *       修改html元素的结构(可以在html元素上体现出来)
+    *      getAttribute()
+    *      removeAttribute()
+    *      注意：在IE6~8下这个方法不能修改class属性，比如ele.setAttribute('class','ccc')是不起作用的
+    *      只能通过ele.className='ccc'
+    *
+    * */
+    oDiv1.setAttribute('jiaSong','haoRen');
+    console.log(oDiv1.getAttribute('jiaSong'));
+
+</script>-->
+
+<!--  仅以弹层模板为例，项目中通过DOM操作动态生成！  -->
+<input type="button" value="弹层" />
+<div class="layer">
+    <h2>恭喜您！</h2>
+    <p>您的订单已被XX抢得</p>
+    <em class="line"></em>
+    <div class="layer-call">您可以直接打电话联系买家</div>
+    <div class="btn-list">
+        <a href="">联系买家</a>
+        <a href="">等待联系</a>
+    </div>
+</div>
+<div class="mask"></div>
+<script>
+
+</script>
+</body>
+</html>

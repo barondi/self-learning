@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Object Model</title>
+</head>
+<body>
+<div class="gege">我是div1的哥哥</div>
+<div id="div1">
+    <h1>邸佳松</h1>
+    <ul>
+        <li>Java</li>
+        <li id="li2">JavaScript</li>
+        <li>PHP</li>
+    </ul>
+</div>
+<!--123-->
+<div class="didi">我是div1的弟弟</div>
+<script>
+    /*
+    * DOM元素属性和方法：
+    *
+    * 节点类型：         nodeType        nodeName        nodeValue
+    *   元素节点：          1            大写标签名       null
+    *   文本节点：          3            #text           文本内容
+    *   注释节点：          8            #comment        注释内容
+    *   document：          9            #document       null
+    *
+    * ！！！在标准浏览器下，我们把空格Space和回车Enter都会当做文本节点处理
+    *
+    * 1、获取关系的属性
+    *   节点：一个html中的标签、文字、注释...都是节点
+    *   .childNodes  获取所有的子节点
+    *   .children    获取所有的元素子节点
+    *   .parentNode  获取所有的父节点
+    *   .previousSibling    获取哥哥文本节点
+    *   .previousElementSibling  获取哥哥元素节点
+    *   .nextSibling    获取弟弟文本节点
+    *   .nextElementSibling 获取弟弟元素节点
+    *   .firstChild     获取所有子节点中的第一个
+    *   .lastChild      获取所有子节点中的最后一个
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+    var oDiv=document.getElementById('div1');
+    console.log(oDiv.childNodes);
+    console.log(oDiv.children);
+    console.log(oDiv.parentNode);
+    console.log(oDiv.previousSibling);//获取的是回车节点
+    console.log(oDiv.previousSibling.previousSibling);//获取的是回车节点
+    console.log(oDiv.previousElementSibling);
+    console.log(oDiv.nextSibling);//获取的是回车节点
+    console.log(oDiv.nextSibling.nextSibling);//获取的是回车节点
+    console.log(oDiv.nextElementSibling);
+
+    /*
+    * 模拟.previousElementSibling
+    * */
+    var oLi2=document.getElementById('li2');
+    var pre=oLi2.previousSibling
+    while(pre && pre.nodeType!==1){
+        pre=pre.previousSibling;
+    }
+    console.log(pre);
+    console.log(prevAll(oLi2))
+
+    console.log(getMyChildren(oDiv,'ul'));
+
+//    模拟jquery中prev方法：获取上一个哥哥元素节点
+    function prev(ele){
+        var pre=ele.previousSibling
+        while(pre && pre.nodeType!==1){
+            pre=pre.previousSibling;
+        }
+        return pre;
+    }
+
+//    模拟jquery中prevAll方法：获取所有的哥哥元素节点
+    function prevAll(ele){
+        var pre=ele.previousSibling;
+        var arr=[];
+        while(pre){
+            if(pre.nodeType===1){
+                arr.unshift(pre);
+            }
+            pre=pre.previousSibling;
+        }
+        return arr;
+    }
+
+//    模拟jquery中的children方法
+    /*
+    * getMyChildren:获取指定元素下子节点
+    * @parameter:
+    *   ele:指定元素
+    * @return:
+    *   获取指定元素的子节点
+    * By dijs1 on 2016.9.4
+    * */
+    function getMyChildren(ele,tagName){
+        var arr=[];
+        var nodes=ele.childNodes;
+        for(var i=0;i<nodes.length;i++){
+            if(nodes[i].nodeType===1){
+                if(tagName){
+                    if(nodes[i].nodeName.toLowerCase()===tagName.toLowerCase()){
+                        arr.push(nodes[i]);
+                    }
+                }else{
+                    arr.push(nodes[i]);
+                }
+
+            }
+        }
+        return arr;
+    }
+</script>
+</body>
+</html>

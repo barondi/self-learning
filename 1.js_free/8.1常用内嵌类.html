@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类常用工具类</title>
+</head>
+<body>
+<script>
+    /*
+    * 1、Math详解：
+    *   Math.abs(param) 取绝对值
+    *   Math.ceil(param)    向上取整
+    *   Math.floor(param)   向下取整
+    *   Math.round(param)   四舍五入
+    *   Math.max(val1,val2,...) 最大值
+    *   Math.min(var1,val2,...) 最小值
+    *   Math.random()   获取[0,1)随机数
+    * */
+//    console.log(Math.ceil(-12.3));//-12
+//    console.log(Math.ceil(12.3));//13
+//    console.log(Math.floor(12.6));//12
+//    console.log(Math.floor(-12.6));//-13
+//    console.log(Math.round(12.4));//12
+//    console.log(Math.round(-12.4));//-12
+//    console.log(Math.round(-12.6));//-13
+    /*
+    * 获取[m-n]之间的随机整数：
+    *   Math.round(Math.random()*(n-m)+m)
+    * */
+//    for(var i=0;i<100;i++){
+//
+//        console.log(Math.round(Math.random()*90+10))
+//    }
+
+
+    /*
+    * 2、String字符串类详解
+    *   对象、类、实例：例如自然界万物都是对象，类是对对象的一个细分，比如人类、动物类...，实例
+    *   是每一个类中的具体实例，比如张三、李四...
+    *   js中的对象是一个泛指，所有东西都是对象，类是把这个泛指具体细分：Object、Array、RegExp、
+    *   Date、String...都是js中的内置类
+    *
+    *   charAt(index) 获取指定索引位置的字符
+    *   charCodeAt(index)   互殴指定索引位置的字符对应的ASCII值
+    *       0-9对应的为48-57    A-Z对应的为65-90    a-z对应的为97-122
+    *
+    *   字符串截取
+    *   substr(m,n) 从索引m开始截取n个字符，返回找到的字符
+    *   substring(m,n)  从索引m开始，找到索引n处(不包含n)，返回找到的字符
+    *   slice(m,n)  从索引m开始，找到索引n处(不包含n)，返回找到的字符，
+    *   slice支持附属作为索引，str.length+负数索引
+    *   注意：以上如果只写了m没有n，默认截取到末尾位置
+    *
+    *   将字符串按指定分隔符拆分成数组
+    *   split(分隔符)  数组转字符串arr.join(分隔符)
+    *
+    *   查找字符的索引
+    *   indexOf(字符) 获取指定字符在字符串中第一次出现的索引位置
+    *   lastIndexOf(字符) 获取指定字符在字符串中最后一次出现的索引位置
+    *       以上如果没有找到该字符，返回为-1；基于这个思想我们经常用这两个方法判断字符串中
+    *   是否包含某个字符
+    *
+    *   大小写转换
+    *   toLowerCase()
+    *   toUpperCase()
+    *
+    *   replace(要替换的老字符，替换成的新字符)
+    *   在不使用正则的情况下，每一次调用方法只能替换一次
+    *
+    *   连接字符串
+    *   str1.concat(str2,str3,...)
+    *
+    *   match() 正则常用
+    *
+    *
+    *
+    *
+    * */
+    var str='Welcome to javascript world!';
+//    for(var i=0;i<str.length;i++){
+//        console.log(str.charAt(i));
+//    }
+
+//    console.log(str.substring(2,5));
+//    console.log(str.slice(-5));
+//
+//    console.log(str.indexOf('i'));
+//    console.log(str.indexOf('java'));
+//    console.log(str.lastIndexOf('!'));
+//
+//    console.log(str.toLowerCase());
+//    console.log(str.toUpperCase());
+//
+//    console.log(str.replace(/o/g,'哦'));
+
+//    var arr=[1,2,3,4];
+//    console.log(arr.toString());
+//    console.log(eval(arr.join('+')));
+//    var s='1+2+3+4';
+//    console.log(s.split())  //["1+2+3+4"]
+//    console.log(s.split(''));   //["1","+","2"...]
+//    console.log(s.split('+'))   //["1","2","3","4"]
+
+
+    /*
+    * 3、Date
+    *
+    *
+    * */
+//    获取当前自己电脑的时间，一般都会请求服务器时间，防止用户随意更改
+//    不能做重要的用途，例如：秒杀活动、考勤系统...
+//    var time=new Date();
+//    console.log(time);//Wed Sep 07 2016 11:07:39 GMT+0800 (中国标准时间)  时间格式数据(对象数据类型)
+
+//    "2015年05月24日 星期日 15时31分27秒"
+    function formatTime(){
+        var time=new Date();
+        var year=time.getFullYear();
+        var month=time.getMonth();//0-11代表我们的1-12月
+        var day=time.getDate();
+        var week=time.getDay();//0-6代表周日-周六
+        var hours=time.getHours();
+        var minutes=time.getMinutes();
+        var seconds=time.getSeconds();
+        var mSeconds=time.getMilliseconds();
+    }
+
+
+</script>
+</body>
+</html>

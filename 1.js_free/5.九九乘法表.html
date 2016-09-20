@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>九九乘法表</title>
+</head>
+<body>
+<script>
+    /*
+    * innerHTML与innerText区别：
+    *   1、firefox不支持innerText，innerHTML没有浏览器兼容问题
+    *   2、innerHTML不仅可以添加文字，还可以添加html标签
+    * */
+    /*
+    * 【alert机制】：把我们要输出的内容先转换成字符串，然后再输出
+    * confirm(content):确认弹层
+    * prompt(content,value):提示弹层
+    * */
+    for(var i=1;i<=9;i++){
+        for(var j=1;j<=i;j++){
+            document.write(j+'*'+i+'='+(i*j)+' ');
+        }
+        document.write('<br/>')
+    }
+    //字符串拼接法则：
+        //''和""不能同时用，外面是""，里面需要时'';外面是''，里面是""
+        //如果一个字符串中需要添加一个变量，字符串外面是""，那么直接写"+变量名+"；字符串外面是''，则写'+变量名+'
+</script>
+</body>
+</html>

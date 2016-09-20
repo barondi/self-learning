@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>判断指定字符在字符串中出现次数,类似数组去重的思想</title>
+</head>
+<body>
+<script>
+/****** 最优方法：打擂台算法+hash对象,效率最高是下一个的10倍 ****************************/
+    //判断一个随意字符串中出现次数最多的字母，并判断出出现过几次
+    var str = "saisdfafdasdfsadfsadfsdfdsfadsfdhsd,pmgmtpmrpashdoasdnassdsjaoiosdnasndasnd";
+    var join = {};//定义一个对象
+    for (var i = 0; i < str.length; i++) {
+        //判断该字符串截取出来的这一个字符是不是在join对象中存在
+        if (!join[str.charAt(i)]) {
+            //如果不存在，则以该单字符作为join对象的键值，将其values赋值为1
+            join[str.charAt(i)] = 1;
+        } else {
+            //如果存在，则找到该键值对应的value值 将其自增
+            join[str.charAt(i)]++;
+        }
+    }
+    var max = 0;//定义一个最大值，用于保存出现次数最多的字符的次数
+    var maxStr = "";//用于保存出现次数最多的那个字符
+    //打擂算法循环输出join中保存的数据
+    for(var item in join){
+        //每一个item都代表着一个join对象的键值(也就是字符)
+        if(join[item]>max){
+            max = join[item];
+            maxStr = item;
+        }
+    }
+    console.log(maxStr+"字符出现的次数最多且为："+max);
+
+/****** 自己写繁琐办法：转换成数组去重 ****************************/
+    var str = "saisdfafdasdfsadfsadfsdfdsfadsfdhsd,pmgmtpmrpashdoasdnassdsjaoiosdnasndasnd";
+    var strArr=str.split('');
+    console.log(strArr);
+    var obj={};
+    var arr=[];
+    for(var i=0;i<strArr.length;i++){
+        if(!obj[strArr[i]]){
+            obj[strArr[i]]=true;
+            arr.push(strArr[i]);
+        }
+    }
+    console.log(arr);
+    var temp={};
+    var thirds=[];
+    for(var x=0;x<arr.length;x++){
+        thirds[x]=0;console.log(thirds[x]);
+        for(var j=0;j<strArr.length;j++){
+            if(arr[x]==strArr[j]){
+                thirds[x]++;
+            }
+        }
+    }
+    console.log('出现最多的字符为：'+arr[thirds.indexOf(Math.max.apply({},thirds))]+',为'+Math.max.apply({},thirds)+'次');
+
+</script>
+</body>
+</html>

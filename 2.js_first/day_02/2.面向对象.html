@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>面向对象</title>
+</head>
+<body>
+<script type="text/javascript">
+	//构造函数(实例创建)模式：产品差异化,实例识别
+	function CreateJsPerson(name,age){
+		this.name=name;
+		this.age=age;
+		this.writeCss=function(){
+			console.log("我叫"+this.name+",今年"+this.age+"岁,我会写CSS啦！");
+		}
+		this.writeJs=function(){
+			console.log("我叫"+this.name+",今年"+this.age+"岁,我会写JS啦！");
+		}
+	}
+	var p1=new CreateJsPerson("珠峰培训",4);
+	p1.writeJs();
+	console.log(p1 instanceof Object);
+	console.log(p1 instanceof CreateJsPerson);
+	//instanceof 用来检测某一个实例是不是属于某个类的，属于返回true，相反是false
+	//js中的内置类 Object Array String Number Math Date RegExp
+
+	var p2=new CreateJsPerson("珠峰小培训",1);
+	p2.writeJs();
+
+	console.log(p1.writeJs==p2.writeJs);//false
+
+
+	//构造函数和工厂的区别
+	//创建:
+	//1、不需要手动创建obj对象了,而且也不用return obj对象了
+	//2、原先obj统一替换成this(this是谁？)
+	//执行：
+	//定义变量=new 函数名(参数值)
+
+	//我们把执行函数的时候 用new创建的方式称之为构造函数模式(实例创建的方式)
+	//通过这种方式，我们把原先的那个函数称之为类,把返回结果p1称之为这个类的一个实例
+	//对象 类 实例的区别?
+		//对象：js中万物皆对象，泛指 自然界中万物皆对象
+		//类：对象的细分  比如：分为人类，动物类，植物类
+		//实例：类中一个真真切切的东西 比如：我就是人类中的一个实例
+
+	//返回的实例也是一个对象数据类型
+	//也就是说：new一个函数的时候，首先会默认的创建一个对象,就是我们创建的那个实例
+	//接下来会以实例(this)作为上下文，把对应的属性存起来
+	//默认的把我们创建的对象个我们的实例(p1 p2)，也就是说我们创建的实例就是我们要的对象，换句话说this就是我们创建的这个实例
+
+	//构造函数模式的优缺点：
+		//做到了产品差异化(实例识别)
+		//很多通用的方法没有实现共享,比如p1教css和js的方法应该个p2的一样才对，但是现有的模式，不能实现一样，那我们怎么办？
+
+</script>
+</body>
+</html>

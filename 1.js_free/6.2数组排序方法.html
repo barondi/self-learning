@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组排序方法</title>
+</head>
+<body>
+<script>
+    //sort方法排序，见6.1
+    //冒泡排序：i比较多少轮(arr.length-1)；j代表每一轮比较多少次(arr.length-1-i)
+    Array.prototype.myArraySort=function(type){
+        console.log(this.length);
+        for(var i=0;i<this.length-1;i++){
+            for(var j=0;j<this.length-1-i;j++){
+                if(this[j]>this[j+1]){
+                    var temp=this[j+1];
+                    this[j+1]=this[j];
+                    this[j]=temp;
+                }
+            }
+        }
+        type===1?this.reverse():void 0;
+    }
+    var arr=[10,12,8,4,9];
+    arr.myArraySort(1);
+    console.log(arr);
+        //由小到大
+//    for(var i=0;i<arr.length-1;i++){
+//        for(var j=0;j<arr.length-1-i;j++){
+//            if(arr[j]>arr[j+1]){
+//                var temp=arr[j+1];
+//                arr[j+1]=arr[j];
+//                arr[j]=temp;
+//            }
+//        }
+//    }
+//    console.log(arr);
+
+        //由大到小
+//    for(var i=0;i<arr.length-1;i++){
+//        for(var j=0;j<arr.length-1-i;j++){
+//            if(arr[j]<arr[j+1]){
+//                var temp=arr[j+1];
+//                arr[j+1]=arr[j];
+//                arr[j]=temp;
+//            }
+//        }
+//    }
+//    console.log(arr);
+</script>
+</body>
+</html>

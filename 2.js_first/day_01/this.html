@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+	<div id="div1">我是div1</div>
+	<script type="text/javascript">
+    	//this
+		//this是谁和在哪定义和在哪执行半毛钱关系都没有,和函数执行时候的主体有关系(只与谁调用它有关系).this出现在作用域下
+		var innerHTML="我是window";
+		function fn(){
+			console.log(this.innerHTML);	
+		}
+		var obj={
+			innerHTML:"我是obj",
+			objFn:fn
+		};
+		
+		//fn();//this是window
+		//obj.objFn();//this是obj
+		//div1.onclick=fn;//this是div1
+		div1.onclick=function(){
+			fn();//this是window
+		}
+
+		/*div1.onclick=function(){
+			console.log(this);//this是div1
+			a();//this 是window
+		}*/
+		function a(){
+			console.log(this);
+		}
+
+
+
+
+		var innerHTML="我是window";
+		function fn(){
+			console.log(this.innerHTML);
+		}
+		var obj={
+			innerHTML:"我是obj",
+			fn:fn
+		};
+		div1.onclick=function(){
+			obj.fn();//this是obj
+		}
+		div1.onclick=obj.fn;//<==>div1.onclick=function(){console.log(this.innerHTML);}
+    	//this是div1
+
+		;(function(){
+			this-->window
+		})()
+    </script>
+</body>
+</html>

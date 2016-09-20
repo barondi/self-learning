@@ -1,0 +1,301 @@
+<!--左右两边固定中间自适应之    绝对定位   -->
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三列布局</title>
+    <style>
+        html,body{margin:0;padding:0;height:100%;}
+        .left,.right{position:absolute;top:0;width:150px;height:100%;background-color:yellow;}
+        .left{left:0;}
+        .right{right:0;}
+        .content{margin:0 160px;height:100%;background-color:red;}
+    </style>
+</head>
+<body>
+<div class="left">
+
+</div>
+<div class="content">
+    <div style="width:500px;color:black;font-size:30px;">这是一个测试内容的元素！！！！！！！！！！</div>
+</div>
+<div class="right">
+
+</div>
+</body>
+</html>
+-->
+
+
+<!--左右两边固定中间自适应之    浮动   -->
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">s
+    <title>三列布局</title>
+    <style>
+        html,body{margin:0;padding:0;height:100%;}
+        .left,.right{float:left;width:150px;height:100%;background-color:yellow;}
+        .right{float:right;}
+        .content{margin:0 160px;height:100%;background-color:red;}
+    </style>
+</head>
+<body>
+&lt;!&ndash;注意div.right一定要在div.content的上方!!!&ndash;&gt;
+<div class="left"></div>
+<div class="right"></div>
+<div class="content">
+    <div style="width:500px;color:black;font-size:30px;">这是一个测试内容的元素！！！！！！！！！！</div>
+</div>
+</body>
+</html>
+-->
+
+
+<!--左右两边固定中间自适应之    负边距   -->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三列布局</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .container{
+            min-width:1100px;
+        }
+        .main {
+            float: left;
+            width: 100%;
+        }
+        .mainContainer {
+            margin: 0 230px;
+            height: 200px;
+            background: green;
+        }
+        .left {
+            float: left;
+            margin-left: -100%;
+            width: 230px
+        }
+
+        .right {
+            float: left;
+            margin-left: -230px;
+            width: 230px;
+        }
+
+        .left .inner,
+        .right .inner {
+            background: orange;
+            margin: 0 10px;
+            height: 200px;
+        }
+
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+    </style>
+</head>
+<body>
+<div class="container clearfix">
+    <div class="main">
+        <div class="mainContainer">main content</div>
+    </div>
+    <div class="left">
+        <div class="leftContainer inner">left content</div>
+    </div>
+    <div class="right">
+        <div class="rightContainer inner">right</div>
+    </div>
+</div>
+</body>
+</html>-->
+
+
+<!--左右两边固定中间自适应之    中间栏优先加载-->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三列布局</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .main-2{ float:left; width:100%;margin-bottom:-3000px; padding-bottom:3000px;background:#F90;}
+        .main-wrap-2{  margin:0 200px 0 150px;  }
+        .sub-2{ float:left; margin-left:-100%; width:150px; background:#6C0; margin-bottom:-3000px; padding-bottom:3000px;}
+        .extra-2{ float:left; margin-left:-200px; width:200px; background:#F9F; margin-bottom:-3000px; padding-bottom:3000px;}
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+    </style>
+</head>
+<body>
+<div class="main-2">
+    <div class="main-wrap-2">main-wrap</div>
+</div>
+<div class="sub-2">sub</div>
+<div class="extra-2">extra</div>
+</body>
+</html>-->
+
+
+<!--左右两边固定中间自适应之    css3 box布局-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三列布局</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .container{
+            display:-moz-box;
+            display:-webkit-box;
+        }
+        div{
+            padding:10px;
+            -moz-box-sizing:border-box;
+            -webkit-box-sizing:border-box;
+        }
+        .sider_l{
+            width:250px;
+            -moz-box-ordinal-group:1;
+            -webkit-box-ordinal-group:1;
+            background:limegreen;
+        }
+        .middle_content{
+            -moz-box-flex:1;
+            -webkit-box-flex:1;
+            -moz-box-ordinal-group:2;
+            -webkit-box-ordinal-group:2;
+            background:lightpink;
+        }
+        .sider_r{
+            width:250px;
+            -moz-box-ordinal-group:3;
+            -webkit-box-ordinal-group:3;
+            background:green;
+        }
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="middle_content">优先加载主内容区</div>
+    <div class="sider_l">左边栏</div>
+    <div class="sider_r">右边栏</div>
+</div>
+</body>
+</html>
+
+
+<!--左右两边固定中间自适应之    css3 flex伸缩布局-->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三列布局</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .grid {
+            display: -webkit-flex;
+            display: flex;
+        }
+        .col {
+            padding: 30px;
+        }
+        .fluid {
+            flex: 1;
+            background-color:green;
+        }
+        .fixed {
+            width: 400px;
+            background-color:blue;
+        }
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+    </style>
+</head>
+<body>
+<div class="grid">
+    <div class="col fixed">
+        left content
+    </div>
+    <div class="col fluid">
+        main content
+    </div>
+    <div class="col fixed">
+        right content
+    </div>
+</div>
+</body>
+</html>-->
+
+<!-- ***************************************************************** -->
+
+<!--中间固定宽度，左右两边自适应-->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三列布局</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .grid {
+            display: -webkit-flex;
+            display: flex;
+        }
+        .col {
+            padding: 30px;
+        }
+        .fluid {
+            flex: 1;
+            background-color:green;
+        }
+        .fixed {
+            width: 400px;
+            background-color:blue;
+        }
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+    </style>
+</head>
+<body>
+<div class="grid">
+    <div class="col fluid">
+        left content
+    </div>
+    <div class="col fixed">
+        main content
+    </div>
+    <div class="col fluid">
+        right content
+    </div>
+</div>
+</body>
+</html>-->

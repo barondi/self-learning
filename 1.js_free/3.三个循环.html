@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三个循环</title>
+</head>
+<body>
+
+<script>
+
+    //for(var i=0)定义的为全局变量
+    for(var i=0;i<10;i++){
+        if(i<=5){
+            i+=2;
+            continue;
+        }
+        i+=3;
+        break;
+        console.log(i);
+    }
+    console.log(i);
+    //以上只输出一次 9
+
+    //for in循环: 用来循环一个对象中的属性名和属性值
+    var obj={
+        name:'baron',
+        age:'22',
+        height:'180cm',
+        birthday:'1992-08-21',
+        1:10010,
+        2:10086
+    }
+        //在for in循环中获取属性值，只能通过对象名[key]来获取，不能写obj.key;
+        //首先循环数字的属性名（按照从小到大），然后再按我们写的循环
+    for(var key in obj){
+        //console.log(key);
+        console.log(obj[key]);
+    }
+
+</script>
+</body>
+</html>

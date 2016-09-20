@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+	<script type="text/javascript">
+    	var number=2;
+		var obj={
+			number:4,
+			fn1:(function(){		 
+				this.number *= 2;
+				number=number*2;
+				console.log(number);
+ 				var number=3;
+				return function() {
+					this.number *= 2;
+					number*=3;
+					alert(number);
+				}
+			})()
+		};
+		var fn1 = obj.fn1;
+		alert(number);
+		fn1();
+		obj.fn1();
+		alert(window.number);
+		alert(obj.number);
+		
+		
+/*		
+预解释
+number  obj  fn1
+4		4	3
+8		4	9
+8		8	27
+
+
+number=2  全局的
+obj={
+  number:4  obj下的number=4
+  fn1:function(){
+    this.number *= 2;
+    number*=3;
+    alert(number);
+  }
+}
+    在给obj下的fn1赋值的时候执行闭包函数，形成私有作用域
+    预解释
+    var number;  私有作用域下的number
+    window.number*=2 全局的number=4
+    number=undefined*2//纯属捣乱没有用 number=NaN
+    console.log(number); //输出NaN
+    number=3;//私有下的number=3
+    //闭包有return并且被obj.fn1占用了，也就是闭包不销毁
+
+fn1 = obj.fn1;
+alert(number);//4
+
+fn1();
+   this.number *= 2; window.number*=2  
+   ==>window下的number=8
+   number*=3; 找没有销毁的那个闭包中的私有变量number 
+   ==>私有作用域下的那个number变成了9
+   alert(number);//9
+
+obj.fn1();
+   this.number *= 2; obj.number*=2  
+   ==>obj下的number变成了8
+   number*=3;找没有销毁的那个闭包中的私有变量number 
+   ==>9*3 私有作用域下的那个number变成了27
+   alert(number);//27
+
+alert(window.number);//8
+alert(obj.number);//8	
+*/	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    </script>
+</body>
+</html>

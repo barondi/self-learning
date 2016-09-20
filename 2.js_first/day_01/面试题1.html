@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+	<script type="text/javascript">
+    	function fo(){
+			var i=0;
+			return function(n){
+				return n+i++;
+			}
+		}
+		var f=fo();//第一次fo(fo1)的没有销毁的作用域
+		/*
+		f=function(n){
+			return n+i++;	
+		}
+		*/
+		var a = f(15);//返回15 然后让fo1里面的i变成了1
+		var d = f(20);//返ss回21 然后让fo1里面的i变成了2
+		//f(18);
+		
+		var b = fo()(15);//返回15，并且fo2里面的i变成了1
+		//fo()(15) var x=fo(); x(15);
+		//第二次执行fo方法，形成了fo2作用域,也销毁不了
+		
+		var c = fo()(20);//返回的是20,并且fo3里面的i是1
+		//fo()(15) var y=fo(); y(15);
+		console.log('a:'+a);
+		console.log('d:'+d);
+		console.log('b:'+b);
+		console.log('c:'+c);
+
+    </script>
+</body>
+</html>

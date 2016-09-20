@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>作用域与预解释</title>
+</head>
+<body>
+	<script type="text/javascript">
+    	/*function sum(){
+			var total=1+12;
+			var obj={name:"珠峰"};
+			console.log(total);
+		}*/
+		//函数没有执行的时候没有任何意义的:
+		//开辟一个新的内存，里面存储的是我们看上去像代码的字符串,然后让sum里面存储的是对新的内存地址的引用
+		/*sum();
+		sum();
+		sum();*/
+		//函数执行的时候会形成一个私有的作用域(和我们的开始的window类似)，首先也是预解释，接下来从上倒下执行我们的代码.
+		//一般情况下我们一个function的生命周期
+			//出生：从预解释开始，开辟一个新的内存块，让函数名存储对这个内存块的引用地址
+			//成长：函数执行，形成一个私有的作用域，然后里面开始类似于window的新一轮预解释，代码从上倒下执行
+			//死亡:一般情况下，私有作用域下的代码执行完成后，整个私有作用域就销毁了
+		
+		
+    	//函数执行形成一个私有的作用域，保护里面(私有变量)的变量不受外界的干扰(外面拿不到也修改不了),我们把这种函数的机制叫做闭包。
+    
+		
+		function fn(){
+			var n=12;
+			return function(){
+				n++;	
+				console.log(n);	
+			}
+		}
+		var f=fn();
+		//f=function(){ n++; console.log(n);}
+		f();
+		f();
+	
+		//一个function运行的时候会形成一个私有的作用域，如果这个没有返回一个function(外面没有其他的东西占用者他的内存的话)，这个私有作用域执行完自动销毁,但是，如果返回了一个function，而且函数外面还用到了这个function的话 那么这个function行成的作用域就销毁不掉了
+    
+		function fn(){
+			var n=12;
+			return function(){
+				n++;
+				console.log(n);	
+			}
+		}
+		var f=fn();
+		//f=function(){n++;concole.log(n);}
+		f();//13
+		f();//14
+
+		var g=fn()();
+		var g=fn()();
+
+		var z=fn();
+		z();//13
+		z();//14
+		
+		//如果一个私有作用域下，返回了一个函数，并且这个函数被外面的变量占用，那么这个私有作用域代码执行完也不会被销毁了
+	
+	
+    </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array</title>
+</head>
+<body>
+<script>
+    var arr=[1,5,16,2,3,4];
+    //var arr=new Array(4);
+    //arr[0]=1;
+    //console.dir(arr);
+    //console.log(arr[5]);//超过其索引长度的项，返回结果为undefined
+
+/*数组中的属性*/
+    //console.log(arr.length);
+/*数组中的方法：1、方法什么作用，实现什么功能2、传递的参数3、返回值4、对原来对象是否改变*/
+    /*
+    *
+***** 遍历数组方法大全：
+    *   1、三大循环
+    *   2、arr.forEach
+    *       不能使用 break 语句来跳出循环，也不能使用 return 语句来从闭包函数中返回
+    *   3、for-in
+    *       支持continue、break和return语句
+    *       索引index为'0','1','2'这样的字符串，对数组不大友好，更多用于遍历key-value类型
+    *   4、【ES6之】for-of  遍历数组最简单直接的办法
+    *       支持continue、break和return语句，但是不能用来遍历对象的属性
+    *       基本所有类型都可以遍历(字符串、数组、对象、DOM类对象Nodelist、Set、Map)
+    *       如果想要遍历属性，要么采用for-in要么如下：
+    *           for(var key of Object.keys(someObject)){
+    *               console.log(key+": "+someObject[key]);
+    *           }
+    *       【原理:】for-of要遍历的对象有一个共性，实现了Iterator方法；
+    *        可以给任何一个对象实现一个myObject[Symbol.iterator]()方法，告知js引擎如何去iterable该对象
+    *
+    *
+    * */
+        arr.forEach(function(value){
+            console.log(value);
+        });
+        arr.forEach(function(value,index){
+            console.log(index);
+        });
+
+        var str="sdfa123";
+        for(var m of str){
+            if(m!='a'){
+                console.log(m);
+            }else{
+                console.log('end');
+                break;
+            }
+        }
+
+        for(var key of Object.keys(str)){
+            console.log(key+": "+str[key]);
+        }
+
+        var strArr=['a','b','c'];
+        var arrIterator=strArr.entries();
+        console.log(arrIterator.next().value); // [0, "a"]
+        console.log(arrIterator.next().value); // [1, "b"]
+        console.log(arrIterator.next().value); // [2, "c"]
+/**********************************************************/
+        Number.prototype[Symbol.iterator]=Array.prototype[Symbol.iterator];
+        var abc=1234556676787;
+        abc=abc[Symbol.iterator]();
+        console.dir(abc);
+/****迭代器对象****/
+        var zeroesForeverIterator = {
+            [Symbol.iterator]: function () {
+                return this;
+            },
+            next: function () {
+                return {done: false, value: 0};
+            }
+        };
+//        调用迭代器对象的.next()方法，通过.value,.done结果来标识
+
+/***jQuery对象都支持for-of语句*/
+//        jQuery.prototype[Symbol.iterator]=Array.prototype[Symbol.iterator];
+
+
+
+    /*
+    *
+    * 第一组：数组的增加、删除、修改
+    *   1、push 向数组末尾添加新的内容，返回值为新数组的长度，原有数组发生改变
+    *   2、unshift 向数组的开头增加新的内容，返回值为增加后新数组的长度，原有数组发生改变
+    *   3、splice(n,0,x) 向数组的中间某个位置添加新内容,从索引n开始，删除0个内容，新增加内容放到索引n前面，返回空数组，原有数组改变
+    *      splice(n,m)  删除数组中指定的某些项，从索引n开始(包含n),删除m个元素，返回包含删除的内容数组，原有数组改变
+    *      splice(n,m,x)    替换原有数组中的某些项，从索引n开始删除m个元素(包括n)，用x替换原来的，返回包含删除内容的元素，原有数组改变
+    *      splice(0,0,x)<==>unshift;    splice(arr.length,0,x)<==>push
+    *   4、pop    删除数组最后一个,返回值为删除的项，原有数组改变
+    *   5、shift 删除数组的第一个，返回值为删除的项，原有数组改变
+    *
+    *
+    *
+    * */
+//        var bVal=arr.push('di',10);
+//        console.log(arr);
+//        console.log(bVal);
+
+//        var bVal=arr.unshift('di',10);
+//        console.log(arr);
+//        console.log(bVal);
+
+//        var bVal=arr.splice(2,0,'jiasong');
+//        console.log(arr);
+//        console.log(bVal);
+//        var cVal=arr.splice(2,2,'replace');
+//        console.log(arr);
+//        console.log(cVal);
+
+//        var bVal=arr.shift();
+//        console.log(arr);
+//        console.log(bVal);
+
+
+    /*
+    *
+    * 第二组：数组的查询和复制
+    *   6、slice(n)  从索引n开始(包含n)，到末尾处，返回值为包含找到的内容的数组，原有数组不变
+    *      slice(n,m)    从索引n开始(包含n)，到索引m处(不包含m)，返回值为包含找到的内容的数组，原有数组不变
+    *      slice(0)或者slice()    对原数组克隆(复制)一份
+    *   7、concat    实现数组的克隆，原来数组不变
+    *      arr.concat(arr2)实现数组的拼接，返回值为拼接后的数组，原有数组都不变
+    *
+    * */
+//        var bVal=arr.slice(2);
+//        console.log(arr);
+//        console.log(bVal);
+
+//        var bVal=arr.slice(2,4);
+//        console.log(arr);
+//        console.log(bVal);
+
+//        var arr2=['dijiasong','wangdan'];
+//        var result=arr.concat(arr2);
+//        console.log(arr);
+//        console.log(arr2);
+//        console.log(result);
+
+    /*
+    *
+    * 第三组：将数组转换为字符串
+    *   8、toString  把数组中的每一项拿出来用,隔开，返回值为字符串，原有数组不变
+    *      toLocaleString   //date类型"2016/9/1 上午9:56:24"
+    *      toLocaleDateString   //date类型"2016/9/1"
+    *      toLocaleTimeString   //date类型"上午9:56:24"
+    *   9、join(分隔符) 把数组中的每一项拿出用分隔符隔开，原有数组不变
+    *
+    *
+    *
+    * */
+//        var bVal=arr.toString();
+//        console.log(arr);
+//        console.log(bVal);
+
+/*join实现数组求和*****************************/
+//        var bVal=arr.join('+');
+//        var total=eval(bVal);
+//        console.log(arr);
+//        console.log(bVal);
+//        console.log(total);
+
+    /*
+    *
+    * 第四组：数组的排列、排序、查找
+    *   10、reverse 数组倒过来排列，原有数组改变
+    *   11、sort    数组的排序，实现由大到小(或由小到大)，原有数组发生改变
+    *       sort()默认是按首个数字排序的16 23 6
+    *       冒泡排序
+    *       sort(function(a,b){return a>b;})按照由小到大排列
+    *       sort(function(a,b){return a<b;})按照由大到小排列
+    *   12、indexOf  取数组中的某一项索引，返回值为索引值，不存在的索引为-1
+    *               IE9以下不兼容，解决办法：jquery中$.inArray(m,obj[,index])
+    *               if(!Array.indexOf){
+                        Array.prototype.indexOf = function(el){
+                            for (var i=0,n=this.length; i<n; i++){
+                                if (this[i] === el){
+                                    return i;
+                                }
+                            }
+                            return -1;
+                        }
+                    }
+
+                    var oArr=[ 4, "Pete", 8, "John" ];
+                    $.inArray("John", arr);//3
+                    $.inArray(4, arr);//0
+                    $.inArray("Karl", arr);//-1
+                    $.inArray("Pete", arr, 2);//-1("Pete" is in the array, but not at or after index 2)
+
+    *
+    *   13、lastIndexOf  返回数组最后一项的索引
+    *
+    * 第五组：ES6、ES7中的方法
+    *   14、arr.entries()    ES6返回一个 Array Iterator 对象，该对象包含数组中每一个索引的键值对
+    *   15、arr.includes(searchElement[,fromIndex])//ES7
+    *   16、
+    *
+    * */
+//        var bVal=arr.sort(function(a,b){return a>b});
+//        console.log(arr);
+//        console.log(bVal);
+
+/*输出数组中的每一项*/
+//    var a=[1,2,3,4];
+//    for(var i=0;i<a.length;i++){
+//        if(a.indexOf(a[i])!=-1){
+//            console.log(a[i]);
+//        }
+//    }
+
+//    console.log(a.lastIndexOf(a[a.length-1]));
+
+//    var strArr=['a','b','c'];
+//    var arrIterator=strArr.entries();
+//    console.log(arrIterator.next().value); // [0, "a"]
+//    console.log(arrIterator.next().value); // [1, "b"]
+//    console.log(arrIterator.next().value); // [2, "c"]
+
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包与匿名函数</title>
+    <style>
+        *{margin:0;padding:0;}
+        input{background:white;}
+        div{width:550px;height:420px;border:1px solid #ccc;display:none;background-color:lightblue;color:white;font-size:20px;}
+        .active{background:yellow;}
+    </style>
+</head>
+<body>
+
+<!--闭包实现选项卡-->
+
+<input type="button" value="1" class="active"/>
+<input type="button" value="2"/>
+<input type="button" value="3"/>
+<div  style="display:block;">这里是内容111111111111</div>
+<div>这里是内容222222222222</div>
+<div>这里是内容333333333333</div>
+<script>
+    /*闭包形式*/
+    window.onload=function(){
+        var bTn=document.getElementsByTagName("input");
+        var div=document.getElementsByTagName("div");
+        for(var i=0;i<bTn.length;i++){
+            //var j=i;
+            //匿名函数立即执行，不会有索引问题
+            (function(j){
+                bTn[j].onclick=function(){
+                    for(var i=0;i<bTn.length;i++){    //清除所有的按钮和div格式
+                        bTn[i].className="";
+                        div[i].style.display="none";
+                    }
+                    this.className="active"; //使得当前点击的按钮(放生点击事件的按钮）改变颜色
+                    div[j].style.display="block";//使得对应的div层显示出来
+                };
+            })(i);
+        }
+    };
+    /*普通形式*/
+    /*var oTab=document.getElementById('fstTab');
+    var oBtns=oTab.getElementsByTagName('input');
+    var oPanels=oTab.getElementsByTagName('div');
+    for(var i=0;i<oBtns.length;i++){
+        oBtns[i].index=i;//大陷阱：每次获取的为引用类型，而当每次加载完js后i已经变成3了，所以onclick的时候获取不到
+        oBtns[i].onclick=function(){
+            for(var j=0;j<oPanels.length;j++){
+                oPanels[j].style.display='none';
+                oBtns[j].className='';
+            }
+            this.className='active';
+            oPanels[this.index].style.display='block';
+        }
+    }*/
+</script>
+
+<script>
+    /*
+    * 闭包：函数执行的时候会形成一个新的私有作用域，来保护里面的变量不受外界的干扰，我们把这种保护机制称为闭包(JS中所有的function都是一个闭包)。
+    * 通过闭包可以读取其它函数内部变量的函数
+    *   1、作用：读取函数内部的变量；让这些变量的值始终保持在内存中；
+    *
+    *
+    *
+    * 匿名函数：
+    *
+    *
+    * 自执行函数：定义和执行一起完成
+    *
+    * */
+//    闭包例子一：
+    function f1(){
+        var n=999;
+        nAdd=function(){
+            n+=1;
+        };
+        function f2(){
+            console.log(n);
+        };
+        return f2;
+    };
+    var result=f1();
+    result(); // 999
+    nAdd();
+    result(); // 1000
+//    闭包例子二：
+    var name = "The Window";
+    var object = {
+        name : "My Object",
+        getNameFunc : function(){
+            /*return 了一个匿名函数，匿名函数当前执行对象为window*/
+            return function(){
+                return this.name;
+            };
+        }
+    };
+    console.log(object.getNameFunc()());//The Window
+//    闭包例子三：
+    function outerFun()
+    {
+        var a=0;
+        function innerFun()
+        {
+            a++;
+            alert(a);
+        }
+        return innerFun;  //注意这里
+    }
+    var obj=outerFun();
+    obj();  //结果为1
+    obj();  //结果为2
+    var obj2=outerFun();
+    obj2();  //结果为1
+    obj2();  //结果为2
+//    闭包例子四：
+    function outerFun()
+    {
+        var a =0;
+        alert(a);
+    }
+    var a=4;
+    outerFun();
+    alert(a);
+    //结果为0，4
+
+    function outerFun()
+    {
+        //没有var
+        a =0;
+        alert(a);
+    }
+    var a=4;
+    outerFun();
+    alert(a);
+    //结果为0,0
+
+/*函数声明定义*/
+    function fnName(){};
+/*函数表达式定义(常用)*/
+    var fnName=function(){};
+/*构造函数定义*/
+    var fnMethodName = new Function('x', 'alert(x);');
+/*匿名函数:属于函数表达式*/
+/**************匿名函数立即调用方式一********************/
+    //()会将表达式组合分块，每一块都有一个返回值，这里小括号表达式返回值实际就是一个匿名函数的Function对象
+    (function(){
+        console.log(123);
+    })();
+    //同上
+    (function(){
+        console.log(123);
+    }());
+    [function(){
+        console.log(123);
+    }()];
+/**************匿名函数立即调用方式二********************/
+    /*
+    ~function(){}();
+    !function(){}();
+    +function(){}();
+    -function(){}();
+    1, function() {}();
+    1 ^ function() {}();
+    1 > function() {}();
+    */
+/**************匿名函数立即调用方式三********************/
+    delete function() {console.log(123)}();
+    typeof function() {console.log(123)}();
+    void function() {console.log(123)}();//去掉void会报错！
+    new function() {console.log(123)}();
+    new function() {console.log(123)};
+/**************匿名函数立即调用方式四********************/
+    var f=function(){console.log(123)}();
+</script>
+</body>
+</html>

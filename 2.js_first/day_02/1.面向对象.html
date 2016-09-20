@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>面向对象</title>
+</head>
+<body>
+	<script type="text/javascript">
+    	var personInfo1={name:"孟宪德",age:28,height:"185cm",writeCss:function(){}};
+		
+		var personInfo2={name:"周啸天",age:18,height:"153cm",writeCss:function(){}};
+		
+		var personInfo3={name:"高姗",age:16,height:"172cm",writeCss:function(){}};
+		
+		//单例模式:需要手工一个个创造的
+		var registBBS={
+			name:"珠峰",
+			check:function(){
+				
+			},
+			submitFn:function(){
+					
+			}	
+		};
+		registBBS.check();
+		//在项目中，我们为了避免使用全局变量或者全局的方法导致的冲突问题，我们通常把需要的方法和变量当作一个对象数据类型的属性名和属性值存起来，每次执行的时候 对象.属姓名()就可以了  这样就解决了冲突的问题  而且我们把创建的那个对象名称之为命名空间
+
+		//惰性函数载入
+		var obj=(function(){
+			var name="";
+			function check(){
+
+			}
+			function submitFn(){
+
+			}
+			return {
+				check:check,
+				submitFn:submitFn
+			};
+		})();
+		obj.check();
+		
+		
+		//前端攻城狮
+		//工厂模式:为了解决单例模式中一个个生产的问题，用工厂模式实现批量生产
+		function createJsPerson(name,age){
+			var obj={};
+			obj.name=name;
+			obj.age=age;
+			obj.writeCss=function(){
+				console.log("我叫"+name+",今年"+age+"岁,我会写CSS啦！");	
+			}
+			obj.writeJs=function(){
+				console.log("我叫"+name+",今年"+age+"岁,我会写JS啦！");		
+			}
+			return obj;
+		}
+		var p1=createJsPerson("吴国强",28);
+		var p2=createJsPerson("潘文",18);
+		console.log(p1.writeCss()==p2.writeCss());//true
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    </script>
+</body>
+</html>

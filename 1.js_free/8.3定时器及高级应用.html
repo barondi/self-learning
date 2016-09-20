@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器</title>
+</head>
+<body>
+<div id="myDiv"></div>
+<script>
+    var num=1;
+    (function testTI(){
+        for(var i=0;i<5;i++){
+            num++;
+        }
+        setTimeout('console.log(num)',100);//结果为1006
+        for(var j=0;j<1000;j++){
+            num++;
+        }
+    })(num);
+
+    var num=1;
+    setTimeout('console.log(num)',10);//结果为101
+    for(var i=0;i<100;i++){
+        num++;
+    }
+
+    function mytest() {
+        for (var i = 0; i < 5; i++){
+            setTimeout(function () {
+                console.log(i);
+            }, 0);
+        }
+    }
+    mytest();
+    /*
+     * JS是单线程执行的，且定时器都是异步的，只有当同步代码执行完了以后才会执行定时器
+     *
+     * JS执行方式可以理解为两个队列，一个是执行队列Q1：每次只能执行一个函数；
+     * 一个是等待队列Q2：存放着将要执行的函数
+     * 以上for循环中，每次循环一执行，setTimeout都会处于Q2，等到i=4执行完后，i变成5已经
+     * 进而整个for循环执行完毕，然后把之前i=0,1,2,3,4执行for循环而处于Q2的setTimeout执行
+     *
+     * */
+
+/*
+* 数组分块思想：为要处理的项目创建一个队列，使用计时器取出下一个要处理的项目，然后再设置另一个计时器
+* */
+/**** setTimeout实现打印效果：数组分块(call继承)  **********************************/
+//    var data=['2013','年','毕','业','于','燕','山','大','学',',','一','直','从','事','Web','前','端','工','作'];
+//    function chunk(array, process, context) {
+//        setTimeout(function(){
+//            var item = array.shift();
+//            process.call(context, item);
+//            if (array.length>0) {
+//                setTimeout(arguments.callee, 100);
+//            };
+//        }, 100)
+//    };
+//    function printValue(item) {
+//        var div = document.getElementById('myDiv');
+//        div.style.width='100px';
+//        div.style.fontFamily='Microsoft YaHei';
+//        div.innerHTML += item;
+//    };
+//    chunk(data.concat(), printValue);
+/**** setTimeout实现打印效果：非继承  ***************************************************/
+    var data=['2013','年','毕','业','于','燕','山','大','学',',','一','直','从','事','Web','前','端','工','作'];
+    function printValue(item) {
+        var div = document.getElementById('myDiv');
+        div.style.width='100px';
+        div.style.fontFamily='Microsoft YaHei';
+        div.innerHTML += item;
+    };
+    (function(d){
+//        setTimeout链式写法，防止由于同步代码过长连续执行
+        setTimeout(function(){
+            var item= d.shift();
+            printValue(item);
+            if(d.length>0){
+                setTimeout(arguments.callee,100);
+            }
+        },100);
+    })(data)
+
+
+/*
+* 函数节流思想：如果方法throttle在100ms内执行了50次，那么方法method也只会执行一次
+* 只要代码是周期性执行的，都应该使用节流，虽然不可以控制请求的执行效率，但可以改变函数的时间间隔
+* */
+    function throttle(method,context){
+        clearTimeout(method.tId);
+        method.tId=setTimeout(function(){
+            method.call(context);
+        },1000)
+    };
+    function resizeDiv(){
+        var oDiv=document.getElementById('myDiv');
+        oDiv.style.height=oDiv.offsetWidth+'px';
+        console.log(oDiv.offsetWidth);
+    }
+    window.onresize=function(){
+        throttle(resizeDiv);
+    }
+
+</script>
+</body>
+</html>

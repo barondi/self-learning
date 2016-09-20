@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象与继承及原型链</title>
+</head>
+<body>
+<script>
+    /*
+    * 遍历原型链
+    * */
+    function getPrototypeChain(object) {
+        var protoChain = [];
+        while (object = object.__proto__) {
+            protoChain.push(object);
+        }
+        protoChain.push(null);
+        return protoChain;
+    }
+    console.log(getPrototypeChain(new String()));
+    console.log(getPrototypeChain(document.createElement('div')));
+
+    /*
+    * 超长原型链
+    * */
+    function Foo() {}
+    for (var i = 0; i < 20; i++) {
+        Foo.prototype["foo" + i] = i;
+        Foo.prototype = new Foo;
+    }
+    console.dir(getPrototypeChain(new Foo));
+
+
+
+
+    /*
+    * 各种原型链关系测试
+    * */
+    //凡是通过 new Function() 创建的对象都是函数对象，其他的都是普通对象
+    var o1 = {};
+    var o2 =new Object();
+    function f1(){}
+    var f2 = function(){}
+    var f3 = new Function('str','console.log(str)');
+    f3('aabb');   // aabb
+    console.log('***************************************');
+    console.log('typeof Object:'+typeof Object);            //function
+    console.log('typeof Function:'+typeof Function);        //function
+    console.log('typeof o1:'+typeof o1);   //object
+    console.log('typeof o2:'+typeof o2);   //object
+    console.log('typeof f1:'+typeof f1);   //function
+    console.log('typeof f2:'+typeof f2);   //function
+    console.log('typeof f3:'+typeof f3);   //function
+
+
+    function Animal(){
+
+    }
+    var animal=new Animal();
+    console.log('***************Animal animal proto************');
+    console.log('typeof Animal.prototype:'+typeof Animal.prototype);
+    console.log('animal.__proto__===Animal.prototype:'+(animal.__proto__===Animal.prototype));
+    console.log('Animal.__proto__===Function.prototype:'+(Animal.__proto__===Function.prototype));
+    console.log('Animal.prototype.__proto__===Object.prototype:'+(Animal.prototype.__proto__===Object.prototype));
+    console.log('animal.__proto__===Function.prototype:'+(animal.__proto__===Function.prototype));
+
+    console.log('***************Function proto*****************');
+    console.log('typeof Function.prototype:'+typeof Function.prototype);  //function
+    console.log('typeof Function.__proto__:'+typeof Function.__proto__);  //function
+    console.log('typeof Function.prototype.prototype:'+typeof Function.prototype.prototype); //undefined
+    console.log('typeof Function.prototype.__proto__:'+typeof Function.prototype.__proto__);   //object
+    console.log('Function.prototype===Function.__proto__:'+(Function.prototype===Function.__proto__)); //true
+
+    console.log('***************Object proto*******************');
+    console.log('typeof Object.prototype:'+typeof Object.prototype);  //object
+    console.log('typeof Object.__proto__:'+typeof Object.__proto__);  //function
+    console.log('Object.prototype.prototype:'+Object.prototype.prototype);  //undefied
+    console.log('Object.prototype.__proto__===null:'+(Object.prototype.__proto__===null));  //null
+
+    console.log('***********Function Object  proto关系*********');
+    console.log('Function.prototype===Object.__proto__:'+(Function.prototype===Object.__proto__));   //true
+    console.log('Function.__proto__===Object.__proto__:'+(Function.__proto__===Object.__proto__));   //true
+    console.log('Function.prototype.__proto__===Object.prototype:'+(Function.prototype.__proto__===Object.prototype));   //true
+
+    /********************* 系统定义的对象Array、Date ****************************/
+    console.log('**************test Array、Date****************');
+    var array = new Array();
+    var date = new Date();
+    console.log('array.__proto__===Array.prototype:'+(array.__proto__===Array.prototype));   //true
+    console.log('Array.__proto__===Function.prototype:'+(Array.__proto__===Function.prototype));  //true
+    console.log('date.__proto__===Date.prototype:'+(date.__proto__===Date.prototype));    //true
+    console.log('Date.__proto__===Function.prototype:'+(Date.__proto__===Function.prototype));     //true
+
+    console.log('**************constructor****************');
+    console.log('animal.constructor===Animal:'+(animal.constructor===Animal))    ;    //true
+    console.log('Animal===Animal.prototype.constructor:'+(Animal===Animal.prototype.constructor))    ;    //true
+    console.log('Animal.constructor===Function.prototype.constructor:'+(Animal.constructor===Function.prototype.constructor));   //true
+    console.log('Function.prototype.constructor===Function:'+(Function.prototype.constructor===Function));    //true
+    console.log('Function.constructor===Function.prototype.constructor:'+(Function.constructor===Function.prototype.constructor));    //true
+    console.log('Object.prototype.constructor===Object:'+(Object.prototype.constructor===Object));    //true
+    console.log('Object.constructor====Function:'+(Object.constructor===Function));    //true
+</script>
+</body>
+</html>

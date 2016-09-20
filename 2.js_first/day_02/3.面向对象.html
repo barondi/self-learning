@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>面向对象</title>
+</head>
+<body>
+<!--isPrototypeOf与hasOwnProperty-->
+	<script type="text/javascript">
+    	//基于构造函数的原型链模式：产品差异化的同时，有相同的部分还可以共享
+			//将需要共享的属性写在原型链prototype上，这样prototype上所定义的属性和方法就可以被每一个类的实例共享了
+
+		/*
+		* 【new一个对象发生如下三步】：
+		* 	例如：var p=new Person('张三',25);
+		* 	1、初始化一个对象p,var p={};
+		* 	2、将对象p的__proto__属性设置为Person.prototype
+		*	3、调用构造函数Person来初始化p,Person.call(p,'张三',25);
+		* */
+		
+		/*function CreateJsPerson(name){
+			this.name=name;
+		}
+		CreateJsPerson.prototype.writeCss=function(){
+			console.log(this.name+"教css");
+		}
+		CreateJsPerson.prototype.writeJs=function(){
+			console.log(this.name+"教js");
+		}
+		var p1=new CreateJsPerson("珠峰培训");
+		var p2=new CreateJsPerson("珠峰小培训");
+		console.log(p1.writeJs==p2.writeJs);*/
+
+/*Important*****************************************************/
+		//每一个function函数都有一个天生自带的属性，叫做prototype,但是如果不是new 函数的话，这个属性没有任何意义
+		//prototype属性存储的是一个对象数据类型，有一个自己的内存块(并且，这个内存块上有又有两个自带的属性 constructor __proto__)
+		//constructor是prototype这个对象数据类型特有的，而__proto__是所有对象数据类型都有的
+		
+		//当我们new一个函数的时候，函数变成了类，并且返回一个实例，这个实例是对象数据类型的，所以有__proto__这个自带的属性，并且这个属性指向的是我们的函数里面prototype自己的那个内存地址
+		//所以，我们的实例p1除了拥有函数里面自带的name属性(私有属性)外，同时还拥有了函数prototype上定义的属性(共有属性)
+		
+		
+		function Fn(name){
+			this.name=name;
+			this.num=4;
+			this.writeCss=function(){
+				console.log(1);	
+			}
+		}
+		var proto=Fn.prototype;
+		proto.writeJs=function(){
+			console.log(this);	
+		}
+		proto.writeCss=function(){
+			console.log(2);	
+		}
+		
+		var p1=new Fn("zf");
+		//p1 instanceof Fn//true
+		//p1 instanceof Object
+		//js中所有的对象数据类型都是内置Object类的一个实例
+
+		p1.writeJs();
+		var p2=new Fn("xzf");
+		p2.writeJs();
+		
+		p1.writeCss();
+		p1.__proto__.writeCss();
+		p1.writeJs();
+		//console.log(p1.hasOwnProperty("writeJs"));
+		//hasOwnProperty用来检测某个实例上是否存在某个属性(是私有的属性此才有效，原型链上的无法检测)
+		//console.log(Fn.prototype.isPrototypeOf(p1));
+		
+		//我们在调用实例上的属性名的时候，遵循这样的顺序:先找私有的，私有的没有，在通过__proto__找他所在类的原型上的属性,如果在私有的中找到了，就不在找了
+		
+		
+		 
+		//js中我们常用的this有这几种情况：
+			//给元素绑定事件 oDiv.onclick=function(){ this就是oDiv}
+			//(function(){ this是window })();
+			//函数执行前的主体  fn()-->window  obj.fn()-->obj
+			//当以构造函数运行的时候，this就是我们创建的那个实例
+
+		
+		
+		//github
+    
+    
+    </script>
+</body>
+</html>
