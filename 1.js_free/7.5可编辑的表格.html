@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>动态添加删除行</title>
+    <script type="text/javascript" src="../jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var count = 1;    //递增的开始值，这里是你的ID
+            $("#btn_addtr").click(function () {
+                $("#tab11 tbody tr").clone().appendTo("#dynamicTable tbody");   //在表格后面添加一行
+                changeIndex();//更新行号
+            });
+        });
+        function changeIndex() {
+            var i = 1;
+            $("#dynamicTable tbody tr").each(function () { //循环tab tbody下的tr
+                $(this).find("input[name='NO']").val(i++);//更新行号
+            });
+        }
+        function deltr(opp) {
+            var length = $("#dynamicTable tbody tr").length;
+            if (length <= 1) {
+                alert("至少保留一行");
+            } else {
+            //方式一：jquery删除行
+                //console.log($(opp).get(0)+'||'+$(opp).parent().get(0)+'||'+$(opp).parent().parent().get(0))
+                //$(opp).parent().parent().remove();//移除当前行
+
+            //方式二：原生js删除行
+                //console.log(JSObj.parentNode+'||'+JSObj.parentNode.parentNode);
+                var JSObj=$(opp)[0];
+                var rowJSObj=JSObj.parentNode.parentNode;
+                rowJSObj.parentNode.removeChild(rowJSObj);
+
+                changeIndex();
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div style="width:720px;margin:20px auto;">
+    <table id="tab11" style="display: none">
+        <tbody>
+        <tr>
+            <td height="30" align="center">
+                <input type="text" name="NO" size="2" value="1"></td>
+            <td align="center">
+                <input type="text" name="start_end_time"></td>
+            <td align="center">
+                <input type="text" name="unit_department"></td>
+            <td align="center">
+                <input type="text" name="post"></td>
+            <td>
+                <input type="button" id="Button1" onclick="deltr(this)" value="删行">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="button" id="btn_addtr" value="增行">
+    <table id="dynamicTable" width="700" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <td height="30" align="center" bgcolor="#CCCCCC">ID</td>
+                <td align="center" bgcolor="#CCCCCC">起止时间</td>
+                <td align="center" bgcolor="#CCCCCC">单位/部门</td>
+                <td align="center" bgcolor="#CCCCCC">职位</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td height="30" align="center">
+                    <input type="text" name="NO" size="2" value="1"></td>
+                <td align="center">
+                    <input type="text" name="start_end_time"></td>
+                <td align="center">
+                    <input type="text" name="unit_department"></td>
+                <td align="center">
+                    <input type="text" name="post"></td>
+                <td>
+                    <input type="button" id="Button2" onclick="deltr(this)" value="删行">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

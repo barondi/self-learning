@@ -22,7 +22,7 @@
 <div>这里是内容333333333333</div>
 <script>
     /*闭包形式*/
-    window.onload=function(){
+    /*window.onload=function(){
         var bTn=document.getElementsByTagName("input");
         var div=document.getElementsByTagName("div");
         for(var i=0;i<bTn.length;i++){
@@ -39,11 +39,11 @@
                 };
             })(i);
         }
-    };
+    };*/
     /*普通形式*/
-    /*var oTab=document.getElementById('fstTab');
-    var oBtns=oTab.getElementsByTagName('input');
-    var oPanels=oTab.getElementsByTagName('div');
+    //var oTab=document.getElementById('fstTab');
+    var oBtns=document.getElementsByTagName('input');
+    var oPanels=document.getElementsByTagName('div');
     for(var i=0;i<oBtns.length;i++){
         oBtns[i].index=i;//大陷阱：每次获取的为引用类型，而当每次加载完js后i已经变成3了，所以onclick的时候获取不到
         oBtns[i].onclick=function(){
@@ -54,7 +54,7 @@
             this.className='active';
             oPanels[this.index].style.display='block';
         }
-    }*/
+    }
 </script>
 
 <script>
@@ -75,6 +75,7 @@
     function f1(){
         var n=999;
         nAdd=function(){
+            alert(this);//window
             n+=1;
         };
         function f2(){
@@ -84,7 +85,7 @@
     };
     var result=f1();
     result(); // 999
-    nAdd();
+    this.nAdd();
     result(); // 1000
 //    闭包例子二：
     var name = "The Window";

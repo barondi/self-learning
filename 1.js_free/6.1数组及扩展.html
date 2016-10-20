@@ -18,7 +18,7 @@
     /*
     *
 ***** 遍历数组方法大全：
-    *   1、三大循环
+    *   1、三大循环(while,do-while,for)
     *   2、arr.forEach
     *       不能使用 break 语句来跳出循环，也不能使用 return 语句来从闭包函数中返回
     *   3、for-in
@@ -43,7 +43,7 @@
             console.log(index);
         });
 
-        var str="sdfa123";
+        /*var str="sdfa123";
         for(var m of str){
             if(m!='a'){
                 console.log(m);
@@ -55,13 +55,13 @@
 
         for(var key of Object.keys(str)){
             console.log(key+": "+str[key]);
-        }
+        }*/
 
-        var strArr=['a','b','c'];
+        /*var strArr=['a','b','c'];
         var arrIterator=strArr.entries();
         console.log(arrIterator.next().value); // [0, "a"]
         console.log(arrIterator.next().value); // [1, "b"]
-        console.log(arrIterator.next().value); // [2, "c"]
+        console.log(arrIterator.next().value); // [2, "c"]*/
 /**********************************************************/
         Number.prototype[Symbol.iterator]=Array.prototype[Symbol.iterator];
         var abc=1234556676787;
@@ -101,18 +101,18 @@
 //        var bVal=arr.push('di',10);
 //        console.log(arr);
 //        console.log(bVal);
-
+//
 //        var bVal=arr.unshift('di',10);
 //        console.log(arr);
 //        console.log(bVal);
-
+//
 //        var bVal=arr.splice(2,0,'jiasong');
 //        console.log(arr);
 //        console.log(bVal);
 //        var cVal=arr.splice(2,2,'replace');
 //        console.log(arr);
 //        console.log(cVal);
-
+//
 //        var bVal=arr.shift();
 //        console.log(arr);
 //        console.log(bVal);
@@ -128,19 +128,19 @@
     *      arr.concat(arr2)实现数组的拼接，返回值为拼接后的数组，原有数组都不变
     *
     * */
-//        var bVal=arr.slice(2);
-//        console.log(arr);
-//        console.log(bVal);
+        var bVal=arr.slice(2);
+        console.log(arr);
+        console.log(bVal);
 
-//        var bVal=arr.slice(2,4);
-//        console.log(arr);
-//        console.log(bVal);
+        var bVal=arr.slice(2,4);
+        console.log(arr);
+        console.log(bVal);
 
-//        var arr2=['dijiasong','wangdan'];
-//        var result=arr.concat(arr2);
-//        console.log(arr);
-//        console.log(arr2);
-//        console.log(result);
+        var arr2=['dijiasong','wangdan'];
+        var result=arr.concat(arr2);
+        console.log(arr);
+        console.log(arr2);
+        console.log(result);
 
     /*
     *
@@ -206,7 +206,12 @@
 //        console.log(arr);
 //        console.log(bVal);
 
-/*输出数组中的每一项*/
+/*        var testarr=[{"a":"0"},{"b":"1"},{"c":"2"}];
+        console.log($.inarray({"a":"0"},testarr));//-1  由于是引用类型，会重新开辟内从空间，正确写法如下：
+        var obj={"a":"0"};var newArr=[obj,{"b":"1"},{"c":"2"}];
+        console.log($.inArray(obj,newArr));//0*/
+
+    /*输出数组中的每一项*/
 //    var a=[1,2,3,4];
 //    for(var i=0;i<a.length;i++){
 //        if(a.indexOf(a[i])!=-1){

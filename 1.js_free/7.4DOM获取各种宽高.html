@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM获取各种宽高</title>
+    <style>
+        #element{width:100px;height:100px;background:#ccc;border:1px solid lightblue;padding:10px;margin:10px;}
+    </style>
+</head>
+<body>
+<div id="element"></div>
+
+
+<!--JQ操作宽高-->
+<!--
+
+    http://lib.csdn.net/article/jquery/35645
+    http://www.w3cplus.com/css3/trigger-css-animation-scroll.html
+    http://www.w3ci.com/front/jQuery/517.html
+    http://www.jb51.net/article/34478.htm
+    http://blog.csdn.net/yeeonefx/article/details/8563023
+
+-->
+<script src="../jquery-1.8.3.min.js"></script>
+<script>
+    $(function(){
+        /*
+        * height() = height
+        * innerHeight() = height + padding
+        * outerHeight() = height + padding + border
+        * outerHeight(true) = height + padding + border + margin
+        *
+        * width()、innerWidth()、outerWidth()同上
+        * */
+        var oHeight=$('#element').height();
+        console.log('oHeight:'+oHeight);
+        var oInnerHeight=$('#element').innerHeight();
+        console.log('oInnerHeight:'+oInnerHeight);
+        var oOuterHeight=$('#element').outerHeight();
+        console.log('oOuterHeight:'+oOuterHeight);
+        var tOuterHeight=$('#element').outerHeight(true);
+        console.log('oOuterHeight(true)'+tOuterHeight);
+    })
+</script>
+</body>
+</html>

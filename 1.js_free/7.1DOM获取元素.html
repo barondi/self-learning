@@ -66,6 +66,11 @@
     *
     * 5、document.documentElement    获取HTML元素
     *   document.body   获取body元素
+    *   以下实现兼容的原理：
+    *       document.compatMode得到的值为两个，一个是标准模式(CSS1Compat),一个是严格模式(BackCompat);标准模式"CSS1Compat"下document.documentElement.clientWidth生效
+    *   //兼容我所有浏览器的获取当前屏幕的宽高
+            var curWidth=document.documentElement.clientWidth||document.body.clientWidth;
+            var curHeight=document.documentElement.clientHeight||document.body.clientHeight;
     *
     * 6、在移动端获取元素的常用的方法(IE6~8下不兼容)
     *   document.querySelector()    获取一个
