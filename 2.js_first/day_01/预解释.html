@@ -56,41 +56,52 @@
 		/*console.log(a);
 		var a = 12;*/  //undefined
 
-		/*console.log(a);
-		a = 12;*/	//报错
+//		console.log(a);
+//		a = 12;	//报错
 
+//	function b(){
+//		a=12;
+//	}
+//	b();
+//	console.log(window.a);//12
 
-	 /*console.log(a);
-     var a;
-     console.log(a);
-     function a() {
-       console.log(1);
-     }
-     function a(){
-       console.log(2);
-     }
-     console.log(a);
-     var a=3;
-     console.log(a);*/
-	 //发现相重的，不重复声明
+	//预解释忽略重新声明，不忽略重新定义，而function在预解释时声明和定义一块完成
+//	console.log(a); //预解释重新定义为function，function调用不分先后
+//	var a;
+//	console.log(a);
+//	function a() {
+//		console.log(1);
+//	}
+//	function a(){
+//		console.log(2);
+//	}
+//	console.log(a);
+//	var a=3;
+//	console.log(a);
+
+//	console.log(n);//预解释重新定义仍为普通变量，undefined
+//	var n = 10;
+//	var n = 9;
+//	var n;
+//	console.log(n);
+
     
-/*	 //预解释是不管条件的
-     if(!("a" in window)){
-       var a=12;
-       console.log(1);
-     }else{
-		var a='glbal';
-       	console.log(2);
-     }
+	 //预解释是不管条件的
+//     if(!("a" in window)){
+//		 var a=12;
+//		 console.log(a);
+//     }else{
+//		 var a='glbal';
+//		 console.log(a);
+//     }
 	 
 	 //只预解释=左边的，右边不预解释
-	 //var fn;
-	 console.log(fn);
-	 console.log(a);
-	 var fn=function a(){
-		 return 1;
-	 }
-	 console.log(fn);*/
+//	 console.log(fn);
+//	 console.log(a);
+//	 var fn=function a(){
+//		 return 1;
+//	 }
+//	 console.log(fn);
 	 
 	 //function中return后面的返回值 不预解释
 	/*function fn(){
@@ -104,7 +115,7 @@
 	fn();*/
 	 
 	 //预解释发生在一个脚本块中，不同的脚本块中不预解释
-	 console.log(a);
+//	 console.log(a);
     </script>
     <script type="text/javascript">
 		

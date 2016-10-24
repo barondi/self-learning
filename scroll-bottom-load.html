@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cursor scroll to bottom and load more!</title>
+    <style>
+        #flux{width:200px;height:150px;overflow:auto;}
+    </style>
+</head>
+<body>
+<div id="flux">
+    Lorem ipsum dolor sit amet <br />
+    Consectetuer augue nibh lacus at
+    Pretium Donec felis dolor penatibus
+    Phasellus consequat Vivamus dui lacinia
+    Ornare nonummy laoreet lacus Donec
+    Ut ut libero Curabitur id
+    Dui pretium hendrerit sapien Pellentesque
+</div>
+<div class="end"></div>
+<script src="./jquery-1.8.3.min.js"></script>
+<script>
+    $(function(){
+        console.log(window.innerHeight);
+        console.log('scrollTop:'+$(this).scrollTop()+"||innerHeight:"+$(this).innerHeight()+"||scrollHeight:"+$(this)[0].scrollHeight);
+        $('#flux').bind('scroll', function() {
+            console.log('scrollTop:'+$(this).scrollTop()+"||innerHeight:"+$(this).innerHeight()+"||scrollHeight:"+$(this)[0].scrollHeight);
+            if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight) {
+                $('.end').append('load finish!')
+            }
+        });
+    })
+</script>
+</body>
+</html>

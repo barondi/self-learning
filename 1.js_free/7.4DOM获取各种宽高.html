@@ -5,6 +5,7 @@
     <title>DOM获取各种宽高</title>
     <style>
         #element{width:100px;height:100px;background:#ccc;border:1px solid lightblue;padding:10px;margin:10px;}
+        .parent_div{width:700px;height:300px;padding:10px;border:5px solid lightblue;margin:10px;overflow-y:auto;}
     </style>
 </head>
 <body>
@@ -16,14 +17,73 @@
 
     http://lib.csdn.net/article/jquery/35645
     http://www.w3cplus.com/css3/trigger-css-animation-scroll.html
-    http://www.w3ci.com/front/jQuery/517.html
-    http://www.jb51.net/article/34478.htm
     http://blog.csdn.net/yeeonefx/article/details/8563023
 
 -->
+<div class="parent_div">
+    <ul id="my_list">
+        <li>This is list item origin.</li>
+    </ul>
+</div>
 <script src="../jquery-1.8.3.min.js"></script>
+<script src="./scrollAutoLoad100.js"></script>
+<script>
+    //100以内奇数和、偶数和
+    /*var singleNum=0;
+    var doubleNum=0;
+    for(var i=0;i<=100;i++){
+        if(i%2==0){
+            doubleNum+=i;
+        }else{
+            singleNum+=i;
+        }
+    }
+    console.log('奇数和为：'+singleNum);
+    console.log('偶数和为：'+doubleNum);*/
+
+    //还有个小细节参见7.1
+    /*
+    * 浏览器窗口位置：
+        IE、Chrome、Safari、Opera 都提供了支持 window.screenLeft 和 window.screenTop，但是Firxfox不支持这个两个属性；
+        Firxfox、Chrome、Safari、Opera 都提供了支持 window.screenX 和 window.screenY，但是 IE 不支持这个两个属性；
+     兼容代码：
+        var leftPos = (typeof window.screenLeft == 'number')?window.screenLeft:window.screenX;
+        var topPos = (typeof window.screenTop == 'number')?window.screenTop:window.screenY;
+    * */
+    console.log(window.screenTop);//浏览器窗口距离屏幕上方、左方的高度
+    console.log(window.screenLeft);
+    console.log('----------------------');
+    console.log(window.screen.width);//屏幕分辨率
+    console.log(window.screen.height);
+    console.log('----------------------');
+    console.log(window.screen.availWidth);//屏幕可用区域分辨率
+    console.log(window.screen.availHeight);
+    console.log('********************************');
+
+    var oDiv=document.getElementsByClassName('parent_div')[0];
+    console.log(oDiv.clientWidth);//当前对象的 width + padding
+    console.log(oDiv.clientHeight);
+    console.log('----------------------');
+    console.log(oDiv.offsetWidth);//当前对象的 width + padding + border
+    console.log(oDiv.offsetHeight);
+    console.log('----------------------');
+    console.log(oDiv.scrollWidth);//获取对象滚动宽度、滚动高度
+    console.log(oDiv.scrollHeight);
+    console.log('----------------------');
+
+</script>
 <script>
     $(function(){
+        $('.parent_div').scroll(function(){
+            console.log(oDiv.scrollLeft);//获取对象往上或左滚动的高度
+            console.log(oDiv.scrollTop);
+            console.log('-------------------------');
+            console.log(oDiv.offsetLeft);//对象边框(不含)到 相对于版面或offsetParent属性指定父坐标 左侧、顶部距离
+            console.log(oDiv.offsetTop);
+        });
+        console.log($('.parent_div').width());
+        console.log($('.parent_div').innerWidth());
+        console.log($('.parent_div').outerWidth());
         /*
         * height() = height
         * innerHeight() = height + padding

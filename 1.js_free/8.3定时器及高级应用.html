@@ -7,31 +7,31 @@
 <body>
 <div id="myDiv"></div>
 <script>
-    var num=1;
-    (function testTI(){
-        for(var i=0;i<5;i++){
-            num++;
-        }
-        setTimeout('console.log(num)',100);//结果为1006
-        for(var j=0;j<1000;j++){
-            num++;
-        }
-    })(num);
+//    var num=1;
+//    (function testTI(){
+//        for(var i=0;i<5;i++){
+//            num++;
+//        }
+//        setTimeout('console.log(num)',100);//结果为1006
+//        for(var j=0;j<1000;j++){
+//            num++;
+//        }
+//    })(num);
 
-    var num=1;
-    setTimeout('console.log(num)',10);//结果为101
-    for(var i=0;i<100;i++){
-        num++;
-    }
+//    var num=1;
+//    setTimeout('console.log(num)',10);//结果为101
+//    for(var i=0;i<100;i++){
+//        num++;
+//    }
 
-    function mytest() {
-        for (var i = 0; i < 5; i++){
-            setTimeout(function () {
-                console.log(i);
-            }, 0);
-        }
-    }
-    mytest();
+//    function mytest() {
+//        for (var i = 0; i < 5; i++){
+//            setTimeout(function () {
+//                console.log(i);
+//            }, 0);
+//        }
+//    }
+//    mytest();
     /*
      * JS是单线程执行的，且定时器都是异步的，只有当同步代码执行完了以后才会执行定时器
      *
@@ -78,6 +78,7 @@
             printValue(item);
             if(d.length>0){
                 setTimeout(arguments.callee,100);
+                console.log(arguments.callee)
             }
         },100);
     })(data)

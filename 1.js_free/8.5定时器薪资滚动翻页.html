@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动翻页效果</title>
+    <style>
+        .scroll-time{float:left;padding:20px 5px;background-color:rgba(0,0,0,0.15);border-radius:4px;font-size:28px; color:#e54c26;font-family:"Arial";font-weight:bolder;letter-spacing:2px;margin-left:5px;}
+    </style>
+</head>
+<body>
+<div class="panel">
+    <!--<div class="scroll-time">
+        <span id="month"></span>
+    </div>
+    <div class="scroll-time">
+        <span id="day"></span>
+    </div>-->
+</div>
+<script src="../jquery-1.8.3.min.js"></script>
+<script>
+    $(function(){
+        /*var monthfun = '20';//指定月份
+        var dayfun = '15';//指定某天
+        var i = 0;
+        var s = 0;
+        var timestrmonth = 0;
+        var timestrday = 0;
+        var monthstr=['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25'];
+        var daystr=['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25'];
+        function monthstart(){
+            $("#month").html(monthstr[i]).show();
+            i++;
+            if(i <= 45){
+//                if(i >= 8){
+//                    timestrmonth = setTimeout(function(){monthstart();},50);
+//                }else{
+//                    timestrmonth = setTimeout(function(){monthstart();},50);
+//                }
+                timestrmonth = setTimeout(function(){monthstart();},50);
+            }else{
+                clearTimeout(timestrmonth);
+                $("#month").html(monthfun).show();
+            }
+        }
+        monthstart();
+        function daystart(){
+            $("#day").html(daystr[s]).show();
+            s++;
+            if(s <= 45){
+//                if(s >= 8){
+//                    timestrday = setTimeout(function(){daystart();},50);
+//                }else{
+//                    timestrday = setTimeout(function(){daystart();},50);
+//                }
+                timestrday = setTimeout(function(){daystart();},50);
+            }else{
+                clearTimeout(timestrday);
+                $("#day").html(dayfun).show();
+            }
+        }
+        daystart();*/
+        var initMonth=$("<div class='scroll-time'><span id='month'>20</span></div>");
+        var i = 0;
+        var timestrmonth = 0;
+        var monthstr = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25'];
+        function monthstart() {
+            var monthFun=$("<div class='scroll-time'><span id='month'>"+monthstr[i]+"</span></div>");
+            $('.panel').append($(monthFun)).show(1000);
+            i++;
+            if (i <= 45) {
+                timestrmonth = setTimeout(function () {
+                    $(".panel").children().remove();
+                    monthstart();
+                }, 50);
+            } else {
+                clearTimeout(timestrmonth);
+                $(".panel").children().remove();
+                $(".panel").append($(initMonth)).show(1000);
+            }
+        }
+        monthstart();
+    });
+</script>
+</body>
+</html>

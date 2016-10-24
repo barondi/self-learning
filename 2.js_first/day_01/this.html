@@ -6,6 +6,7 @@
 </head>
 <body>
 	<div id="div1">我是div1</div>
+	<div id="text1">我是text1</div>
 	<script type="text/javascript">
     	//this
 		//this是谁和在哪定义和在哪执行半毛钱关系都没有,和函数执行时候的主体有关系(只与谁调用它有关系).this出现在作用域下
@@ -18,41 +19,75 @@
 			objFn:fn
 		};
 		
-		//fn();//this是window
-		//obj.objFn();//this是obj
-		//div1.onclick=fn;//this是div1
-		div1.onclick=function(){
-			fn();//this是window
-		}
+//		fn();//this是window
+//		obj.objFn();//this是obj
+//		div1.onclick=fn;//this是div1
 
-		/*div1.onclick=function(){
-			console.log(this);//this是div1
-			a();//this 是window
-		}*/
-		function a(){
-			console.log(this);
-		}
+//		div1.onclick=function(){
+//			fn();//我是window  fn()的上下文为window
+//		}
+
+//		div1.onclick=function(){
+//			console.log(this);//this是div1
+//			a();//this 是window
+//		}
+//		function a(){
+//			console.log(this);
+//		}
 
 
 
 
-		var innerHTML="我是window";
-		function fn(){
-			console.log(this.innerHTML);
-		}
-		var obj={
-			innerHTML:"我是obj",
-			fn:fn
-		};
-		div1.onclick=function(){
-			obj.fn();//this是obj
-		}
-		div1.onclick=obj.fn;//<==>div1.onclick=function(){console.log(this.innerHTML);}
+//		var innerHTML="我是window";
+//		function fn(){
+//			console.log(this.innerHTML);
+//		}
+//		var obj={
+//			innerHTML:"我是obj",
+//			fn:fn
+//		};
+//		div1.onclick=function(){
+//			obj.fn();//this是obj
+//		}
+//		div1.onclick=obj.fn;//<==>div1.onclick=function(){console.log(this.innerHTML);}
     	//this是div1
 
-		;(function(){
-			this-->window
-		})()
+//		;(function(){
+//			this-->window
+//		})()
+
+
+/*
+* 改变this指向：call、apply、bind
+* 	call和apply一样，直接饮用在方法上；而bind绑定this后后返回一个方法，核心还是apply，在对象字面量方式经常用
+* 	function(){}.bind(this要绑定的对象,普通参数1,普通参数2,...)
+*
+* 下面为兼容IE6-8的自定义bind方法：
+* */
+//		if(!function(){}.bind){
+//			Function.prototype.bind=function(context){
+//				var self=this;
+//				var args=Array.prototype.slice.call(arguments);
+//				JQ源码也类似，将类数组对象转换为真实数组，类数组虽然有length属性，可用for遍历，却不嫩使用slice方法
+//				return function(){
+//					return self.apply(context,args.slice(1));
+//				}
+//			}
+//		}
+
+//		var div1=document.getElementById('div1');
+//		div1.onclick=function(){
+//			console.log(this.id);
+//		}
+
+//		var div1=document.getElementById('div1');
+//		var text1=document.getElementById('text1');
+//		div1.onclick=function(){
+//			console.log(this.id);
+//		}.bind(text1);
+
+
+
     </script>
 </body>
 </html>
