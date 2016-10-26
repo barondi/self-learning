@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js事件机制</title>
+    <style>
+        p,h3{
+            width:200px;
+            height:100px;
+            border:1px solid pink;
+            margin:20px auto;
+        }
+    </style>
+</head>
+<body>
+<div id="s1">
+    我是s1
+    <div id="s2">
+        我是s2
+    </div>
+</div>
+
+<div id="btnPanel" style="background: #ccc;padding: 40px;">
+    <input type="button" name="btn" id="btn" value="确定" />
+</div>
+
+<form action="http://www.baidu.com" method="post">
+    <a id="baiduA" href="http://www.baidu.com">百度</a>
+    <input id="submitBtn" type="submit" value="提交"/>
+</form>
+
+<ul id="ul">
+    <li>aaaaaaaa</li>
+    <li>bbbbbbbb</li>
+    <li>cccccccc</li>
+</ul>
+
+<div id="pElement">
+    <p>p的点击事件</p>
+    <h3>h3的双击事件</h3>
+</div>
+
+<script>
+/*原始事件：优点是所有浏览器都兼容，缺点是相同事件的监听函数只能有一个，后面会覆盖前面的，且逻辑与现实没有分离*/
+//    s1.onclick=function(){
+//        console.log(1);
+//    }
+//    s1.onclick=function(){
+//        console.log('1 replaced');
+//    }
+//    s2.onclick=function(){
+//        console.log(2);
+//    }
+
+//    s1.onclick=function(){
+//        console.log(1);
+//    }
+//    s2.onclick=function(){
+//        s1.onclick=null;
+//        console.log(2);
+//    }
+
+/*IE事件模型：在IE8及以前，事件的表示作为全局函数window的一个属性event
+*   执行过程只有两步，对应DOM2事件的 2(事件处理),3(事件冒泡) 阶段。先执行元素的监听函数，然后事件沿着父节点一直冒泡到document。
+* */
+//    console.log(window.event); //null
+//    window.onload = function(){
+//        console.log(window.event) // Event {isTrusted: true, type: "load", target: document, currentTarget: Window, eventPhase: 2…}
+//        setTimeout(function(){console.log(window.event);},100) //null
+//    }
+
+//    var test1 = document.getElementById("test1");
+//    test1.attachEvent("onclick",function(){
+//        alert(this === window); //true
+//    })
+//attachEvent 方法可以为一个元素添加多个事件处理程序，后添加的先执行
+//detachEvent("eventType","handler" ) 解除事件监听器
+//    test1.attachEvent("onclick",function(){
+//        alert("helloWord"); //先helloWord后true
+//    })
+
+/*DOM2标准事件模型：
+*   (1)事件捕获阶段：事件被从document一直向下传播到目标元素,在这过程中依次检查经过的节点是否注册了该事件的监听函数，若有则执行。
+*   (2)事件处理阶段：事件到达目标元素,执行目标元素的事件处理函数.
+*   (3)事件冒泡阶段：事件从目标元素上升一直到达document，同样依次检查经过的节点是否注册了该事件的监听函数，有则执行。
+*   所有的事件都会经历事件捕获阶段(capturing phase)，但是只有部分事件会经历事件冒泡(bubbling phase),例如：submit就不会被事件冒泡。
+*   addEventListener("eventType","handler","true|false");和 removeEventListner("eventType","handler","true!false");
+* */
+/*
+* ！！！所有浏览器都兼容的事件处理程序
+* */
+function aaa(){
+var EventUtil = {
+    /**
+     * 添加事件
+     * @param {Object} element
+     * @param {Object} type
+     * @param {Object} hander
+     */
+//    addHander: function(element, type, hander) {
+//        if (element.addEventListener) {
+//            addHander=function(element, type, hander){
+//                element.addEventListener(type, hander, false);
+//            }
+//        } else if (element.attachEvent) {
+//            addHander=function(element, type, hander){
+//                element.attachEvent("on" + type, hander);
+//            }
+//        } else {
+//            addHander=function(element, type, hander){
+//                element["on" + type] = hander;
+//            }
+//        }
+//    },
+    addHander: function(type, element, hander) {
+        if (element.addEventListener) {
+            addHander=function(type, element, hander){
+                element.addEventListener(type, hander, false);
+            }
+        } else if (element.attachEvent) {
+            addHander=function(type, element, hander){
+                element.attachEvent("on" + type, hander);
+            }
+        } else {
+            addHander=function(type, element, hander){
+                element["on" + type] = hander;
+            }
+        }
+    },
+    /**
+     * 移除事件
+     * @param {Object} element
+     * @param {Object} type
+     * @param {Object} hander
+     */
+    removeHander: function(element, type, hander) {
+        if (element.removeEventListener) {
+            element.removeEventListener(type, hander, false);
+        } else if (element.detachEvent) {
+            element.detachEvent("on" + type, hander);
+        } else {
+            element["on" + type] = null;
+        }
+    },
+    /**
+     * 取得当前事件对象
+     * @param {Object} event
+     */
+    getEvent: function(event) {
+        return event ? window.event : event;
+    },
+    /**
+     * 取得触发事件的目标元素对象
+     * @param {Object} event
+     */
+    getTarget: function(event) {
+        return event.target || event.srcElement;
+    },
+    /**
+     * 阻止默认的事件触发
+     * @param {Object} event
+     */
+    preventDefault: function(event) {
+        if (event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;//for IE
+        }
+    },
+    /**
+     * 阻止事件冒泡
+     * @param {Object} event
+     */
+    stopPropagation: function(event) {
+        if (event.stopPropagation) {
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;//for IE
+        }
+    }
+}
+return EventUtil;
+}
+/*
+* 事件代理(委托)：
+*   1.将所有同类元素的事件操作代理给其父元素，减少了事件绑定过程，避免了100个li，1000个li 或者更多li的循环绑定事件，有效减少内存占用，避免元素过多导致浏览器内存泄露，提高效率。
+*   2.在DOM更新后无须重新绑定事件处理器了
+*   例子：当我们点击每个li时，在控制台输出当前点击元素的innerHTML
+* */
+//传统做法：
+//window.onload = function(){
+//    var ul = document.getElementById("ul");
+//    var lis = ul.getElementsByTagName("li");
+//    for(var i = 0 ; i < lis.length; i ++){
+//        lis[i].onclick = function(){
+//            console.log(this.innerHTML);
+//        }
+//    }
+//}
+
+//事件代理
+//window.onload = function(){
+//    var ul = document.getElementById("ul");
+//    var lis = ul.getElementsByTagName("li");
+//    ul.onclick = function(e){
+//        /*
+//         这里要用到事件源：event 对象，事件源，不管在哪个事件中，只要你操作的那个元素就是事件源。
+//         ie：window.event.srcElement
+//         标准下:event.target
+//         nodeName:找到元素的标签名
+//         */
+//        var e  = e || window.event;
+//        var target = e.target || e.srcElement;
+//        if(target.nodeName.toUpperCase() == "LI"){
+//            console.log(target.innerHTML);
+//        }
+//    }
+//}
+
+/*
+* 利用事件代理封装一个公用的方法
+* */
+var pElement = document.getElementById('pElement');
+//事件代理整理
+EventTarget.prototype.on = function(eventType, selector, callback) {
+    var _event = function(e) {
+        var target = event.target || event.srcElement;
+        if (target === selector) {
+            console.log(target+'||'+selector);
+            callback(e);
+        }
+    }
+    if (this.addEventListener) {
+        this.addEventListener(eventType, _event, false);
+    } else if (this.attachEvent) {
+        this.attachEvent("on" + eventType, _event);
+    } else {
+        this["on" + eventType] = _event;
+    }
+}
+//可扩展的选择器 添加id class 属性等筛选
+function _getTarget(targetName) {
+    return document.getElementsByTagName(targetName)[0];
+}
+
+//给p元素绑定点击事件
+pElement.on('click', _getTarget("p"), function(e) {
+    alert(e.target.innerText)
+});
+//给h3 绑定双击事件
+pElement.on('dblclick', _getTarget("h3"), function(e) {
+    alert(e.target.innerText)
+});
+
+
+/*
+* event.target和event.currentTarget都是只读属性
+*   1.target 永远等于事件的真正目标 （如click事件中，target永远等于我们鼠标点击的最上层元素）;
+*   2.currentTaget 始终等于this;等于事件处理程序绑定的这个元素.(如: 谁.onclick = hander, “谁”就是currentTaget,也就是最终要冒泡到“谁”上触发事件的元素)
+* */
+//var btn = document.getElementById("btn");
+//btn.onclick = function(event) {
+//    console.log(event.currentTarget === this); //true
+//    console.log(event.target === this); //true
+//}
+
+//var btnPanel = document.getElementById("btnPanel");
+//btnPanel.onclick = function(event) {
+//    console.log(event.currentTarget === btnPanel); //true
+//    console.log(this === btnPanel);  //true
+//    console.log(event.target === document.getElementById("btn")); //true
+//}
+
+//阻止默认事件
+//var subBtn = document.getElementById("submitBtn");
+//subBtn.onclick = function(e){
+//    alert("subBtn");
+//    e.preventDefault();
+//}
+//var baiduA = document.getElementById("baiduA");
+//baiduA.onclick = function(e){
+//    alert("baiduA");
+//    e.preventDefault();
+//}
+
+//    window.addEventListener('click',function(){
+//        console.log('window捕获模式');
+//    });
+//    s1.addEventListener('click',function(){
+//        console.log('s1捕获模式');
+//    },true);
+//    s2.addEventListener('click',function(){
+//        console.log('s2捕获模式');
+//    },true);
+
+//    s1.addEventListener('click',function(){
+//        console.log('s1捕获模式');
+//    },true);
+//    s2.addEventListener('click',function(){
+//        console.log('s2捕获模式');
+//    },true);
+
+//    s1.addEventListener('click',function(){
+//        console.log('s1捕获模式');
+//    },true);
+//    s2.addEventListener('click',function(){
+//        console.log('s2捕获模式');
+//    },true);
+//    s1.addEventListener('click',function(){
+//        console.log('s1冒泡模式');
+//    },false);
+//    s2.addEventListener('click',function(event){
+//        console.log('s2冒泡模式');
+//        event.stopPropagation();
+//    },false);
+
+//    s1.addEventListener('click',function(event){
+//        console.log('s1捕获模式');
+//        event.stopPropagation();
+//    },true);
+//    s2.addEventListener('click',function(){
+//        console.log('s2捕获模式');
+//    },true);
+//    s1.addEventListener('click',function(){
+//        console.log('s1冒泡模式');
+//    },false);
+//    s2.addEventListener('click',function(){
+//        console.log('s2冒泡模式');
+//    },false);
+
+//    s1.addEventListener('click',function(event){
+//        console.log('s1捕获模式');
+//        event.stopPropagation();
+//    },true);
+//    s1.addEventListener('click',function(){
+//        console.log('s1捕获模式2');
+//    },true)
+//    s2.addEventListener('click',function(){
+//        console.log('s2捕获模式');
+//    },true);
+
+//    s1.addEventListener('click',function(event){
+//        console.log('s1捕获模式');
+//        event.stopImmediatePropagation();
+//    },true);
+//    s1.addEventListener('click',function(){
+//        console.log('s1捕获模式2');
+//    },true)
+//    s2.addEventListener('click',function(){
+//        console.log('s2捕获模式');
+//    },true);
+
+</script>
+</body>
+</html>

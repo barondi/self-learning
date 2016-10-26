@@ -26,7 +26,7 @@
 		B.prototype=p1;//给B的原型链上加了一个x1和get1
 		var p2=new B(2);//p2有了B私有的属性和方法x2、get2，并且拥有了原型链上的方法和属性x1、get1
 		console.log(p2.get1());
-		console.log(p2.eat1());
+		p2.eat1();//A eat!!
 		B.prototype.aa=100;
 		console.log(p2.__proto__)
 		console.log(p1.aa);

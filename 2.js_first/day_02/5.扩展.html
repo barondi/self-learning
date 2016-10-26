@@ -14,26 +14,44 @@
 		function B(){
 			this.x2=20;	
 		}
-/*		B.prototype.x1=100;
-		B.prototype.y1=100;*/
-		B.prototype=new A();
-		B.prototype.y2=100;
-		B.prototype.x3=200;
-		
-		var p1=new B();
-/*		console.log(p1.y2);
-		console.log(p1.x1);
-		console.log(p1.x3);*/
-		console.log(p1.y);
-		
-		var p2=new A();
-		console.log(p2.x1);
-		console.log(p2.y2);
-		console.log(p2.x3);
-		
-		
-		
-		
+
+//		B.prototype.x1=100;
+//		B.prototype.y1=100;
+//		B.prototype=new A();
+//		var p1=new B();
+//		console.log(p1.x1);//10
+//		console.log(p1.y1);//undefined
+//		var p2=new A();
+//		console.log(p2.x1);//10
+
+//		B.prototype=new A();
+//		B.prototype.x1=100;
+//		B.prototype.y1=100;
+//		var p1=new B();
+//		console.log(p1.x1);//100
+//		console.log(p1.y1);
+//		var p2=new A();//重新分配了一个内存块
+//		console.log(p2.x1);//10
+
+
+//		B.prototype.x1=100;
+//		B.prototype.y1=100;
+//		B.prototype=new A();
+//		B.prototype.y2=100;
+//		B.prototype.x3=200;
+//		var p1=new B();
+//		console.log(p1.y1);//undefined
+//		console.log(p1.y2);//100
+//		console.log(p1.x1);//10
+//		console.log(p1.x3);//200
+//		console.log(p1.y);//130
+//		var p2=new A();
+//		console.log(p2.x1);//10
+//		console.log(p2.y2);//undefined
+//		console.log(p2.x3);//undefined
+//		console.log(p2.y1);//undefined
+
+
 		/*var obj1={name:"zf"};
 		var obj2={age:12};
 		obj1=obj2;

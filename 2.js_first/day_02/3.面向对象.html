@@ -49,7 +49,7 @@
 		}
 		var proto=Fn.prototype;
 		proto.writeJs=function(){
-			console.log(this);	
+			console.log(this);
 		}
 		proto.writeCss=function(){
 			console.log(2);	
@@ -60,16 +60,16 @@
 		//p1 instanceof Object
 		//js中所有的对象数据类型都是内置Object类的一个实例
 
-		p1.writeJs();
+		p1.writeJs();//Fn {name: "zf", num: 4}
 		var p2=new Fn("xzf");
-		p2.writeJs();
+		p2.writeJs();//Fn {name: "xzf", num: 4}
 		
 		p1.writeCss();
 		p1.__proto__.writeCss();
 		p1.writeJs();
-		//console.log(p1.hasOwnProperty("writeJs"));
+		console.log(p1.hasOwnProperty("writeJs"));
 		//hasOwnProperty用来检测某个实例上是否存在某个属性(是私有的属性此才有效，原型链上的无法检测)
-		//console.log(Fn.prototype.isPrototypeOf(p1));
+		console.log(Fn.prototype.isPrototypeOf(p1));
 		
 		//我们在调用实例上的属性名的时候，遵循这样的顺序:先找私有的，私有的没有，在通过__proto__找他所在类的原型上的属性,如果在私有的中找到了，就不在找了
 		
