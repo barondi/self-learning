@@ -29,6 +29,17 @@
     <input id="submitBtn" type="submit" value="提交"/>
 </form>
 
+
+<div id="outDiv">
+    &nbsp;&nbsp;鼠标点击outDiv
+    <div id="middleDiv">
+        &nbsp;&nbsp;&nbsp;&nbsp;鼠标点击middleDiv
+        <div id="inDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;鼠标点击inDiv</div>
+    </div>
+</div>
+<div id="info"></div>
+
+
 <ul id="ul">
     <li>aaaaaaaa</li>
     <li>bbbbbbbb</li>
@@ -39,6 +50,12 @@
     <p>p的点击事件</p>
     <h3>h3的双击事件</h3>
 </div>
+
+
+<div id="d1">自定义事件之鼠标三击</div>
+
+<div id="d2" style="width:400px;height:150px;background-color:yellow;text-align: center;font-weight:bolder;">请点击修改html中内容</div>
+<input id="updateBtn" type="button" value="修改html" />
 
 <script>
 /*原始事件：优点是所有浏览器都兼容，缺点是相同事件的监听函数只能有一个，后面会覆盖前面的，且逻辑与现实没有分离*/
@@ -84,12 +101,83 @@
 *   (2)事件处理阶段：事件到达目标元素,执行目标元素的事件处理函数.
 *   (3)事件冒泡阶段：事件从目标元素上升一直到达document，同样依次检查经过的节点是否注册了该事件的监听函数，有则执行。
 *   所有的事件都会经历事件捕获阶段(capturing phase)，但是只有部分事件会经历事件冒泡(bubbling phase),例如：submit就不会被事件冒泡。
-*   addEventListener("eventType","handler","true|false");和 removeEventListner("eventType","handler","true!false");
+*   addEventListener,removeEventListner用法：
+*   target.addEventListener(eventType,listener,useCapture)
+*       target 文档节点、document、window 或 XMLHttpRequest
+*       type 字符串，事件名称，不含“on”，比如“click”、“mouseover”、“keydown”等
+*       listener 实现了 EventListener 接口或者是 JavaScript 中的函数
+*       useCapture 是否使用捕捉,一般为false
 * */
+/*
+* 事件流实例
+* <div id="div1">
+*     <div id='div2'>
+*         <div id='div3'>
+*             <div id='div4'></div>
+*         </div>
+*     </div>
+* </div>
+* 如果点击id为div3的div，事件流发生过程：
+*   捕获阶段 在 div1 处检测是否有 useCapture 为 true 的事件处理程序，若有，则执行该程序，然后再同样地处理 div2
+*   目标阶段 在 div3 处，发现 div3 就是鼠标点击的节点，所以这里为目标阶段，若有事件处理程序，则执行该程序，这里不论 useCapture 为 true 还是 false
+*   冒泡阶段 在 div2 处检测是否有 useCapture 为 false 的事件处理程序，若有，则执行该程序，然后再同样地处理 div1
+*   注意：在捕获和冒泡阶段的时候div1上面还会有其它节点，如body、document
+* */
+/*
+* ！！总结如下：
+*   true的触发顺序总是在false之前
+*   如果多个均为true，外层先于内层触发
+*   如果多个均为false，内层先于外层触发
+* */
+var outDiv = document.getElementById("outDiv");
+var middleDiv = document.getElementById("middleDiv");
+var inDiv = document.getElementById("inDiv");
+var info = document.getElementById("info");
+
+//outDiv.addEventListener("click", function () {
+//    info.innerHTML += "outDiv" + "<br>";
+//}, false);//innerHTML添加outDiv
+//middleDiv.addEventListener("click", function () {
+//    info.innerHTML += "middleDiv" + "<br>";
+//}, false);//innerHTML添加middleDiv、outDiv
+//inDiv.addEventListener("click", function () {
+//    info.innerHTML += "inDiv" + "<br>";
+//}, false);//innerHTML添加inDiv、middleDiv、outDiv
+
+//outDiv.addEventListener("click", function () {
+//    info.innerHTML += "outDiv" + "<br>";
+//}, true);//innerHTML添加outDiv
+//middleDiv.addEventListener("click", function () {
+//    info.innerHTML += "middleDiv" + "<br>";
+//}, true);//innerHTML添加outDiv、middleDiv
+//inDiv.addEventListener("click", function () {
+//    info.innerHTML += "inDiv" + "<br>";
+//}, true);//innerHTML添加outDiv、middleDiv、inDiv
+
+//outDiv.addEventListener("click", function () {
+//    info.innerHTML += "outDiv" + "<br>";
+//}, true);//innerHTML添加outDiv
+//middleDiv.addEventListener("click", function () {
+//    info.innerHTML += "middleDiv" + "<br>";
+//}, false);//innerHTML添加outDiv、middleDiv
+//inDiv.addEventListener("click", function () {
+//    info.innerHTML += "inDiv" + "<br>";
+//}, false);//innerHTML添加outDiv、inDiv、middleDiv
+
+outDiv.addEventListener("click", function (e) {
+    console.log(e.currentTarget.__proto__.__proto__.__proto__.__proto__)
+    info.innerHTML += "outDiv" + "<br>";
+}, false);//innerHTML添加outDiv
+//middleDiv.addEventListener("click", function () {
+//    info.innerHTML += "middleDiv" + "<br>";
+//}, true);//innerHTML添加middleDiv、outDiv
+//inDiv.addEventListener("click", function () {
+//    info.innerHTML += "inDiv" + "<br>";
+//}, false);//innerHTML添加middleDiv、inDiv、outDiv
+
 /*
 * ！！！所有浏览器都兼容的事件处理程序
 * */
-function aaa(){
 var EventUtil = {
     /**
      * 添加事件
@@ -97,36 +185,31 @@ var EventUtil = {
      * @param {Object} type
      * @param {Object} hander
      */
-//    addHander: function(element, type, hander) {
+    addHander: function(element, type, hander) {
+        if (element.addEventListener) {
+            element.addEventListener(type, hander, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, hander);
+        } else {
+            element["on" + type] = hander;
+        }
+    },
+//    addHander: function(type, element, hander) {
 //        if (element.addEventListener) {
-//            addHander=function(element, type, hander){
+//            addHander=function(type, element, hander){
+//                console.log(1);
 //                element.addEventListener(type, hander, false);
 //            }
 //        } else if (element.attachEvent) {
-//            addHander=function(element, type, hander){
+//            addHander=function(type, element, hander){
 //                element.attachEvent("on" + type, hander);
 //            }
 //        } else {
-//            addHander=function(element, type, hander){
+//            addHander=function(type, element, hander){
 //                element["on" + type] = hander;
 //            }
 //        }
 //    },
-    addHander: function(type, element, hander) {
-        if (element.addEventListener) {
-            addHander=function(type, element, hander){
-                element.addEventListener(type, hander, false);
-            }
-        } else if (element.attachEvent) {
-            addHander=function(type, element, hander){
-                element.attachEvent("on" + type, hander);
-            }
-        } else {
-            addHander=function(type, element, hander){
-                element["on" + type] = hander;
-            }
-        }
-    },
     /**
      * 移除事件
      * @param {Object} element
@@ -179,8 +262,7 @@ var EventUtil = {
         }
     }
 }
-return EventUtil;
-}
+
 /*
 * 事件代理(委托)：
 *   1.将所有同类元素的事件操作代理给其父元素，减少了事件绑定过程，避免了100个li，1000个li 或者更多li的循环绑定事件，有效减少内存占用，避免元素过多导致浏览器内存泄露，提高效率。
@@ -220,37 +302,35 @@ return EventUtil;
 /*
 * 利用事件代理封装一个公用的方法
 * */
-var pElement = document.getElementById('pElement');
-//事件代理整理
-EventTarget.prototype.on = function(eventType, selector, callback) {
-    var _event = function(e) {
-        var target = event.target || event.srcElement;
-        if (target === selector) {
-            console.log(target+'||'+selector);
-            callback(e);
-        }
-    }
-    if (this.addEventListener) {
-        this.addEventListener(eventType, _event, false);
-    } else if (this.attachEvent) {
-        this.attachEvent("on" + eventType, _event);
-    } else {
-        this["on" + eventType] = _event;
-    }
-}
-//可扩展的选择器 添加id class 属性等筛选
-function _getTarget(targetName) {
-    return document.getElementsByTagName(targetName)[0];
-}
-
-//给p元素绑定点击事件
-pElement.on('click', _getTarget("p"), function(e) {
-    alert(e.target.innerText)
-});
-//给h3 绑定双击事件
-pElement.on('dblclick', _getTarget("h3"), function(e) {
-    alert(e.target.innerText)
-});
+//var pElement = document.getElementById('pElement');
+////操作的DOM元素的__proto__一直往上找回到EventTarget -> Object
+//EventTarget.prototype.on = function(eventType, selector, callback) {
+//    var _event = function(e) {
+//        var target = event.target || event.srcElement;
+//        if (target === selector) {
+//            callback(e);
+//        }
+//    }
+//    if (this.addEventListener) {
+//        this.addEventListener(eventType, _event, false);
+//    } else if (this.attachEvent) {
+//        this.attachEvent("on" + eventType, _event);
+//    } else {
+//        this["on" + eventType] = _event;
+//    }
+//}
+////可扩展的选择器 添加id class 属性等筛选
+//function _getTarget(targetName) {
+//    return document.getElementsByTagName(targetName)[0];
+//}
+////给p元素绑定点击事件
+//pElement.on('click', _getTarget("p"), function(e) {
+//    alert(e.target.innerText)
+//});
+////给h3 绑定双击事件
+//pElement.on('dblclick', _getTarget("h3"), function(e) {
+//    alert(e.target.innerText)
+//});
 
 
 /*
@@ -283,72 +363,44 @@ pElement.on('dblclick', _getTarget("h3"), function(e) {
 //    e.preventDefault();
 //}
 
-//    window.addEventListener('click',function(){
-//        console.log('window捕获模式');
-//    });
-//    s1.addEventListener('click',function(){
-//        console.log('s1捕获模式');
-//    },true);
-//    s2.addEventListener('click',function(){
-//        console.log('s2捕获模式');
-//    },true);
 
-//    s1.addEventListener('click',function(){
-//        console.log('s1捕获模式');
-//    },true);
-//    s2.addEventListener('click',function(){
-//        console.log('s2捕获模式');
-//    },true);
 
-//    s1.addEventListener('click',function(){
-//        console.log('s1捕获模式');
-//    },true);
-//    s2.addEventListener('click',function(){
-//        console.log('s2捕获模式');
-//    },true);
-//    s1.addEventListener('click',function(){
-//        console.log('s1冒泡模式');
-//    },false);
-//    s2.addEventListener('click',function(event){
-//        console.log('s2冒泡模式');
-//        event.stopPropagation();
-//    },false);
+/*
+* ！！自定义事件之三击事件
+* */
+//第一步：创建自定义事件
+var e=new CustomEvent('tripleclick',{'detail':'somemsg'});
+//第二步：判断触发条件
+var d1=document.getElementById('d1');
+var counter=0;
+d1.onclick=function(){
+    setTimeout(function(){counter=0;},500);
+    if(++counter==3){
+        d1.dispatchEvent(e);
+    }
+}
+//第三步：为事件注册监听函数
+d1.addEventListener('tripleclick',function(){
+    alert('触发了三击事件');
+    d1.style.backgroundColor='lightblue';
+},false);
 
-//    s1.addEventListener('click',function(event){
-//        console.log('s1捕获模式');
-//        event.stopPropagation();
-//    },true);
-//    s2.addEventListener('click',function(){
-//        console.log('s2捕获模式');
-//    },true);
-//    s1.addEventListener('click',function(){
-//        console.log('s1冒泡模式');
-//    },false);
-//    s2.addEventListener('click',function(){
-//        console.log('s2冒泡模式');
-//    },false);
+/*
+* ！！自定义事件之htmlchange
+* */
+var e2=new CustomEvent('htmlchange',{'detial':'somemsg'});
+var d2=document.getElementById('d2');
+var uBtn=document.getElementById('updateBtn');
+uBtn.onclick=function changeHtml(){
+    d2.innerHTML="html内容已变！";
+    d2.dispatchEvent(e2);
+}
+d2.addEventListener('htmlchange',function(){
+    alert('触发html改变事件！');
+},false)
 
-//    s1.addEventListener('click',function(event){
-//        console.log('s1捕获模式');
-//        event.stopPropagation();
-//    },true);
-//    s1.addEventListener('click',function(){
-//        console.log('s1捕获模式2');
-//    },true)
-//    s2.addEventListener('click',function(){
-//        console.log('s2捕获模式');
-//    },true);
 
-//    s1.addEventListener('click',function(event){
-//        console.log('s1捕获模式');
-//        event.stopImmediatePropagation();
-//    },true);
-//    s1.addEventListener('click',function(){
-//        console.log('s1捕获模式2');
-//    },true)
-//    s2.addEventListener('click',function(){
-//        console.log('s2捕获模式');
-//    },true);
+
 
 </script>
 </body>
