@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM面向对象</title>
+</head>
+<body>
+<div id="div1"></div>
+<script>
+    var oDiv=document.getElementById('div1');
+    console.dir(oDiv);
+    console.dir(Array.prototype);
+    //利用面向对象思想学习DOM：在页面中console.dir(oDiv)或者在chrome控制台下dir(Array.prototype)
+    /*
+    * oDiv本身有一些自己私有属性：
+    *   id,className,onclick(定义在元素私有属性中的事件，称之为DOM0级事件)...
+    *   __proto__
+    *   HTMLDivElement  div标签所属的类(每个div元素都是它的一个实例) -> 每个HTML元素标签都已一个自己所属的内置类
+    *   __proto__
+    *   HTMLElement 元素标签所属的类(每个元素标签都是它的一个实例)
+    *   __proto__
+    *   Element
+    *   __proto__
+    *   Node 节点类
+    *   __proto__
+    *   EventTarget DOM二级事件类
+    *   __proto__
+    *   Object
+    * */
+
+</script>
+</body>
+</html>

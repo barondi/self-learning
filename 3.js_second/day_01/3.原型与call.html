@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型与call</title>
+</head>
+<body>
+<script>
+    function fn(){
+        console.log(this);
+    }
+    //fn.call  ->fn.__proto__.call ->Function.prototype.call 找到Function基类原型中的call方法
+    //console.log(fn.call);//function call(){[native code]}
+    //fn.call();//让我们获取的call对应的方法执行
+
+    /*
+    * call方法的作用：
+    *   call方法在执行时用来改变某个函数中this关键字
+    * */
+//    fn();//fn中的this指向window
+//    var obj={
+//        fn:fn
+//    }
+//    obj.fn();//fn中的this指向obj
+
+    var obj={name:"珠峰"};//此时obj和我们的fn没有任何的关系
+    fn.call(obj);//fn中的this变为obj，完整步骤如下：
+    // 1.首先fn通过__proto__知道Function.prototype上的call方法；
+    // 2.让原型上的call方法执行
+    // 3.call方法执行的时候形成私有作用域(形参赋值->预解释->代码执行...)
+/***通过4、5点来做题！！********************************/
+    // 4.在call执行的时候，首先让fn中的第一个参数this变为obj
+    // 5.最后执行我们这个fn方法
+//    模拟实现call方法：
+//    Function.prototype.call=function(param1){
+//        /*
+//        * param1    ->  obj
+//        * this      ->  fn  我们当前要操作的那个函数
+//        * 1、让fn中的this变为obj -> 让this中的this关键字变为obj
+//        * 2、让fn执行 -> 让this执行
+//        * */
+//        this();
+//    }
+
+
+//    function fn1(){
+//        console.log(1);
+//    }
+//    function fn2(){
+//        console.log(2);
+//    }
+//    fn1.call(fn2);
+//    fn1.call.call(fn2);
+//    Function.prototype.call.call(fn1);
+//    Object.call.call(fn1);
+//    call.call()只能是函数对象或者Function.prototype或者Object
+
+
+//    function fn1(){
+//        console.log(1);
+//    }
+//    function fn2(){
+//        console.log(2);
+//    }
+//    var a=fn1.call;
+//    a.call(fn2);//正确
+//    var b=fn1.call();
+//    b.call(fn2);//报错
+
+
+//    function Animal(){
+//        this.name='Animal';
+//        this.showName=function(){
+//            console.log(this.name);
+//        }
+//    }
+//    function Cat(){
+//        this.name='Cat';
+//    }
+//    var animal=new Animal();
+//    var cat=new Cat();
+//    animal.showName.call(cat);
+
+
+//    var test=111;
+//    function _add(){
+//        //this.test=444; //注释1
+//        console.log(this.test);
+//    }
+//    function _sub(){
+//        this.test=222;
+//        console.log(this.test);
+//    }
+//    _add();
+//    _sub();
+//    _add.call(_sub);//去掉注释1则输出444；添加注释1则输出undefined
+
+
+
+</script>
+</body>
+</html>

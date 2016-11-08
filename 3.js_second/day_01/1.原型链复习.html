@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链复习</title>
+</head>
+<body>
+<script>
+    function Fn(){
+        this.x=100;
+    }
+    Fn.prototype={
+        constructor:Fn,
+        getX:function(){
+            console.log(this.x);
+        }
+    }
+    //[构造函数模式-类、实例]
+    var f=new Fn;//<==>new Fn()
+    f.getX();
+    Fn.prototype.getX();
+    console.log(f.constructor);
+
+    //[普通函数模式]
+    var f1=Fn();
+    console.log(f1);//这种方式把函数Fn()当做普通函数执行(与我们所说的类无关)由于函数Fn()没有return，所以返回值为undefined;如果在函数Fn()里面加上return this;则结果为Window
+    console.log(window.x);//100，由于函数Fn()执行中this指向的是Window
+
+
+    //【所有的】函数数据类型都有prototype属性，这个属性是给当前的类和所属的实例添加公共的属性和方法用的；而普通函数执行没有类和实例的概念
+
+
+    /*
+    * 构造函数模式和普通函数及函数也是一个普通对象上构成了函数的多面性
+    *   作为普通对象：像obj一样给自己增加属性名和属性值
+    * */
+    function sum(){
+        var n=100;//作为一个普通函数执行里面形成的私有变量
+        this.x=100;//作为类，给实例增加一个属性为x的私有属性
+    }
+    sum.prototype.getX=function(){
+
+    }
+    sum.zhufeng='珠穆朗玛峰';//<==>sum["zhufeng"]
+    sum();//普通函数
+    var s=new sum();//构造函数
+    console.log(s.n);//undefined
+    console.log(s.zhufeng);//undefined
+    console.log(sum.zhufeng);//珠穆朗玛峰
+    var s1=sum();
+    //console.log(s1.n);//报错
+
+
+    function fn(num1,num2){
+
+    }
+    console.dir(fn);
+    /*
+    * 函数内置的一些属性：
+    *   prototype:作为类的时候，定义共有的属性和方法
+    *   name:"fn" 函数的名字
+    *   length:2  函数形参的个数
+    *   __proto__
+    * */
+
+
+</script>
+</body>
+</html>
