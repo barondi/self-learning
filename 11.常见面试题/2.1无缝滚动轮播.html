@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #container{
+            position: relative;
+            width: 600px;
+            height: 400px;
+            border: 3px solid #333;
+            overflow: hidden;
+        }
+        #list {
+            position: absolute;
+            z-index: 1;
+            width: 4200px;
+            height: 400px;
+        }
+        #list img {
+            float: left;
+            width: 600px;
+            height: 400px;
+        }
+        #buttons {
+            position: absolute;
+            right: 50px;
+            bottom: 15px;
+            z-index: 2;
+            height: 10px;
+            width: 100px;
+        }
+        #buttons li {
+            float: left;
+            list-style: none;
+            margin-right: 5px;
+            width: 8px;
+            height: 8px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #buttons .on {
+            background-color:#f5f5f5;
+        }
+        .arrow {
+            position: absolute;
+            top: 180px;
+            z-index: 2;
+            display: none;
+            width: 40px;
+            height: 40px;
+            font-size: 36px;
+            font-weight: bold;
+            line-height: 39px;
+            text-align: center;
+            color: #fff;
+            background-color: RGBA(0, 0, 0, .3);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .arrow{
+            display:block;
+        }
+        .arrow:hover {
+            background-color: RGBA(0, 0, 0, .7);
+        }
+        /*#container:hover .arrow {
+            display: block;
+        }*/
+        #prev {
+            left: 20px;
+        }
+        #next {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="list" style="left:0;">
+        <img src="imgs/slide-01.jpg" alt="">
+        <img src="imgs/slide-02.jpg" alt="">
+        <img src="imgs/slide-03.jpg" alt="">
+        <img src="imgs/slide-04.jpg" alt="">
+        <img src="imgs/slide-05.jpg" alt="">
+    </div>
+    <ul id="buttons">
+        <li index="0" class="on"></li>
+        <li index="1"></li>
+        <li index="2"></li>
+        <li index="3"></li>
+        <li index="4"></li>
+    </ul>
+    <a href="javascript:void(0);" id="prev" class="arrow">&lt;</a>
+    <a href="javascript:void(0);" id="next" class="arrow">&gt;</a>
+</div>
+<script>
+    window.onload = function() {
+        //第一步：布局+实现点击左右按钮滚动
+        var list = document.getElementById('list');
+        var prev = document.getElementById('prev');
+        var next = document.getElementById('next');
+        function animate(offset) {
+            var newLeft = parseInt(list.style.left) + offset;
+            if(newLeft<-2400){
+                list.style.left = 0 + 'px';
+            }else if(newLeft>0){
+                list.style.left = -2400 + 'px';
+            }else{
+                list.style.left = newLeft + 'px';
+            }
+
+        }
+        prev.onclick = function() {
+            //第四步实现小圆圈
+            index+=1;
+            index > 4 ? index=0 : void 0;
+            activeButton();
+
+            animate(-600);
+        }
+        next.onclick = function() {
+            //第四步实现小圆圈
+            index-=1;
+            index < 0 ? index=4 : void 0;
+            activeButton();
+
+            animate(600);
+        }
+        //第二步：添加定时器调用左右点击事件
+        var timer;
+        function play(){
+            timer=setInterval(function(){
+                prev.onclick();
+            },1500);
+        };
+        play();
+        //第三步：鼠标放到container时清楚定时器
+        var container = document.getElementById('container');
+        function stop(){
+            clearInterval(timer);
+        }
+        container.onmouseover=stop;
+        container.onmouseout=play;
+        //第四步：添加小圆点功能
+        var buttons=document.getElementById('buttons').getElementsByTagName('li');
+        var index=0;
+        function activeButton(){
+            for(var i=0;i<buttons.length;i++){
+                buttons[i].className='';
+            }
+            buttons[index].className='on';
+        }
+        //第五步：自定义属性点击小圆圈切换
+        for(var i=0;i<buttons.length;i++){
+            (function(i){
+                buttons[i].onclick=function(){
+                    var clickIndex=parseInt(this.getAttribute('index'));
+                    var offset=(index-clickIndex)*600;
+                    animate(offset);
+                    index = clickIndex;
+                    activeButton();
+                }
+            })(i);
+        }
+    }
+</script>
+</body>
+</html>

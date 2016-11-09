@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>排序方法</title>
+</head>
+<script>
+/*
+* 1、冒泡排序：i比较多少轮(arr.length-1)；j代表每一轮比较多少次(arr.length-1-i)
+* */
+//    Array.prototype.myArraySort=function(type){
+//        for(var i=0;i<this.length-1;i++){
+//            for(var j=0;j<this.length-1-i;j++){
+//                if(this[j]>this[j+1]){
+//                    var temp=this[j+1];
+//                    this[j+1]=this[j];
+//                    this[j]=temp;
+//                }
+//            }
+//        }
+//        type===1?this.reverse():void 0;
+//    }
+//    var arr=[10,12,8,4,9,27,3,30,15];
+//    arr.myArraySort(1);
+//    console.log(arr);
+
+/*
+* 2、快速排序:递归如下过程
+*   1.在数据集之中，选择一个元素作为"基准"（pivot）。
+    2.所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边。
+    3.对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+* */
+//    var quickSort = function (arr) {
+//        if (arr.length <= 1) {
+//            return arr;
+//        }
+//        var base = [arr[0]];//选择的基准元素
+//        var leftSmall = [], rightBig = [];
+//        for (var i = 1; i < arr.length; i++) {
+//            if (arr[i] <= base[0]) {
+//                leftSmall.push(arr[i]);
+//            } else {
+//                rightBig.push(arr[i]);
+//            }
+//        }
+//        console.log("leftSmall:[" + leftSmall + "]\nbase:" + base + "\nrightBig:[" + rightBig + "]");
+//        return quickSort(leftSmall).concat(base, quickSort(rightBig));
+//    }
+//    var arr=[10,12,8,10,4,9,27,3,30,15];
+//    console.log(quickSort(arr));
+
+/*
+* 选择排序：
+*   每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。 选择排序是不稳定的排序方法
+    假定数组每次比较范围内第一个元素最小min，和剩下的比较，如果比假定的这个元素小，则令min为这个元素，直到找到最小的，然后交换位置,每比较一次，
+    就把最小的一位数找出来放数组最前面
+* */
+//    var sort = {};
+//    sort.selectionSort = function (arr) {
+//        for (var i = 0; i < arr.length; i++) {
+//            var min = arr[i];//假定比较范围内第一个值为最小的
+//            var index = i;//记录最小值的下标
+//            for (var j = i + 1; j < arr.length; j++) {
+//                //找到比较范围内第一个值为最小的记录下来
+//                if (arr[j] < min) {
+//                    min = arr[j];
+//                    index = j;
+//                }
+//            }
+//            //把范围内最小的值交换到范围内第一个
+//            if (index != i) {
+//                var temp = arr[i];
+//                arr[i] = arr[index];
+//                arr[index] = temp;
+//            }
+//        }
+//        return arr;
+//    }
+//    var arr=[10,12,8,10,4,9,27,3,30,15];
+//    console.log(sort.selectionSort(arr));
+//    console.log(arr);
+
+/*
+* 插入排序：
+*
+* */
+//    var sort = {};
+//    sort.insertionSort = function (arr) {
+//        for (var i = 0; i < arr.length - 1; i++) {
+//            var insert = arr[i + 1];//要被插入的元素
+//            var index = i + 1;//要被插入的元素的下标
+//            for (var j = i; j >= 0; j--) {
+//                //被插入的元素比前面j项元素谁小就插入到谁的前面
+//                if (insert < arr[j]) {
+//                    arr[j + 1] = arr[j];
+//                    index = j;
+//                }
+//            }
+//            arr[index] = insert;
+//            console.log(arr + "\n");
+//        }
+//    }
+//    var arr=[10,12,8,10,4,9,27,3,30,15];
+//    sort.insertionSort(arr);
+
+</script>
+</body>
+</html>
