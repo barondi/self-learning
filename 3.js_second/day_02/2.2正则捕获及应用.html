@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则的捕获及应用</title>
+</head>
+<body>
+<script>
+    /*
+    * reg.exec(str):每一次捕获的时候都是先进行默认的匹配，如果没有匹配成功，捕获结果护士null；只有匹配的内容我们能捕获到。
+    *  1)捕获到的内容是一个数组
+    *    数组中的第一项是当前大正则捕获的内容
+    *    index:捕获内容在字符串中开始的索引位置
+    *    input:捕获的原始字符串
+    *  2)捕获的特点：
+    *    1、懒惰性：每一次执行exec只捕获第一个匹配的内容，在不进行任何处理的情况下，执行多次捕获，捕获的还是第一个匹配的内容
+    *    lastIndex:正则每一次捕获在字符串中开始查找的位置，默认值为0
+    *    2、解决懒惰性：在正则的末尾添加修饰符'g'
+    *    g(global):全局匹配
+    *    i(ignoreCase):忽略大小写匹配
+    *    m(multiline):多行匹配
+    *    3、获取捕获的所有内容
+    *    var reg=/\d+/g;
+         var str='zhufeng2015peixun2016';
+         var ary=[];
+         var res=reg.exec(str);
+         while(res){
+             ary.push(res[0]);
+             res=reg.exec(str);
+         }
+    *    4、贪婪性:正则每次捕获都是按照最长的结果捕获的，例如：2符合正则，2015也符合正则，我们默认捕获最长的2015
+    *    解决正则的贪婪性：在量词元字符后面添加一个?即可
+    *
+    * */
+//    var reg=/\d+/;
+//    var str='zhufeng2015peixun2016';
+//    var res=reg.exec(str);
+//    console.log(res);
+//    //第二次捕获的仍然为2015
+//    res=reg.exec(str);
+//    console.log(res);
+
+//    var reg=/\d+/g;
+//    var str='zhufeng2015peixun2016';
+//    console.log(reg.lastIndex);//0
+//    console.log(reg.exec(str));
+//    console.log(reg.lastIndex);//11
+//    console.log(reg.exec(str));
+//    console.log(reg.lastIndex);//21
+//    console.log(reg.exec(str));//null
+
+    /*
+    * 自己编写程序获取捕获的所有内容，别忘记加修饰符g
+    * */
+//    var reg=/\d+/g;
+//
+//    var reg=/\d+?/g;
+//
+//    var str='zhufeng2015peixun2016';
+//    var ary=[];
+//    var res=reg.exec(str);
+//    while(res){
+//        ary.push(res[0]);
+//        res=reg.exec(str);
+//    }
+//    console.log(ary);//["2015","2016"],去掉?则结果为["2","0","1","5","2","0","1","6"]
+
+    /*
+    * 正则查看字符串中指定字符出现次数
+    * */
+//    var str="asdfsag2016hfhrehfgsdsfasvvabaharetdsfasdfadfsdfsdf";
+//    var times=0;
+//    var reg=/a/g;
+//    var res=reg.exec(str);
+//    while(res){
+//        ++times;
+//        res=reg.exec(str);
+//    }
+//    console.log('字符a出现的次数为：'+times)
+
+
+    /*
+    * 字符串中的match方法：把所有和正则匹配的字符都捕获到
+    *  虽然在当前的情况下match比我们的exec更加的简便一些，但是match中存在一些自己处理不了
+    * 的问题：在分组捕获的情况下，match只能捕获到大正则匹配的内容，而对于小正则是无法捕获
+    * 其内容的
+    * */
+//    var reg=/\d+?/g;
+//    var str='zhufeng2015peixun2016';
+//    var ary=str.match(reg);
+//    console.log(ary);
+
+
+
+    /*
+    * 正则分组：
+    *  1、改变优先级
+    *  2、分组引用
+    *  \2代表和第二个分组出现一模一样的内容;\1和第一个分组出现一模一样的内容
+    * */
+//    var reg=/^(\w)\1(\w)\2$/;
+//    console.log(reg.test("zf"));//false
+//    console.log(reg.test("zzff"));//true
+
+    /*
+    * 分组捕获：正则在捕获的时候，不仅仅把大正则匹配的内容捕获到，还可以吧小分组匹配的内容捕获到
+    * (?:)在分组中?:的意思是职匹配不捕获
+    * */
+//    var reg=/^(\d{2})(\d{4})(\d{4})(\d{2})(\d{2})(?:\d{2})(?:\d)(\d|X)$/;
+//    var str="142726199009181211";
+//    console.log(reg.exec(str));
+//    console.log(str.match(reg));//这种情况下和exec捕获结果一样
+
+//    var reg=/zhufeng(\d+)/g;
+//    var str="zhufeng1234zhufeng3456zhufeng5678";
+//    //exec执行三次，每次可以把大正则匹配获取，也可获取第一个分组匹配的内容;而match只能捕获大正则匹配的内容
+//    console.log(reg.exec(str));
+//    console.log(reg.exec(str));
+//    console.log(reg.exec(str));
+//
+//    console.log(str.match(reg));
+</script>
+</body>
+</html>

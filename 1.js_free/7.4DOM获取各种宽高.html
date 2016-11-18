@@ -60,38 +60,64 @@
     console.log(window.screen.availHeight);
     console.log('********************************');
 
+    /*
+     * 兼容所有浏览器获取当前屏幕宽高的原理:
+     *   document.compatMode值为BackCompat表示怪异模式，对应document.body.clientWidth；
+     * 值为CSS1Compat表示兼容模式(严格模式),对应document.documentElement.clientWidth
+     * */
+    //兼容我所有浏览器的获取当前屏幕的宽高
+    var curWidth=document.documentElement.clientWidth||document.body.clientWidth;
+    var curHeight=document.documentElement.clientHeight||document.body.clientHeight;
+    console.log(curWidth+'||'+curHeight);
+
     var oDiv=document.getElementsByClassName('parent_div')[0];
-    console.log(oDiv.clientWidth);//当前对象的 width + padding
+
+    /*
+    * clientWidth:width + padding
+    * clientHeight:height + padding
+    * */
+    console.log(oDiv.clientWidth);
     console.log(oDiv.clientHeight);
-    console.log('----------------------');
-    console.log(oDiv.offsetWidth);//当前对象的 width + padding + border
+    console.log('---------上方为clientWidth和clientHeight！-------------');
+    /*
+    * offsetWidth:width + padding + border
+    * offsetHeight:height + padding + border
+    * */
+    console.log(oDiv.offsetWidth);
     console.log(oDiv.offsetHeight);
-    console.log('----------------------');
+    console.log('---------上方为offsetWidth和offsetHeight！-------------');
+    /*
+     * 默认情况下，所有DOM元素产生的偏移量，是相对于文档(document.documentElement或document.body)为参照物
+     * 和位移量相关的三个属性:offsetLeft、offsetTop、offsetParent
+     *   1)offsetLeft是左偏移量;
+     *     offsetTop是上偏移量;
+     *     offsetParent是产生偏移的参照物
+     *   2)
+     *   3)document.body.offsetParent/document.documentElement.offsetParent为null
+     * */
+    console.log(oDiv.offsetLeft);
+    console.log(oDiv.offsetTop);
+    console.log('---------上方为偏移量相关的offsetLeft和offsetTop！-------------');
+
     console.log(oDiv.scrollWidth);//获取对象滚动宽度、滚动高度
     console.log(oDiv.scrollHeight);
-    console.log('----------------------');
-
-</script>
-<script>
+    console.log('---------上方为scrollWidth和scrollHeight！-------------');
     $(function(){
         $('.parent_div').scroll(function(){
             console.log(oDiv.scrollLeft);//获取对象往上或左滚动的高度
             console.log(oDiv.scrollTop);
-            console.log('-------------------------');
-            console.log(oDiv.offsetLeft);//对象边框(不含)到 相对于版面或offsetParent属性指定父坐标 左侧、顶部距离
-            console.log(oDiv.offsetTop);
         });
         console.log($('.parent_div').width());
         console.log($('.parent_div').innerWidth());
         console.log($('.parent_div').outerWidth());
         /*
-        * height() = height
-        * innerHeight() = height + padding
-        * outerHeight() = height + padding + border
-        * outerHeight(true) = height + padding + border + margin
-        *
-        * width()、innerWidth()、outerWidth()同上
-        * */
+         * height() = height
+         * innerHeight() = height + padding
+         * outerHeight() = height + padding + border
+         * outerHeight(true) = height + padding + border + margin
+         *
+         * width()、innerWidth()、outerWidth()同上
+         * */
         var oHeight=$('#element').height();
         console.log('oHeight:'+oHeight);
         var oInnerHeight=$('#element').innerHeight();

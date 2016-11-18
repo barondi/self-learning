@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览器异常处理机制</title>
+</head>
+<body>
+<script>
+/*
+* 在JS中默认的情况下，上面的代码报错，下面的代码就不在继续执行了
+* */
+//    console.log(num);
+//    console.log('next');
+
+/*
+* 1、try catch finally
+* 作用1：捕获浏览器异常信息，让后面的js代码继续执行
+* 作用2：根据浏览器报错内容处理浏览器兼容性
+* */
+
+//    try{
+//        console.log(num);
+//    }catch(e){
+//        //形参一定要写，名字可以随便起，e中存储的是当前浏览器的异常信息，e.message
+//        console.log(e.message);
+//    }finally{
+//        //一般不加，不管try的代码是否报错，都会执行finally
+//    }
+//    console.log('OK');
+
+    //即想捕获异常的信息，也想要下面的代码不执行
+//    try{
+//        console.log(num);
+//    }catch(e){
+//        console.log(e.message);
+//        //手动向浏览器跑出异常信息
+//        throw new Error('服务器繁忙...');
+//        throw new ReferenceError;
+//        throw new TypeError;
+//        throw new RangeError;
+//        throw new EntityReference;
+//    }
+//    console.log('OK');
+</script>
+</body>
+</html>

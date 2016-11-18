@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盒子模型</title>
+    <style>
+        #div1{
+            width:200px;
+            height:200px;
+            background-color:lightblue;
+            overflow:auto;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！这里是盒子的内容！
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div>这里是body底部</div>
+<script>
+    var ele=document.getElementById('div1');
+    var containerHeight=window.getComputedStyle(ele,null).height;//容器的高度
+    var contentHeight=ele.scrollHeight;//实际内容的高，包含溢出的部分
+    console.log(containerHeight+"||"+contentHeight);
+
+    //文档的高度(网页本身的内容高度)
+    var pageHeight=document.documentElement.scrollHeight||document.body.scrollHeight;
+    console.log(pageHeight);
+</script>
+</body>
+</html>

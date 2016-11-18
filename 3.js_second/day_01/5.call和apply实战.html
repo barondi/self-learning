@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>call和apply实战</title>
+</head>
+<ul id="myUl">
+    <li>100</li>
+    <li>90</li>
+    <li>120</li>
+    <li>78</li>
+    <li>67</li>
+</ul>
+<body>
+<script src="../../utils.js"></script>
+<script>
+/*
+* [案例一]求最大值最小值
+* */
+//    var arr=[12,23,34,45,13,14,16];
+//    1、先数组排序，然后掐头去尾
+
+//    arr.sort(function(a,b){
+//        return a>b;
+//    });
+//    var min=arr[0];
+//    var max=arr[arr.length-1];
+//    console.log(min,max);
+
+//    JS中常用的编程思想：综合js_free/8.4指定字符在任意字符串出现次数
+//    2、假设法(打擂台算法)：先假设第一个是最小值，然后和数组的每一项比较，如果比我们的当前值还要小，
+//    说明我们假设的是错误的，让假设的值变为最小值...
+
+//    var min=max=arr[0];
+//    for(var i=1;i<arr.length;i++){
+//        var cur=arr[i];
+//        cur<min ? min=cur : null;
+//        cur>max ? max=cur : null;
+//    }
+//    console.log(min,max);
+
+//    3、使用Math.min/Math.max获取最小值、最大值：apply虽然传递的是一个数组，但是也相当于一个个的传递参数
+//    var min=Math.min.apply(arr,arr);
+//    var max=Math.max.apply(arr,arr);
+//    console.log(min,max);
+
+//    注意：括号表达式：一个括号中放多项内容，中间用","隔开的，我们最后获取的只有最后一项
+//    function fn(){
+//        console.log(this);
+//    }
+//    var obj={};
+//    obj.fn=fn;
+//    (fn,obj.fn)();//执行的只有obj.fn -> 里面的this不是obj而是window
+//    (obj.fn)();//obj
+
+
+/*
+* [案例二]求平均数
+* */
+    //arguments.sort:arguments不是数组(类数组)，而sort是定义在Array这个类的原型上共有的方法，只有Array这个类的实例"数组"才可以使用
+//    function avgFn(){
+//        console.log(arguments instanceof Array);//false
+//        var arr=[];
+//        for(var i=0;i<arguments.length;i++){
+//            arr[arr.length]=arguments[i];
+//        }
+//        arr.sort(function(a,b){
+//            return a>b;
+//        })
+//        arr.shift();
+//        arr.pop();
+//        var total=null;
+//        for(var i=0;i<arr.length;i++){
+//            total+=arr[i];
+//        }
+//        return (total/arr.length).toFixed(2);
+//    }
+//    var res=avgFn(10,1,9.5,8.5,9);
+//    console.log(res);
+
+
+    /*
+    * 模拟slice实现数组克隆
+    * */
+//    Array.prototype.slice=function (){
+//        //this->我们想要操作的那个数组
+//        var arr=[];
+        //浏览器内置slice实现克隆的代码
+//        for(var i=0;i<this.length;i++){
+//            arr[arr.length]=this[i];
+//        }
+        //我们自己编写的讲arguments类数组转换为数组的代码
+//        for(var i=0;i<arguments.length;i++){
+//            arr[arr.length]=arguments[i];
+//        }
+//        return arr;
+//    }
+
+/*
+* 思路：
+*   1、借用数组的slice方法，实现将类数组转换为数组
+* arguments和数组非常类似，数组的相关操作arguments同样也适用，所以我们让数组的方法执行，并且让方法中
+* 中的this变为arguments
+*   var arr=Array.prototype.slice.call(arguments,0)
+*   var arr=[].slice.call(argumentssssss);
+* */
+//    function avgFn(){
+//
+//        var arr=Array.prototype.slice.call(arguments);
+//        arr.sort(function(a,b){
+//            return a>b;
+//        })
+//        arr.shift();
+//        arr.pop();
+//        return (eval(arr.join("+"))/arr.length).toFixed(2);
+//    }
+//    var res=avgFn(10,1,9.5,8.5,9);
+//    console.log(res);
+
+
+
+/*
+* [案例三]DOM元素集合转数组
+*   借用数组的slice实现将类数组[arguments、DOM元素集合...]转换为数组的时候，arguments在
+* 所有的浏览器中都兼容，而DOM元素集合在IE6-8下是不兼容的
+* */
+    var oUl=document.getElementById('myUl');
+    var oLis=oUl.getElementsByTagName('li');//oLis是一个集合也是一个类数组
+//    console.log(oLis);
+////  兼容处理
+//    var arr=[];
+//    try{
+//        arr=Array.prototype.slice.call(oLis);
+//    }catch(e){
+//        for(var i=0;i<oLis.length;i++){
+//            arr[arr.length]=oLis[i];
+//        }
+//    }
+//    console.log(arr);
+
+    var arr=utils.listToArray(oLis);
+    console.log(arr);
+
+</script>
+</body>
+</html>

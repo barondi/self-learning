@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盒子模型</title>
+    <style>
+        #div1{
+            width: 200px;
+            height: 200px;
+            padding: 50px;
+            border: 50px solid lightblue;
+            background-color:red;
+        }
+        p{
+            width:600px;
+            height:100px;
+            background-color:green;
+            text-align:center;
+        }
+        p::before{
+            content:"我是伪元素";
+            background-color:black;
+            color:white;
+        }
+        p::after{
+            content:"我是后面内容";
+            background-color:yellow;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">Test</div>
+
+<p style="text-align: left;">段落内容</p>
+
+<script>
+    /*
+    * 移动端应用:伪类+js实现css3 media queries跨界判断
+    * www.zhangxinxu.com/wordpress/2012/05/after-js-content-css3-media-queries
+    * */
+    var ele=document.getElementById('div1');
+    console.log(ele.clientWidth);//width+padding
+    console.log(ele.offsetWidth);//width+padding+border
+    var obj=getComputedStyle(ele,null);
+    console.log(obj);
+
+    /*
+    * 伪元素(伪类样式):依附在元素上的样式
+    * */
+    var oP=document.getElementsByTagName('p')[0];
+    var content=getComputedStyle(oP,'before').content;//标准浏览器中获取class中所有样式
+    console.log(content);
+
+    /*
+    * @ele:DOM元素
+    * @attr:指定CSS属性
+    * 需注意：
+    *   1)window.getComputedStyle和document.default.getComputedStyle是一样的
+    *   2)如果window.getComputedStyle?中去掉window在IE下就会报错
+    *     如果变量不存在，不能直接去做读的操作；但是属性没有定义，可以去做读的操作;
+    *     如果我们从来没有定义aabb,console.log(window.aabb)不会报错;console.log(aabb)会报错;
+    *     window.aabb 等价于 "aabb" in window;
+    *     如果非不写window可以用如下方式:
+            function getStyle(ele,attr){
+                try{
+                    return getComputedStyle(ele,null)[attr];
+                }catch(e){
+                    return ele.currentStyle[attr];
+                }
+            }
+            或者:
+            function getStyle(ele,attr){
+                return typeof getComputedStyle == "undefined" ? getComputedStyle(ele,null)[attr] : ele.currentStyle[attr];
+            }
+    * */
+    function getStyle(ele,attr){
+        return window.getComputedStyle ? getComputedStyle(ele,null)[attr] : ele.currentStyle[attr];
+    }
+    var content1=getStyle(oP,'text-align');
+    console.log(content1);
+
+//    console.log(window.aabb);//undefined
+//    console.log(aabb);//报错
+</script>
+</body>
+</html>

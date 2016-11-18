@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则创建方式</title>
+</head>
+<body>
+<script>
+    /*
+     * 易错点：在字面量方式中，我们//之间抱起来的所有内容都是元字符，有的具有特殊的意义，大部分都是代表本身
+     * 本身含义的普通元字符
+     * */
+//    var name="zhufeng";
+//    var reg=/^\d+"+name+"\d+$/;
+//    console.log(reg.test('2015zhufeng2016'));//false
+//    console.log(reg.test('2015"""nameeeee"2016'));//true
+
+    /*
+    * 针对以上需求(需要进行字符串拼接)只能使用实例创建的方式
+    * */
+//    var reg=new RegExp("^\\d+"+name+"\\d+$","g");//对字符串中的\d进行转义
+//    console.log(reg.test('2015zhuFeng2016'));//true
+
+    /*
+    * 字面量方式和实例创建方式在正则中的区别如下：
+    *  1)字面量方式中出现的一切都是元字符，所以不能进行变量值的拼接，而实例创建的方式可以
+    *  2)字面量方式中直接写\d就可以，而实例创建中需要把它转义 \\d
+    * */
+</script>
+</body>
+</html>

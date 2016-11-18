@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON数据处理</title>
+</head>
+<body>
+<script>
+    var obj={name:"珠峰",age:7};//普通格式的对象
+    var obj1={"name":"珠峰","age":7};//JSON格式的对象,把对象的属性名用""包起来
+/*
+* 1、在window浏览器对象中提供了一个叫做JSON的对象，里面包含了我们操作处理JSON格式数据的常用方法
+*   window.JSON
+*   1)stringify:把普通格式/JSON格式对象转换为JSON格式的字符串
+*   2)parse:把JSON格式的字符串转换为JSON格式的对象
+*   IE6-7下不兼容JSON，window下没有JSON这个对象
+*       把普通格式/JSON格式的对象转换为JSON格式的字符串？(后期待讲)
+*       把JSON格式的字符串转换为JSON格式的对象？eval("("+str+")")
+* */
+    var arr=[{name:'珠峰'},{name:'中国'}];
+    var str=JSON.stringify(arr);
+    console.log(str);
+    var jsonArr=JSON.parse(str);
+    console.log(jsonArr);
+</script>
+</body>
+</html>

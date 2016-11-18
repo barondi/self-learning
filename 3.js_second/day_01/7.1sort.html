@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sort</title>
+</head>
+<body>
+<script>
+    var arr=[
+        {
+            name:"马丽",
+            age:18
+        },
+        {
+            name:"李晨曦",
+            age:20
+        },
+        {
+            name:"王小金",
+            age:16
+        },
+        {
+            name:"杨大伟",
+            age:40
+        },
+        {
+            name:"孙昭昭",
+            age:21
+        }
+    ];
+
+
+//    按照age由小到大排序
+//    arr.sort(function(a,b){
+//       return parseFloat(a.age)-parseFloat(b.age);
+//    });
+//    console.log(arr);
+
+//    按照name首字母排序
+    arr.sort(function(a,b){
+        return a.name.localeCompare(b.name);
+    });
+    console.log(arr);
+
+/*
+* Array中sort方法原理：
+* */
+//    arr.sort(function(a,b){
+//        //a:数组中的当前项
+//        //b:数组中的当前项的后一项
+//        //return 需要返回的值是一个>0或<0的数；>0:a和b交换位置  <0:a和b不做任何处理
+//        return 1;//这里返回的永远是一个>0的数，每一次a和b都要交换位置，最后结果把数组倒过来排列
+//    });
+//    console.log(arr);
+</script>
+</body>
+</html>

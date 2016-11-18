@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据绑定</title>
+    <style>
+        body,ul,li{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+            overflow:hidden;
+        }
+        #ul1{
+            margin:20px auto;
+            width:50%;
+        }
+        #ul1 li{
+            height:35px;
+            line-height: 35px;
+            border-bottom:1px dashed #999;
+        }
+    </style>
+</head>
+<body>
+<ul id="ul1">
+    <li>习近平：坚持党校性根本性原则</li>
+    <li>李克强推销中国产能：从冰天血地到热带雨林</li>
+</ul>
+<script>
+    var oUl=document.getElementById('ul1');
+    var oLis=oUl.getElementsByTagName('li');
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].onmouseover=function(){
+            this.style.backgroundColor="orange";
+        }
+        oLis[i].onmouseout=function(){
+            this.style.backgroundColor="";
+        }
+    }
+
+    var ary=["习近平：坚持党校性根本性原则","李克强推销中国产能：从冰天血地到热带雨林","习近平：坚持党校性根本性原则","李克强推销中国产能：从冰天血地到热带雨林","习近平：坚持党校性根本性原则","李克强推销中国产能：从冰天血地到热带雨林"];
+    /*
+     * 1、字符串拼接
+     * 优势：把需要的元素都事先存放到我们的str中，都拼接完成后再统一的放入我们的页面中，只引发一次回流
+     * 弊端：每一次oUl.innerHTML+=str的时候，都是先把原有的HTML当做字符串获取，然后再和新的字符串
+     * 进行拼接，最后把拼接好的字符串添加到页面中，浏览器重新的渲染解析->之前已经存在的元素上绑定的时间和效果都消失了
+     * */
+//    var str="";
+//    for(var i=0;i<ary.length;i++){
+//        str+="<li>"+ary[i]+"</li>";
+//    }
+//    oUl.innerHTML+=str;
+
+
+    /*
+    * 2、动态创建元素标签的方式
+    *   优势：appendChild是向指定容器的末尾追加元素，对原来已经存在的元素没有任何的影响
+    *   弊端：每次追加元素标签都会引发回流(6次)，比较消耗性能
+    *
+    *   DOM的回流和重绘：回流必将引起重绘，重绘不一定引起回流
+    *   回流：如果页面中的HTML结构发生了改变(增加、删除、位置改变...)，浏览器会重新加载DOM结构
+    *   重绘：当前的一个元素的部分样式(颜色、透明度...)发生改变，浏览器会重新渲染这个元素的样式
+    * */
+//    for(var i=0;i<ary.length;i++){
+//        var oLi=document.createElement('li');
+//        oLi.innerHTML=ary[i];
+//        oUl.appendChild(oLi);
+//    }
+
+    /*
+    * 3、文档碎片：JS中临时用来存储元素的一个容器
+    * */
+    var frg=document.createDocumentFragment();
+    for(var i=0;i<ary.length;i++){
+        var oLi=document.createElement("li");
+        oLi.innerHTML=ary[i];
+        frg.appendChild(oLi);
+    }
+    oUl.appendChild(frg);
+    frg=null;
+
+
+
+    /*
+    * 模板引擎：常用的绑定数据的类库
+    *   kTemplate.js(基于PHP)、jade(基于node)、underscore
+    *   MVC模式(backbone)、MVVM模式(angularjs)
+    * */
+</script>
+</body>
+</html>

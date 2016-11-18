@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this全用法与call实战</title>
+</head>
+<body>
+<script>
+/*
+* this 是谁和函数在哪定义或在哪执行没有任何关系，依据如下规则判断this指向
+* */
+    /*
+    *   1、方法执行，看方法名前是否有"."，有的话，"."前面是谁this就指向谁；没有的
+    * 话this指向window(但是在严格模式下，没有"."，this指向undefined)
+    * */
+    //[案例1]
+//    "use strict";
+//    function fn(){
+//        console.log(this);
+//    }
+//    var obj={fn:fn};
+//    fn();//window,如果添加"use strict"则是undefined
+//    obj.fn();//obj
+
+    //[案例2]
+//    function Fn(){
+//        this.x=100;
+//    }
+//    Fn.prototype.getX=function(){
+//        console.log(this.x);
+//    }
+//    var f=new Fn();
+//    f.getX();//this->f
+//    f.__proto__.getX();//this->f.__proto__   undefined
+
+    /*
+    *   2、自执行函数中的this永远都是window(严格模式下this指向的为undefined)
+    * */
+//    "use strict";
+//    (function(){console.log(this);})();
+
+    /*
+    *   3、给元素的某一个行为绑定一个方法，当行为触发执行对应的方法，此时方法中的this指向当前元素
+    * */
+//    function fn(){
+//        console.log(this);
+//    }
+//    oDiv.onclick=fn;//当点击时执行fn，fn中的this->oDiv
+//    oDiv.onclick=fn();//把fn执行的返回结果赋值给onclick->oDiv.onclick=undefined
+//    oDiv.onclick=function(){
+//        fn();//fn中的this指向window
+//    }
+
+    /*
+    *   4、在构造函数模式中，类中出现的this.xxx=xxx;中的this是当前类的一个实例
+    * */
+
+    /*
+    *   5、使用call/apply强制改变this的指向(不管之前的this是谁，call/apply会按相应的原则改变this)
+    *   综合js_first下面的day01的this.html
+    * */
+
+
+
+/*
+* call和apply深入：
+* */
+    /*
+    * call->执行call方法的时候，让对应方法执行，并且让对应方法中的this变为我们第一个参数传递的值
+    * 语法：方法名.call([this],param1,param2,...)
+    * 注意：如果一个参数不传或第一个参数为null，则在非严格模式下为window；但在严格模式下，call中
+    * 第一个参数是谁this就是谁(null，this指向null;undefined，this指向undefined)，不写的话，this也指向undefined
+    * */
+//    var obj={};
+//    function sum(num1,num2){
+//        console.log(this);
+//        this.total=num1+num2;
+//    }
+//    sum(100,200);//num1=100,num2=200,this->window
+//    console.log(window.total);//300
+//    sum.call();
+//    sum.call(obj,100,200);
+//    console.log(obj.total);
+
+    /*
+    * apply和call用法基本一致，都是在执行apply方法的时候让对应的方法执行，并且让方法中的this指向第一个传递过来的参数
+    * 语法：方法名.apply([this],[param1,param2,...])
+    * */
+
+
+</script>
+</body>
+</html>

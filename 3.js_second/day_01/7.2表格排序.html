@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格排序</title>
+</head>
+<body>
+<ul id="ul1">
+    <li>90</li>
+    <li>80</li>
+    <li>99</li>
+    <li>70</li>
+    <li>88</li>
+</ul>
+<script src="../../utils.js"></script>
+<script>
+    //1、获取需要排序的列表/集合
+    var oUl=document.getElementById('ul1');
+    var oLis=document.getElementsByTagName('li');
+    //2、类数组集合转换为数组
+    var arr=utils.listToArray(oLis);
+    //3、按照指定规则进行排序
+    arr.sort(function(a,b){
+        return parseFloat(a.innerHTML)-parseFloat(b.innerHTML);
+    });
+    //4、按排好序的元素添加到页面中的集合元素
+    for(var i=0;i<arr.length;i++){
+        oUl.appendChild(arr[i]);
+    }
+/*
+* appendChild是想页面中指定容器的末尾追加元素，但是上述案例中，我们之前有5个，后来把排序后的arr
+* 中每一个追加到oUl中，页面中应该有10个了，但我们看到的确实5个，为什么？
+* */
+/*
+* DOM的映射：页面中有元素标签   JS中有通过方法获取的元素对象
+* 映射指的是两者紧紧的绑定到一起，其中一个改变，另一个也会跟着改变
+* 在控制台中elements中通过delete键删除元素就是映射体现
+* */
+    var oLi=document.createElement("li");
+    console.log(oLis.length);
+    oUl.appendChild(oLi);
+    console.log(oLis.length);
+</script>
+</body>
+</html>
