@@ -1,0 +1,78 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="">
+    <title>响应式布局</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+    </style>
+</head>
+<body>
+<img src="imgs/slide-01.jpg" alt="">
+</body>
+</html>-->
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>响应式布局</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+    </style>
+</head>
+<body>
+<img src="imgs/slide-01.jpg" alt="">
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>响应式布局</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        img{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+<img src="imgs/slide-01.jpg" alt="">
+<script>
+    /*
+    * www.kuaishou365.com
+    * PC页面在终端设备上打开的时候默认会以最小缩放的模式打开,目的就是为了防止滚动条的出现,浏览器手机调试窗口
+    *   -0.4+代表对应缩放比例,对应以iphone6为例Screen375×627,对应缩放比例375/980
+    * 规则:
+    *   1、页面布局不使用绝对宽度,使用百分比、em等
+    *   2、引入媒体查询(media query)的使用
+    *
+    * viewport:
+    *   1、viewport标准值为980px,默认是允许浏览器缩放,设置content="initial-scale=1.0"不允许浏览器缩放
+    *   2、三个viewport:layoutviewport、visualviewport、idealviewport
+    *     layoutviewport(浏览器默认):如果把移动设备浏览器的可视区域设为viewport的话,很多网站会因为viewport
+    *   太窄而错乱,所以浏览器默认viewport为layoutviewport值为980px,通过document.documentElement.clientWidth获取;
+    *     visualviewport:代表浏览器可视区域大小,通过window.innerWidth获取;
+    *     idealviewport:无论在何种浏览器分辨率下对应文字或图片的显示是差不多的
+    *   3、如何使移动端浏览器做到idealviewport？
+    *     <meta name="viewport" content="width=device-width">
+    * */
+</script>
+</body>
+</html>
