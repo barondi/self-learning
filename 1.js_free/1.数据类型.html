@@ -114,13 +114,23 @@
      *          arguments：是函数内置接收参数的机制，不管是否传递参数，arguments一直存在
      *              arguments也是一个类数组(有数字作为索引，所以从0开始；还有一个length属性代表传递了多少个参数)
      *              arguments获取其中一个只能用arguments[index]
-     *              arguments.callee代表的是当前函数本身
+     *              arguments.callee代表的是当前函数本身,callee上还会有一个属性叫caller，caller是调用callee的那个方法
      *
      *
      *
      *
      *
      * */
+
+    function fn1(){
+        console.log(arguments.callee==fn1);
+        console.log(arguments.callee.caller==fn2);
+    }
+    function fn2(){
+        fn1();
+    }
+    fn2();
+
 //    判断基本数据类型：
     console.log(Object.prototype.toString.call(null));//"[object Null]"
     console.log(Object.prototype.toString.call(undefined));//"[object Undefined]"

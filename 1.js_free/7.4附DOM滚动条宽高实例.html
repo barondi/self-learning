@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM各种宽高实例</title>
+    <style>
+        #div1{
+            width:200px;
+            height:300px;
+            background-color:#3CF;
+            margin:100px auto;
+            overflow:scroll;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    这里是盒子的内容！这里是盒子的内容！computer science public static void main  console  地方这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是盒    这里是盒子的内容！这里是盒子的内容！这里是盒computer science public static void main  consol子的内容！这里是盒子的内容！
+    子的内容！这里是盒子的内容！这里是盒子的内容！
+    这里是盒子的内容！这里是内容！这里是盒子的内容！这里是盒computer science public static void main  consol子的内容！这里是盒子的内容！
+    盒子的内容！
+</div>
+<script>
+    /*
+    * 由于没有设置div1的padding、border，所有有一下三种方式获得div1的高
+    * */
+    var h1=div1.clientHeight;
+    var h2=div1.offsetHeight;
+    var h3=getComputedStyle(div1,null).height;//这种方式值为字符串，带px单位
+    console.log(h1,h2,h3);
+
+    /*
+    * scrollTop的最大值和最小值
+    *   最小值:0
+    *   最大值:div1.scrollHeight-div1.clientHeight
+    *   scrollTop或scrollLeft和其它属性是不同的:它是可读写的，而其它的属性都是只读的
+    * */
+//    div1.onscroll=function(){
+//        console.log(div1.scrollTop);
+//    }
+
+    (function(){
+        div1.scrollTop++;
+        window.setTimeout(arguments.callee,30);
+    })();
+</script>
+</body>
+</html>

@@ -65,7 +65,7 @@
      *   document.compatMode值为BackCompat表示怪异模式，对应document.body.clientWidth；
      * 值为CSS1Compat表示兼容模式(严格模式),对应document.documentElement.clientWidth
      * */
-    //兼容我所有浏览器的获取当前屏幕的宽高
+    //浏览器可视窗口宽高(兼容所有浏览器)
     var curWidth=document.documentElement.clientWidth||document.body.clientWidth;
     var curHeight=document.documentElement.clientHeight||document.body.clientHeight;
     console.log(curWidth+'||'+curHeight);
@@ -92,12 +92,37 @@
      *   1)offsetLeft是左偏移量;
      *     offsetTop是上偏移量;
      *     offsetParent是产生偏移的参照物
-     *   2)
+     *   2)offsetParent参照物的改变情况:类似于元素定位，比如当前元素默认相对于body定位的，如果给它
+     *   上级id为div1元素position:relative(absolute、fixed)等，则offsetParent为div1
      *   3)document.body.offsetParent/document.documentElement.offsetParent为null
+     *   4)注意:偏移量的计算是从边框外边开始到它的offsetParent的边框内侧结束
      * */
     console.log(oDiv.offsetLeft);
     console.log(oDiv.offsetTop);
     console.log('---------上方为偏移量相关的offsetLeft和offsetTop！-------------');
+    //计算网页上某个DOM元素距离浏览器的偏移量
+    function getOffset(ele){
+        var l=ele.offsetLeft;
+        var t=ele.offsetTop;
+        var p=ele.offsetParent;
+        while(true){
+            if(!p||p==document.body){
+                break;
+            }
+            if(window.navigator.userAgent.indexOf('MSIE 8.0')>-1){
+                //如果是IE8
+                l+= p.offsetLeft;
+                t+= p.offsetTop;
+            }else{
+                //在标准浏览器下，需要加上边框的宽
+                l+= p.offsetLeft+ p.clientLeft;
+                t+= p.offsetTop+ p.clientTop;
+            }
+            p= p.offsetParent;
+        }
+        return {left:l,top:t}
+    }
+
 
     console.log(oDiv.scrollWidth);//获取对象滚动宽度、滚动高度
     console.log(oDiv.scrollHeight);
