@@ -1,0 +1,190 @@
+<!--HTML4模板-->
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>-->
+
+<!--XHTML模板-->
+<!--<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H5相关内容</title>
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!--语义化标签-->
+<!--<header>
+    <div class="header"></div>
+</header>
+<nav>
+    <ul class="slide-box">
+        <li>导航1</li>
+        <li>导航2</li>
+        <li>导航3</li>
+        <li>导航4</li>
+        <li>导航5</li>
+    </ul>
+</nav>
+<div class="content">
+    <article>
+        <h1>这是一篇文章</h1>
+        <p>这里是文章相关的段落,里面是文章的内容！</p>
+    </article>
+    <figure>
+        <img src="imgs/slide-01.jpg" width="200px" height="200px" alt="About image" />
+        <figcaption>
+            <p>This is an image of something interesting. </p>
+        </figcaption>
+    </figure>
+</div>
+<footer>
+    <div class="footer"></div>
+</footer>-->
+
+<!--表单元素-->
+<section>
+    <h3>HTML5移动Web开发</h3>
+</section>
+<fieldset>
+    <legend>HTML5 新元素--表单元素</legend>
+    <input type="text" placeholder="请输入信息" >
+    <input type="text" placeholder="请输入信息2" autofocus>
+    <input type="email" placeholder="email类型的输入框">
+
+    <input type="text" placeholder="我添加了 list 属性 和 datalist 元素，可没多少人懂我" list="myDataList">
+    <datalist id="myDataList">
+        <option label="1">我是datalist1</option>
+        <option label="2">我是datalist2</option>
+        <option label="3">我是datalist3</option>
+        <option label="4">我是datalist4</option>
+    </datalist>
+</fieldset>
+
+<!--window.history-->
+<a href="history_01.html">下一页</a>
+
+<input type="file" id="file" onchange="onInputFileChange()">
+<audio id="audio_id" controls autoplay loop>Your browser can't support HTML5 Audio</audio>
+<script>
+    function onInputFileChange() {
+        var file = document.getElementById('file').files[0];
+        var url = URL.createObjectURL(file);
+        console.dir(URL);
+        document.getElementById("audio_id").src = url;
+    }
+</script>
+
+<script>
+    /*
+    * HTML5由来:HTML4->XHTML1->HTML5
+    * DTD类型:过渡型、严格型、框架型(以上模板为过渡型)
+    *   声明DTD的原因:防止IE浏览器进入怪异模式(盒模型的区别)
+    *   H5直接写<!doctype html>就行了,向下兼容HTML4和XHTML1
+    *
+    * 让IE6-8支持HTML5新增标签的办法:
+    *   原始方式:header, footer, article, section, nav, menu, hgroup {display: block;}
+    * 然后再用document.createElement()创建对应的元素
+    *   优化方式:引入html5shiv.js文件(如上)
+    *
+    * 新特性:
+    *   新增语义化标签:header、nav、footer、hgroup、aside、article、address、section及音频视频audio、video等
+    *   表单元素:placeholder、autofocus、list与datalist(浏览器支持不太好)、新增input[type]类型有email、search
+    * number、range、tel、url(功能较弱,基本和普通的没什么区别)
+    *   window.history对象中有history.back()、history.go()、history.forword(),H5新增了
+    * history.pushState(state,title,url)和history.replaceState(state,title,url)
+    *   可以利用H5的postMessage解决跨域、跨窗口的问题,更常用的jsonp
+    *   canvas(用来替代flash)
+    *   H5拖拽与原生拖拽对比
+    *   H5 touch事件库(touchstart > touchmove > touchend > click)
+    *   每个触摸事件包含一系列的触摸点:
+    *     touches：当前位于屏幕上的所有手指的列表;
+    *     targetTouches：位于当前DOM元素上的手指列表;
+    *     changedTouches ： 涉及当前事件手指的列表;
+    *   每个触摸点包含以下触摸信息:
+    *     identifier:一个数值,唯一标识触摸会话(touch session)中的当前手指,一般为从0开始的流水号
+    *     target:动作所针对的DOM元素
+    *     clientX,clientY:动作在屏幕上发生的位置,不包含滚动距离
+    *     pageX,pageY:动作发生的位置,包含滚动距离
+    *     screenX,screenY:动作发生的位置,以屏幕分辨率为基准
+    *   300ms延迟:
+    *     苹果手机产生后,当用户在IOS Safari里面点击了一个链接,此时用户可以进行双击操作或双击滚动操作,
+    *   所以当用户一次点击屏幕之后,浏览器并不能立刻判断用户是确实要打开这个链接,还是要进行双击操作,因此,Safari就
+    *   等待300ms以判断用户是否再次点击了屏幕..鉴于iPhone的成功,其它移动浏览器都复制了Safari浏览器的多数约定(包括双击缩放)
+    *   现在移动端开发的web性能正在向追求并匹敌原生的时代,所有的单击事件都有300ms延迟鼻炎不可接受
+    *   300ms延迟解决方案:
+    *     Android平台上的Chrome和Firefox通过利用meta标签实现禁止缩放等
+    *     微软通过一个css属性touch-action设置为none可移除目标元素单击事件的300ms延迟
+    *     但以上都是各家浏览器相应的对策,一下是综合的、优化后的解决方案:
+    *       FastClick是一个专门解决移动浏览器300ms点击延迟的一个轻量级库(10来kb)
+    *         window.addEventListener( "load", function(){ FastClick.attach( document.body ); }, false );
+    *       tap.js  通过tap事件代替click事件
+    *   还有其它的比如SVG、WebGL、地理定位window.geolocation对象获取设备信息(IP地址、设备GPS)
+    *
+    *   CSS3之动画:
+    *     keyframes、transform变形动画、transition过渡动画、animation动画
+    *     http://www.cnblogs.com/starof/p/4560076.html
+    *     http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html
+    *
+    *   滚屏场景:
+    *     http://w.benbun.com/momo/shaibingxiang/
+    *     http://up.qq.com/2015/invitation/
+    * */
+
+    //本地存储localStorage、sessionStorage用法类似
+    var obj={
+        a:12,
+        b:[1,2,3,4,5],
+        c:{
+            x:'a',
+            y:['bb',12,'cc',{a:1,b:2}],
+            z:1333
+        }
+    }
+//    localStorage.setItem('page',JSON.stringify(obj));
+//    var page=JSON.parse(localStorage.getItem('page'));
+//    console.log(page);
+
+//    localStorage.page=JSON.stringify(obj);
+//    var page=JSON.parse(localStorage.page);
+//    console.log(page);
+
+//    localStorage['page']=JSON.stringify(obj);
+//    var page=JSON.parse(localStorage['page']);
+//    console.log(page);
+
+//    localStorage.removeItem('page');
+//    console.log(localStorage.page);
+
+//    localStorage.setItem('page',JSON.stringify(obj));
+//    var page=JSON.parse(localStorage.getItem('page'));
+//    console.log(page);
+//    localStorage.setItem('page-1',JSON.stringify(obj));
+//    localStorage.clear();
+//    console.log(localStorage.getItem('page-1'));
+//    console.log(localStorage.getItem('page'));
+</script>
+</body>
+</html>

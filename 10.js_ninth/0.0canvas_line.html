@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas绘制多边形</title>
+</head>
+<body>
+<canvas id="myCanvas" width="400px" height="300px" style="border:1px solid lightblue">您的浏览器不支持Canvas标签！</canvas>
+<script>
+    /*
+    * <canvas>本身没有绘制能力,它只是我们要绘制图形的一个容器,绘制任务是由javascript来完成的
+    * 相关API:
+    *   ctx.fillStyle设置或返回用于填充绘画的颜色、渐变
+    *   ctx.globalAlpha设置或返回绘图当前的alpha或透明值
+    *   ctx.fillRect(x,y,width,height)绘制被填充的矩形,x,y为相对于画布的坐标;width、height为矩形的宽高
+    *   ctx.beginPath()起始一条路径或重置当前路径
+    *   ctx.arc(x,y,r,sAngle,eAngle,counterclockwise)创建弧或曲线
+    *     x,y圆的中心坐标
+    *     r圆的半径
+    *     sAngle起始角
+    *     eAngle结束角
+    *     counterclockwise可选,规定逆时针还是顺时针绘图false-顺时针 true-逆时针
+    * */
+    //获取canvas对象(画布)
+    var canvas=document.getElementById('myCanvas');
+    //如果浏览器支持canvas的话,则进行绘制,防止报错
+    if(canvas.getContext){
+        //获取画笔,在画布每个角画一个正方形
+        var ctx=canvas.getContext('2d');
+        ctx.fillStyle='red';
+        ctx.fillRect(325,225,75,75);
+        ctx.fillStyle = 'orange';
+        ctx.fillRect(325,0,75,75);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0,0,75,75);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(0,225,75,75);
+
+        //画7个同心圆,从0度开始到360度结束
+        ctx.fillStyle = '#666';
+        // 设置透明度 取值范围 0-1
+        ctx.globalAlpha = 0.2;
+        for (i=0;i<7;i++){
+            ctx.beginPath();
+            ctx.arc(200,150,10+10*i,0,Math.PI*2,true);
+            ctx.fill();
+        }
+    }
+</script>
+</body>
+</html>

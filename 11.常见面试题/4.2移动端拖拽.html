@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>移动端拖拽</title>
+    <!--设置viewport-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+</head>
+<style>
+    *{margin:0;padding:0;}
+    .myDiv{width:100px;height:100px;position:absolute;background-color:red;}
+</style>
+<body>
+<div class="myDiv"></div>
+</body>
+<script>
+    /*
+     * 如果拖拽过程中需要计算当前对象位置与起始位置:
+     *   手指按下时的坐标:
+     *     starX = e.changedTouches[0].clientX;
+     *     starY = e.changedTouches[0].clientY;
+     *   移动时 当前位置与起始位置之间的差值:
+     *     starXEnd = e.changedTouches[0].clientX - starX;
+     *     starYEnd = e.changedTouches[0].clientY - starY;
+     * */
+    window.onload=function(){
+        //querySelector默认选取匹配的第一个元素;querySelectorAll选取匹配的所有元素,返回一个数组
+        var oDiv = document.querySelector('.myDiv');
+
+        var disX,moveX,L,T;
+
+        oDiv.addEventListener('touchstart',function(e){
+            //阻止触摸时页面的滚动，缩放
+            e.preventDefault();
+            console.log(e.touches);
+            console.log(e.targetTouches);
+            console.log(e.changedTouches);
+
+            disX = e.changedTouches[0].clientX - this.offsetLeft;
+            disY = e.changedTouches[0].clientY - this.offsetTop;
+        });
+        oDiv.addEventListener('touchmove',function(e){
+            console.log(e.touches);
+            console.log(e.targetTouches);
+            console.log(e.changedTouches);
+
+            L = e.changedTouches[0].clientX - disX ;
+            T = e.changedTouches[0].clientY - disY ;
+            if(L<0){//限制拖拽的X范围，不能拖出屏幕
+                L = 0;
+            }else if(L > document.documentElement.clientWidth - this.offsetWidth){
+                L=document.documentElement.clientWidth - this.offsetWidth;
+            }
+
+            if(T<0){//限制拖拽的Y范围，不能拖出屏幕
+                T=0;
+            }else if(T>document.documentElement.clientHeight - this.offsetHeight){
+                T = document.documentElement.clientHeight - this.offsetHeight;
+            }
+            moveX = L + 'px';
+            moveY = T + 'px';
+            this.style.left = moveX;
+            this.style.top = moveY;
+        });
+        window.addEventListener('touchend',function(e){
+            console.log(e.touches);
+            console.log(e.targetTouches);
+            console.log(e.changedTouches);
+
+            //alert(parseInt(moveX))
+            //判断滑动方向
+
+        });
+    }
+</script>
+</html>

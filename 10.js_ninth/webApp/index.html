@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>快递100-查快递,寄快递,上快递100</title>
+    <meta name="Keywords" content="快递100,快递查询,快递单号查询,快递网点查询,国际快递查询,快递电话查询,物流查询" />
+    <meta name="Description" content="快递100，提供上百家常用快递、物流公司的快递单号查询、快递网点电话查询、快递价格查询、网上寄快递服务，支持手机查询快递，提供免费Open API。" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-itunes-app" content="app-id=458270120" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <link rel="apple-touch-icon" href="https://cdn.kuaidi100.com/images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://cdn.kuaidi100.com/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://cdn.kuaidi100.com/images/touch-icon-iphone4.png" />
+    <link rel="shortcut icon" href="https://cdn.kuaidi100.com/favicon.ico" />
+    <link rel="icon" type="image/gif" href="https://cdn.kuaidi100.com/images/favicon.gif" />
+    <!--<link rel="canonical" href="https://m.kuaidi100.com/" />
+    <link rel="stylesheet" href="https://cdn.kuaidi100.com/css/smart/base_v4.css?version=201611151948" />
+    <link rel="stylesheet" href="https://cdn.kuaidi100.com/css/smart/query_v4.css?version=201611151948" />-->
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/query.css" />
+</head>
+<body>
+<div class="container">
+    <aside id="menu">
+        <article>
+            <div class="kd-menu" id="menuList">
+                <ul>
+                    <li id="welcome"><a href="https://m.kuaidi100.com/user/"><p>登录/注册</p><p>登录后享受更多特权</p></a></li>
+                    <li class="hidden user-info" id="userInfo">
+                        <span class="user-img"><img src="" id="userImg"></span>
+                        <a href="https://buyer.kuaidi100.com/m/">
+                            <p class="user-name" id="userName"></p>
+                            <p class="fs12px">欢迎来到快递100</p>
+                        </a>
+                    </li>
+                    <li><a href="https://buyer.kuaidi100.com/m/">查询记录</a></li>
+                    <li><a href="https://m.kuaidi100.com/all/">快递大全</a></li>
+                    <li><a href="https://m.kuaidi100.com/network/clist.jsp">网点大全</a></li>
+                    <li><a href="https://m.kuaidi100.com/network/plist.jsp">电话大全</a></li>
+                    <li><a href="https://m.kuaidi100.com/time/">时效查询</a></li>
+                    <li><a href="https://m.kuaidi100.com/global/">国际快递</a></li>
+                    <li><a href="https://m.kuaidi100.com/price/">价格查询</a></li>
+                </ul>
+                <ul class="menu-txt">
+                    <li><a href="http://weibo.com/kuaidi100" target="_blank">关注微博</a></li>
+                    <li><a href="https://m.kuaidi100.com/help/weixin.jsp" target="_blank">关注微信</a></li>
+                    <li><a href="https://m.kuaidi100.com/help/feedback.jsp" target="_blank">使用反馈</a></li>
+                    <li><a href="https://m.kuaidi100.com/about/index.jsp">关于我们</a></li>
+                    <li><a href="https://m.kuaidi100.com/about/join.jsp">加入我们</a></li>
+                    <li><a id="viewPage">访问电脑版</a></li>
+                </ul>
+            </div>
+        </article>
+    </aside>
+    <div id="main" class="main">
+        <header><a class="a-menu" id="menuBtn">菜单</a><a href="https://m.kuaidi100.com/" title="快递100" class="a-selected">查快递</a><a href="https://m.kuaidi100.com/courier/">寄快递</a><a href="https://m.kuaidi100.com/all/">快递大全</a></header>
+        <article>
+            <div class="kd-content" id="content">
+                <div style="height:3rem"></div>
+                <h1 class="logo"><a href="https://m.kuaidi100.com/"><img src="https://cdn.kuaidi100.com/images/logo_v4_sso.png" alt="快递100"></a></h1>
+                <section class="input-box">
+                    <form id="queryForm" action="https://m.kuaidi100.com/result.jsp" method="get">
+                        <input type="text" id="queryInput" class="num-inp" name="nu" placeholder="请输入快递单号" autocomplete="off" />
+                        <div class="scan" id="scanBtn"><span></span></div>
+                        <a id="queryBtn" class="query-btn">查询</a>
+                        <div class="clear-x hidden" id="clearBtn"></div>
+                    </form>
+                    <div class="relative hidden" id="history">
+                        <div class="input-droplist">
+                            <ul id="historyListCom"></ul>
+                            <div><a id="clearHistory">清除历史记录</a><a id="historyCloseBtn">关闭</a></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </section>
+                <section style="margin:1.25rem 0;">
+                    <div id='div-gpt-ad-1466152788892-0' style='margin:auto;text-align:center'></div>
+                </section>
+                <section class="products-box">
+                    <div><a href="https://m.kuaidi100.com/courier/" id="courierLink">快递员</a><a href="https://m.kuaidi100.com/network/search.jsp" id="netLink">查网点</a><a href="https://m.kuaidi100.com/time/">查时效</a></div>
+                    <div><a id="nearbyLink">我的附近</a><a href="https://m.kuaidi100.com/global/">国际快递</a><a href="https://m.kuaidi100.com/network/plist.jsp">快递电话</a></div>
+                </section>
+                <section class="nearby-box hidden" id="nearby">
+                    <ul class="nearby-list" id="nearbyList">
+                    </ul>
+                    <div class="nearby-btn"  id="moreNearby"><a>更多附近快递员&gt;&gt;</a></div>
+                    <div class="error hidden" id="nearbyTips">
+                        <h4>抱歉，获取当前位置失败</h4>
+                        <p>您可以：</p>
+                        <ul>
+                            <li>1、打开手机GPS定位功能之后重试；</li>
+                            <li>2、把浏览器获取位置信息的权限设置为允许。</li>
+                        </ul>
+                    </div>
+                    <div class="arrow"></div>
+                </section>
+
+                <section class="copyright">
+                    <p class="copyright-meun"><a id="downApp">下载APP</a><a href="https://m.kuaidi100.com/help/weixin.jsp">关注微信</a></p>
+                    <p><a href="https://m.kuaidi100.com/" title="快递100-查快递、寄快递、上快递100"><img src="https://cdn.kuaidi100.com/images/smart/logo_footer.png" style="width: 2.875rem;"></a> 粤ICP备14085002号 </p>
+                </section>
+            </div>
+        </article>
+    </div>
+</div>
+<script src="https://cdn.kuaidi100.com/js/util/zepto.min.js?version=201611151948"></script>
+<script>$(".kd-content").css("min-height", $(window).height());</script>
+<script src="js/cookie.js"></script>
+<script src="js/base.js"></script>
+<script src="js/index.js"></script>
+<script src="js/user.js"></script>
+<!--<script src="js/count.js"></script>-->
+<!--<script type='text/javascript'>
+    var fopenv = GetQueryString("from");
+    if (fopenv != "baidu_ala" && fopenv != "openv"){
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function() {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+                    '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+        googletag.cmd.push(function() {
+            googletag.defineSlot('/84824731/H5_DFP_index', [[320, 100], [320, 50], [300, 100]], 'div-gpt-ad-1466152788892-0').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1466152788892-0'); });
+    }
+</script>-->
+</body>
+</html>

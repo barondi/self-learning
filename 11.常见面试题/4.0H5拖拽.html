@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>移动端拖拽</title>
+    <!--设置viewport-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+</head>
+<style>
+    *{margin:0;padding:0;}
+    .myDiv{width:100px;height:100px;position:absolute;background-color:red;cursor:move;}
+</style>
+<body>
+<div class="myDiv" draggable="true"></div>
+</body>
+<script>
+    /*
+     * H5的drag API:
+     *   1、draggable=true 设置元素可拖动
+     *   2、被拖拽元素事件:
+     *     dragstart:开始拖拽时触发
+     *     drag:拖拽过程中触发
+     *     dragend:拖拽结束后触发
+     *     drap:被拖动元素或从文件系统选中的文件,拖放落下时触发
+     *   3、盛放被拖拽元素的目标元素事件:
+     *     dragenter:被拖拽元素进入目标元素时触发,在目标元素监听事件
+     *     dragleave:被拖拽元素离开目标元素时触发,在目标元素监听事件
+     *     dragover:被拖拽元素停留在目标元素时触发,在目标元素监听事件
+     *   4、拖拽过程中回调函数接收的事件参数有一个dataTransfer属性,是一个与拖动信息有关的对象(不常用)
+     *
+     * 实现原理:
+     *   1、通过在被拖拽元素添加属性draggable
+     *   2、通过绝对定位实现被拖拽元素的位置
+     *     left=e.clientX(鼠标位置)-disX(鼠标到被拖拽元素边框的位置);
+     *     在拖拽开始时计算disX、disY:
+     *     disX=e.clientX-oDiv.offsetLeft;
+     *   3、在被拖拽元素停留在目标元素后,设置目标元素绝对定位的left、top
+     *
+     * 如果拖拽过程中需要计算当前对象位置与起始位置:
+     *   手指按下时的坐标:
+     *     starX = e.changedTouches[0].clientX;
+     *     starY = e.changedTouches[0].clientY;
+     *   移动时 当前位置与起始位置之间的差值:
+     *     starXEnd = e.changedTouches[0].clientX - starX;
+     *     starYEnd = e.changedTouches[0].clientY - starY;
+     * */
+    window.onload=function(){
+        var oDiv = document.querySelector('.myDiv');
+        var disX,moveX,L,T;
+        oDiv.addEventListener('dragstart',function(e){
+            disX = e.clientX - this.offsetLeft;
+            disY = e.clientY - this.offsetTop;
+        });
+        oDiv.addEventListener('drag',function(e){
+            console.log('oDiv正在被拖拽!');
+        });
+        oDiv.addEventListener('dragend',function(e){
+            console.log('oDiv拖拽结束!');
+        });
+        window.addEventListener('dragover',function(e){
+            L = e.clientX - disX ;
+            T = e.clientY - disY ;
+            if(L<0){//限制拖拽的X范围，不能拖出屏幕
+                L = 0;
+            }else if(L > document.documentElement.clientWidth - oDiv.offsetWidth){
+                L=document.documentElement.clientWidth - oDiv.offsetWidth;
+            }
+            if(T<0){//限制拖拽的Y范围，不能拖出屏幕
+                T=0;
+            }else if(T>document.documentElement.clientHeight - oDiv.offsetHeight){
+                T = document.documentElement.clientHeight - oDiv.offsetHeight;
+            }
+            moveX = L + 'px';
+            moveY = T + 'px';
+            oDiv.style.left=moveX;
+            oDiv.style.top=moveY;
+        });
+    }
+</script>
+</html>
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H5拖拽</title>
+    <style>
+        *{margin:0;padding:0;}
+        body{font-size:84%;}
+        .dustbin{width:100px; height:260px; line-height:1.4; background-color:gray; font-size:36px; font-family:"微软雅黑", "Yahei Mono"; text-align:center; text-shadow:-1px -1px #bbb; float:left;}
+        .dragbox{width:500px; padding-left:20px; float:left;}
+        .draglist{padding:10px; margin-bottom:5px; border:2px dashed #ccc; background-color:#eee; cursor:move;}
+        .draglist:hover{border-color:#cad5eb; background-color:#f0f3f9;}
+        .dragremind{padding-top:2em; clear:both;}
+    </style>
+</head>
+<body>
+<div class="dustbin"><br />垃<br />圾<br />箱</div>
+<div class="dragbox">
+    <div class="draglist" title="拖拽我" draggable="true">列表1</div>
+    <div class="draglist" title="拖拽我" draggable="true">列表2</div>
+    <div class="draglist" title="拖拽我" draggable="true">列表3</div>
+    <div class="draglist" title="拖拽我" draggable="true">列表4</div>
+    <div class="draglist" title="拖拽我" draggable="true">列表5</div>
+    <div class="draglist" title="拖拽我" draggable="true">列表6</div>
+</div>
+<div class="dragremind"></div>
+<script>
+    var eleDustbin=document.getElementsByClassName('dustbin')[0];
+    var eleDrags=document.getElementsByClassName('draglist');
+    var lDrags=eleDrags.length;
+    var eleRemind=document.getElementsByClassName('dragremind')[0];
+    var eleDrag = null;
+    for (var i=0; i<lDrags; i++) {
+        //防止内容被选中
+        eleDrags[i].onselectstart = function() {
+            return false;
+        };
+        eleDrags[i].ondragstart = function(ev) {
+            /*拖拽开始*/
+            //拖拽效果
+            console.log(ev);
+            ev.dataTransfer.effectAllowed = "move";
+            ev.dataTransfer.setData("text", ev.target.innerHTML);
+            ev.dataTransfer.setDragImage(ev.target, 0, 0);
+            eleDrag = ev.target;
+            return true;
+        };
+        eleDrags[i].ondragend = function(ev) {
+            /*拖拽结束*/
+            ev.dataTransfer.clearData("text");
+            eleDrag = null;
+            return false
+        };
+    }
+    eleDustbin.ondragover = function(ev) {
+        /*拖拽元素在目标元素头上移动的时候*/
+        ev.preventDefault();
+        return true;
+    };
+    eleDustbin.ondragenter = function(ev) {
+        /*拖拽元素进入目标元素头上的时候*/
+        this.style.color = "#ffffff";
+        return true;
+    };
+    eleDustbin.ondrop = function(ev) {
+        /*拖拽元素进入目标元素头上，同时鼠标松开的时候*/
+        if (eleDrag) {
+            eleRemind.innerHTML = '<strong>"' + eleDrag.innerHTML + '"</strong>被扔进了垃圾箱';
+            eleDrag.parentNode.removeChild(eleDrag);
+        }
+        this.style.color = "#000000";
+        return false;
+    };
+</script>
+</body>
+</html>
+-->
+

@@ -51,14 +51,24 @@
             width:100%;
         }
     </style>
+
 </head>
 <body>
+<div>
+    <!--em单位根据它的继承链从上找,知道遇到父级设置明显的px值,如果都没找到则是body默认的16px-->
+    <span style="font-size:1em;">这里是测试em！</span>
+</div>
 <img src="imgs/slide-01.jpg" alt="">
 <script>
     /*
     * www.kuaishou365.com
     * PC页面在终端设备上打开的时候默认会以最小缩放的模式打开,目的就是为了防止滚动条的出现,浏览器手机调试窗口
     *   -0.4+代表对应缩放比例,对应以iphone6为例Screen375×627,对应缩放比例375/980
+    * css像素 px;
+    * 设备像素(设备无关像素):安卓dp、iosdip
+    * 设备像素比:css像素/设备像素  2倍图为主 3倍图可做可不做(6 plus)
+    * bjango.com/articles/min-device-pixel-ratio
+    *
     * 规则:
     *   1、页面布局不使用绝对宽度,使用百分比、em等
     *   2、引入媒体查询(media query)的使用
@@ -72,6 +82,27 @@
     *     idealviewport:无论在何种浏览器分辨率下对应文字或图片的显示是差不多的
     *   3、如何使移动端浏览器做到idealviewport？
     *     <meta name="viewport" content="width=device-width">
+    *
+    * css media类型:
+    *   all:用于所有的媒体设备
+    *   screen:用于电脑显示器
+    *   tv:电视机类型设备
+    *   handheld:用于小的手持设备
+    *   aural:用于语音和音频合成器
+    *   braille、embossed、print、projection、ttv等
+    * 设备特性:
+    *   width:浏览器宽度
+    *   height:浏览器高度
+    *   device-width:设备宽度
+    *   device-height:设备高度
+    *   device-pixel-ratio:设备像素比
+    *   orientation:浏览器窗口方向是横向还是纵向 竖立(portrait) 横向(landscape)
+    * 媒体查询的使用:
+    *   两个关键字:not、only
+    *   <link rel="stylesheet" media="screen and (max-width:640px)" href="screen.css">
+    *   转换为css:@media only screen and (min-width:320px) and (max-width:600px){selector{attribute:value;}}
+    *
+    *
     * */
 </script>
 </body>
