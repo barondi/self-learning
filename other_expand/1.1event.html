@@ -58,15 +58,18 @@
 <input id="updateBtn" type="button" value="修改html" />
 
 <script>
-/*原始事件：优点是所有浏览器都兼容，缺点是相同事件的监听函数只能有一个，后面会覆盖前面的，且逻辑与现实没有分离*/
+/*原始事件：优点是所有浏览器都兼容，默认不执行捕获，缺点是相同事件的监听函数只能有一个，后面会覆盖前面的，且逻辑与现实没有分离*/
 //    s1.onclick=function(){
 //        console.log(1);
 //    }
 //    s1.onclick=function(){
 //        console.log('1 replaced');
 //    }
-//    s2.onclick=function(){
+//    s2.onclick=function(e){
 //        console.log(2);
+//    }
+//    s2.onclick=function(){
+//        console.log('2 replaced')
 //    }
 
 //    s1.onclick=function(){
@@ -134,15 +137,15 @@ var middleDiv = document.getElementById("middleDiv");
 var inDiv = document.getElementById("inDiv");
 var info = document.getElementById("info");
 
-//outDiv.addEventListener("click", function () {
-//    info.innerHTML += "outDiv" + "<br>";
-//}, false);//innerHTML添加outDiv
-//middleDiv.addEventListener("click", function () {
-//    info.innerHTML += "middleDiv" + "<br>";
-//}, false);//innerHTML添加middleDiv、outDiv
-//inDiv.addEventListener("click", function () {
-//    info.innerHTML += "inDiv" + "<br>";
-//}, false);//innerHTML添加inDiv、middleDiv、outDiv
+outDiv.addEventListener("click", function () {
+    info.innerHTML += "outDiv" + "<br>";
+}, false);//innerHTML添加outDiv
+middleDiv.addEventListener("click", function () {
+    info.innerHTML += "middleDiv" + "<br>";
+}, false);//innerHTML添加middleDiv、outDiv
+inDiv.addEventListener("click", function () {
+    info.innerHTML += "inDiv" + "<br>";
+}, false);//innerHTML添加inDiv、middleDiv、outDiv
 
 //outDiv.addEventListener("click", function () {
 //    info.innerHTML += "outDiv" + "<br>";
@@ -164,10 +167,10 @@ var info = document.getElementById("info");
 //    info.innerHTML += "inDiv" + "<br>";
 //}, false);//innerHTML添加outDiv、inDiv、middleDiv
 
-outDiv.addEventListener("click", function (e) {
-    console.log(e.currentTarget.__proto__.__proto__.__proto__.__proto__)
-    info.innerHTML += "outDiv" + "<br>";
-}, false);//innerHTML添加outDiv
+//outDiv.addEventListener("click", function (e) {
+//    console.log(e.currentTarget.__proto__.__proto__.__proto__.__proto__)
+//    info.innerHTML += "outDiv" + "<br>";
+//}, false);//innerHTML添加outDiv
 //middleDiv.addEventListener("click", function () {
 //    info.innerHTML += "middleDiv" + "<br>";
 //}, true);//innerHTML添加middleDiv、outDiv
@@ -194,18 +197,25 @@ var EventUtil = {
             element["on" + type] = hander;
         }
     },
-//    addHander: function(type, element, hander) {
+/*
+* 优化方式：
+*   惰性函数
+*   还有在attachEvent方法中的this->window,改变其指向争取的目标元素调用call方法改变this指向
+* */
+//    addHander: function(element, type, hander) {
 //        if (element.addEventListener) {
-//            addHander=function(type, element, hander){
+//            addHander=function(element, type, hander){
 //                console.log(1);
 //                element.addEventListener(type, hander, false);
 //            }
 //        } else if (element.attachEvent) {
-//            addHander=function(type, element, hander){
-//                element.attachEvent("on" + type, hander);
+//            addHander=function(element, type, hander){
+//                element.attachEvent("on" + type, function(){
+//                    hander.call(element,arguments);
+//                });
 //            }
 //        } else {
-//            addHander=function(type, element, hander){
+//            addHander=function(element,type,hander){
 //                element["on" + type] = hander;
 //            }
 //        }
@@ -303,7 +313,7 @@ var EventUtil = {
 * 利用事件代理封装一个公用的方法
 * */
 //var pElement = document.getElementById('pElement');
-////操作的DOM元素的__proto__一直往上找回到EventTarget -> Object
+////操作的DOM元素的__proto__一直往上找会到EventTarget -> Object
 //EventTarget.prototype.on = function(eventType, selector, callback) {
 //    var _event = function(e) {
 //        var target = event.target || event.srcElement;

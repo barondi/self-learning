@@ -79,7 +79,7 @@
     *     layoutviewport(浏览器默认):如果把移动设备浏览器的可视区域设为viewport的话,很多网站会因为viewport
     *   太窄而错乱,所以浏览器默认viewport为layoutviewport值为980px,通过document.documentElement.clientWidth获取;
     *     visualviewport:代表浏览器可视区域大小,通过window.innerWidth获取;
-    *     idealviewport:无论在何种浏览器分辨率下对应文字或图片的显示是差不多的
+    *     idealviewport:无论在何种浏览器分辨率下对应文字或图片的显示是差不多的，让viewport值为设备宽度
     *   3、如何使移动端浏览器做到idealviewport？
     *     <meta name="viewport" content="width=device-width">
     *
@@ -101,8 +101,11 @@
     *   两个关键字:not、only
     *   <link rel="stylesheet" media="screen and (max-width:640px)" href="screen.css">
     *   转换为css:@media only screen and (min-width:320px) and (max-width:600px){selector{attribute:value;}}
-    *
-    *
+    * 响应式案例:responsive文件夹
+    * 响应式框架:Bootstrap由全局css样式、组件及js插件组成
+    *   预处理脚本(Less、Sass)
+    *   一个框架多种设备:通过CSS媒体查询有效适配手机、平板、PC
+    *   丰富的组件和插件:字体图标、按钮、表单、导航、分页、各种弹框、滚动监听、过渡效果等
     * */
 </script>
 </body>

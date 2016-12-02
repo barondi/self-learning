@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS3</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div:not(:first-child),ul{
+            margin-top:20px;
+            list-style:none;
+        }
+        .borderRadius_1{
+            width:100px;
+            height:100px;
+            background-color:#666666;
+            border-radius: 8px;
+        }
+        .borderRadius_2{
+            width:100px;
+            height:100px;
+            background-color:#666666;
+            border-top-left-radius:8px;
+            border-top-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .borderRadius_3{
+            width:100px;
+            height:100px;
+            background-color:#666666;
+            border-radius: 50%;
+            box-shadow:0 0 10px 10px #6f4f67 inset;
+        }
+
+        .demo {
+            background: #666666;
+            width: 440px;
+            padding: 30px;
+            font: bold 55px/100% "微软雅黑", "Lucida Grande", "Lucida Sans", Helvetica, Arial, Sans;;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        .textShadow_1{
+            color: transparent;
+            text-shadow: 0 0 5px #f96;
+        }
+        .textShadow_2{
+            color: #fff;
+            text-shadow: 1px 1px rgba(197, 223, 248,0.8),2px 2px rgba(197, 223, 248,0.8),3px 3px rgba(197, 223, 248,0.8),4px 4px rgba(197, 223, 248,0.8),5px 5px rgba(197, 223, 248,0.8),6px 6px rgba(197, 223, 248,0.8);
+        }
+
+        .selector div{
+            display:inline-block;
+            width:100px;
+            height:100px;
+            background-color:#33CCFF;
+        }
+        .selector div:nth-child(2n-1){
+            /*background-color:red;*/
+        }
+
+        h2{font-size:16px;}
+        .backgroundClip p{width:200px;height:200px;margin:0;padding:20px;border:10px dashed #666;background:#aaa url(imgs/h5_test.jpg) no-repeat;}
+        .backgroundClip .border-box p{background-clip:border-box;}
+        .backgroundClip .padding-box p{background-clip:padding-box;}
+        .backgroundClip .content-box p{background-clip:content-box;}
+        .backgroundOrigin p{border:10px dashed #666;width:200px;height:200px;padding:20px;background:#aaa url(imgs/h5_test.jpg) no-repeat;}
+        .backgroundOrigin .border-box p{background-origin:border-box;}
+        .backgroundOrigin .padding-box p{background-origin:padding-box;}
+        .backgroundOrigin .content-box p{background-origin:content-box;}
+
+        .opacity{
+            width:100px;
+            height:100px;
+            background-color:#666666;
+            display:inline-block;
+        }
+        .opacity_1{
+            opacity:1;
+            filter:alpha(opacity=100);/*for IE8 and earlier*/
+        }
+        .opacity_5{
+            opacity:0.5;
+            filter:alpha(opacity=50);/*for IE8 and earlier*/
+        }
+        .opacity_0{
+            opacity:0;
+            filter:alpha(opacity=0);/*for IE8 and earlier*/
+        }
+        .rgba5{background-color:rgba(0,0,0,0.5)}
+
+        .transform_rotate{position:relative;}
+        .transform_rotate li{
+            width:30px;
+            height:200px;
+            background-color:orange;
+            position:absolute;
+            transform-origin:50% 100%;
+        }
+        .transform_rotate li:nth-child(2){transform:rotate(18deg);animation:rotate18 0.8s linear;}
+        .transform_rotate li:nth-child(3){transform:rotate(36deg);animation:rotate36 0.8s linear;}
+        .transform_rotate li:nth-child(4){transform:rotate(54deg);animation:rotate54 0.8s linear;}
+        .transform_rotate li:nth-child(5){transform:rotate(72deg);animation:rotate72 0.8s linear;}
+        .transform_rotate li:nth-child(6){transform:rotate(90deg);animation:rotate90 0.8s linear;}
+        @-webkit-keyframes rotate18 {
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(18deg);
+            }
+        }
+        @-webkit-keyframes rotate36 {
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(36deg);
+            }
+        }
+        @-webkit-keyframes rotate54 {
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(54deg);
+            }
+        }
+        @-webkit-keyframes rotate72 {
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(72deg);
+            }
+        }
+        @-webkit-keyframes rotate90 {
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(90deg);
+            }
+        }
+        div.transform_translate{
+            margin-top:300px;
+            width:100px;
+            height:100px;
+            background-color:orange;
+            transition:transform 0.8s ease-in-out;
+        }
+        div.transform_translate:hover{
+            transform:scale(1.5,1.5) translateX(100px) rotate(180deg);
+            transition:transform 0.8s ease-in-out;
+        }
+        div.transform_scale{
+            width:100px;
+            height:100px;
+            background-color:orange;
+            transition:transform 0.8s ease-in-out;
+        }
+        div.transform_scale:hover{
+            transform:scale(-1,1);/*坐标系变换,X、Y对应的坐标*/
+            transition:transform 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<div class="borderRadius_1"></div>
+<div class="borderRadius_2"></div>
+<div class="borderRadius_3"></div>
+<div class="textShadow_1 demo">文字阴影</div>
+<div class="textShadow_2 demo">文字阴影</div>
+
+<div class="selector">
+    <div>111</div>
+    <div>222</div>
+    <div>333</div>
+    <div>444</div>
+    <div>555</div>
+</div>
+
+<ul style="width:300px;display:inline-block;" class="backgroundClip">
+    <h1>background-clip</h1>
+    <li class="border-box">
+        <h2>border-box</h2>
+        <p>从border区域（不含border）开始向外裁剪背景</p>
+    </li>
+    <li class="padding-box">
+        <h2>padding-box</h2>
+        <p>从padding区域（不含padding）开始向外裁剪背景</p>
+    </li>
+    <li class="content-box">
+        <h2>content-box</h2>
+        <p>从content区域开始向外裁剪背景</p>
+    </li>
+</ul>
+<ul style="width:300px;display:inline-block;" class="backgroundOrigin">
+    <h1>background-origin</h1>
+    <li class="border-box">
+        <h2>border-box</h2>
+        <p>从border区域（含border）开始显示背景图像</p>
+    </li>
+    <li class="padding-box">
+        <h2>padding-box</h2>
+        <p>从padding区域（含padding）开始显示背景图像</p>
+    </li>
+    <li class="content-box">
+        <h2>content-box</h2>
+        <p>从content区域开始显示背景图像</p>
+    </li>
+</ul>
+
+<div class="opacity_1 opacity">不透明度为1的box</div>
+<div class="opacity_5 opacity">不透明度为0.5的box</div>
+<div class="opacity_0 opacity">不透明度为0的box</div>
+<div class="opacity rgba5"></div>
+
+<ul class="transform_rotate">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<div class="transform_translate"></div>
+<div class="transform_scale"></div>
+
+<div style="width:200px;height:200px;margin-bottom:100px;background-color:#ccc;" class="curDiv">这里是animate.css动画库</div>
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<script>
+    window.onload=function(){
+        var curDiv=document.querySelector('.curDiv');
+        curDiv.className='animated slideInRight';
+        setTimeout(function(){
+            curDiv.className='animated swing';
+        },1000)
+    }
+    /*
+    * 1、新增加的属性
+    *   border-radius、box-shadow:offsetX offsetY r1 r2 color inset(设置inset为内阴影、空时默认为外阴影)、
+    * 新增background相关属性{background-size(参见H5滚屏中demo.html)、background-clip、background-origin}、
+    * opacity、rgba、css3选择器(:not、:first-child、:last-child、:nth-child(n)、:nth-of-type(n)等)、
+    * @media queries
+    * 2、CSS3动画
+    *   transform变形动画:rotate旋转、skew扭曲、scale缩放、translate移动、matrix矩阵变形
+    *     写法:transform:属性 transform-function...  transform-function表示一个或多个变换函数,记住中间用空格
+    *   隔开,以往我们用,
+    *   transition:property-name transition-duration animation-type animation-delay
+    *   animation:animation-name transition-duration animation-type animation-delay animation-times(无单位,infinite无限循环)...
+    *   transition需要通过事件(hover或者click事件)来出发,animation不需要,property-name为操作的属性名,all对
+    * 所有属性起作用;animation-name为通过@keyframes定义的动画名
+    * 3、CSS3动画库
+    *   <link rel="stylesheet" href="animate.min.css">
+    *   <div class="animated bounceOutLeft"></div>第一个class样式为动画的基础样式,必须;第二个为动画具体的类型
+    *   当动画效果执行完成后还可以通过以下代码添加事件:
+    *     $('#yourElement').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', doSomething);
+    * */
+</script>
+</body>
+</html>

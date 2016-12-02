@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex-box</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <style>
+        *{margin:0;padding:0}
+        .flex-container{
+            width:600px;
+            padding:20px;
+            margin:0 auto;
+            background-color:#ccc;
+            display:-webkit-flex;
+            display:flex;
+            align-items: stretch;
+            /*justify-content: space-around;*/
+        }
+        .flex-item1{
+            background-color:lightcoral;
+            /*width:80px;*/
+            height:100px;
+            -webkit-flex: 2;
+            -moz-flex: 2;
+            -ms-flex: 2;
+            flex: 2;
+        }
+        .flex-item2{
+            background-color:lightsalmon;
+            /*width:80px;*/
+            height:50px;
+            -webkit-flex: 1;
+            -moz-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+        .flex-item3{
+            background-color:lightyellow;
+            /*width:80px;*/
+            height:80px;
+            -webkit-flex: 1;
+            -moz-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+        .flex-item4{
+            /*如果不给设置flex值,则默认为文本内容*/
+            background-color:lightgreen;
+            /*width:80px;*/
+            height:100px;
+            -webkit-flex: 1;
+            -moz-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-container">
+    <div class="flex-item1">1</div>
+    <div class="flex-item2">2</div>
+    <div class="flex-item3">3</div>
+    <div class="flex-item4">4</div>
+</div>
+<script>
+    /*
+    * 演示属性注意:
+    *   http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+    *   演示justify-content属性,需要把flex-item相关的flex属性注释掉,然后把width解开注释;演示align-items需要把height解开注释
+    *
+    * 1、FlexBox
+    *   任何一个容器都可以指定为Flex布局(包括行内元素);设置flex布局后,子元素的float、clear、vertical-align属性将失效
+    *   容器介绍:容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）,主轴的开始位置（与边框的交叉点）叫做main start,
+    * 结束位置叫做main end;交叉轴的开始位置叫做cross start,结束位置叫做cross end,项目默认沿主轴排列。单个项目占据的主轴空间叫做main size,
+    * 占据的交叉轴空间叫做cross size.
+    *   容器上的属性:
+    *     flex-direction:决定排列方向
+    *       row:默认值,主轴为水平方向,起点在左端
+    *       row-reverse:主轴为水平方向,起点在右端
+    *       column:主轴为垂直方向,起点在上沿
+    *       column-reverse:主轴为垂直方向,起点在下沿
+    *     flex-wrap:如果一条轴线放不下,如何换行
+    *       nowrap:默认值,不换行
+    *       wrap:换行,第一行在上方
+    *       wrap-reverse:换行,第一行在下方
+    *     flex-flow:flex-direction属性和flex-wrap属性的简写形式,默认值为 row nowrap
+    *     justify-content:flex-item在主轴上的对齐方式
+    *       flex-start:左对齐
+    *       flex-end:右对齐
+    *       center:居中对齐
+    *       space-between:两端对齐
+    *       space-around:每个项目两侧的间隔相等
+    *     align-items:
+    *       stretch:默认值,flex-item未设置高度,将占满整个容器高度
+    *       flex-start:交叉轴的起点对齐
+    *       flex-end:交叉轴的终点对齐
+    *       center:交叉轴的中点对齐
+    *       baseline:项目的第一行文字的基线对齐
+    *     align-content:多根交叉轴线的对齐方式
+    *       flex-start | flex-end | center | space-between | space-around | stretch
+    *
+    *   flex-item上的属性:
+    *     order:定义项目的排列顺序,数值越小,排列越靠前,默认为0
+    *     flex-grow:定义项目的放大比例,默认为0,即如果存在剩余空间也不放大
+    *     flex-shrink:定义项目的缩小比例,默认为1,即如果空间不足,该项目将缩小
+    *     flex-basis:在分配多余空间之前,项目占据的主轴空间,默认为auto,具体值可以像width、height那样设置
+    *     flex:是flex-grow、flex-shrink、flex-basis的简写
+    *     align-self:允许单个项目有与其它项目不一样的对齐方式,可覆盖align-items属性,默认值为auto,表示
+    *   继承容器元素的align-items属性,如果没有父元素,则等同于stretch;除了auto,其它值与align-items属性
+    *   完全一致
+    *
+    * */
+</script>
+</body>
+</html>

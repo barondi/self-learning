@@ -37,5 +37,27 @@ var utils={
             p= p.offsetParent;
         }
         return {left:l,top:t}
+    },
+    /*
+    * 实现hasClass、addClass、removeClass、toggleClass方法
+    * */
+    hasClass:function (obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+    },
+    addClass:function (obj, cls) {
+        if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+    },
+    removeClass:function (obj, cls) {
+        if (hasClass(obj, cls)) {
+            var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+            obj.className = obj.className.replace(reg, ' ');
+        }
+    },
+    toggleClass:function (obj,cls){
+        if(hasClass(obj,cls)){
+            removeClass(obj, cls);
+        }else{
+            addClass(obj, cls);
+        }
     }
 };

@@ -10,6 +10,11 @@ if(winW/winH<desW/desH){
     main.style.webkitTransform = "scale("+winW/desW+")";
 }
 [].forEach.call(oLis,function(){
+    /*
+    * NodeList转换为数组;
+    * array.foreach(function(value,index,array){});
+    * arguments是指一个类数组
+    * */
     var oLi = arguments[0];
     oLi.index = arguments[1];
     oLi.addEventListener("touchstart",start,false);
@@ -36,7 +41,7 @@ function move(e){
         var pos = -winH+movePos;
         this.prevsIndex = (index ==0?oLis.length-1:index-1);//上一张索引
     }else if(movePos<0){/*↑*/
-        var  pos = winH+movePos;
+        var pos = winH+movePos;
         this.prevsIndex = (index == oLis.length-1?0:index+1);//下一张的索引
 
     }
@@ -44,8 +49,8 @@ function move(e){
     oLis[this.prevsIndex].style.display = "block";
     oLis[this.prevsIndex].style.webkitTransform = "translate(0,"+pos+"px)";
     this.style.webkitTransform = "scale("+(1-Math.abs(movePos)/winH*1/2)+")  translate(0,"+movePos+"px)";
-
-
+    console.log(this);
+    console.log(oLis[this.prevsIndex])
 }
 function end(e){
     if(this.flag){

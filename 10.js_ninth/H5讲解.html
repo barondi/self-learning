@@ -70,10 +70,21 @@
 </section>
 <fieldset>
     <legend>HTML5 新元素--表单元素</legend>
-    <input type="text" placeholder="请输入信息" >
-    <input type="text" placeholder="请输入信息2" autofocus>
-    <input type="email" placeholder="email类型的输入框">
-
+    <input id="getFocus" type="text" placeholder="请输入信息" ><br>
+    <input type="button" value="获取焦点" onclick="getFocus()">
+    <input type="text" placeholder="请输入信息2" autofocus><br>
+    <!--用js实现autofocus-->
+    <form action="test123.html">
+        <input type="email" placeholder="type为email"><br>
+        <input type="color" placeholder="type为color"><br>
+        <input type="date" placeholder="type为date"><br>
+        <input type="month" placeholder="type为month"><br>
+        <input type="tel" placeholder="type为tel"><br>
+        <input type="number" placeholder="type为number"><br>
+        <input type="range" placeholder="type为range"><br>
+        <input type="search" placeholder="type为search"><br>
+        <input type="submit" value="submit">
+    </form>
     <input type="text" placeholder="我添加了 list 属性 和 datalist 元素，可没多少人懂我" list="myDataList">
     <datalist id="myDataList">
         <option label="1">我是datalist1</option>
@@ -95,6 +106,10 @@
         console.dir(URL);
         document.getElementById("audio_id").src = url;
     }
+    function getFocus(){
+        var focusDiv=document.getElementById('getFocus');
+        focusDiv.focus();
+    }
 </script>
 
 <script>
@@ -109,15 +124,21 @@
     * 然后再用document.createElement()创建对应的元素
     *   优化方式:引入html5shiv.js文件(如上)
     *
+    * Weinre调试H5：
+    *   配置好了以后cmd输入 weinre --httpPort 8081 -boundHost -all-
+    *   10.116.60.202:8081/demo/H5_input_type.html
+    *
     * 新特性:
     *   新增语义化标签:header、nav、footer、hgroup、aside、article、address、section及音频视频audio、video等
     *   表单元素:placeholder、autofocus、list与datalist(浏览器支持不太好)、新增input[type]类型有email、search
     * number、range、tel、url(功能较弱,基本和普通的没什么区别)
-    *   window.history对象中有history.back()、history.go()、history.forword(),H5新增了
-    * history.pushState(state,title,url)和history.replaceState(state,title,url)
-    *   可以利用H5的postMessage解决跨域、跨窗口的问题,更常用的jsonp
-    *   canvas(用来替代flash)
+    *   语义化标签的作用:
+    *     方便浏览器的渲染解析；
+    *     结构更好,更利于搜索引擎的抓取
+    *     通过audio、video让网页中更方便的支持音频、视频
+    *
     *   H5拖拽与原生拖拽对比
+    *
     *   H5 touch事件库(touchstart > touchmove > touchend > click)
     *   每个触摸事件包含一系列的触摸点:
     *     touches：当前位于屏幕上的所有手指的列表;
@@ -129,11 +150,16 @@
     *     clientX,clientY:动作在屏幕上发生的位置,不包含滚动距离
     *     pageX,pageY:动作发生的位置,包含滚动距离
     *     screenX,screenY:动作发生的位置,以屏幕分辨率为基准
+    *
+    *   window.history对象中有history.back()、history.go()、history.forword(),H5新增了
+    * history.pushState(state,title,url)和history.replaceState(state,title,url)
+    *   可以利用H5的postMessage解决跨域、跨窗口的问题,更常用的jsonp
+    *   canvas(用来替代flash)
     *   300ms延迟:
     *     苹果手机产生后,当用户在IOS Safari里面点击了一个链接,此时用户可以进行双击操作或双击滚动操作,
     *   所以当用户一次点击屏幕之后,浏览器并不能立刻判断用户是确实要打开这个链接,还是要进行双击操作,因此,Safari就
     *   等待300ms以判断用户是否再次点击了屏幕..鉴于iPhone的成功,其它移动浏览器都复制了Safari浏览器的多数约定(包括双击缩放)
-    *   现在移动端开发的web性能正在向追求并匹敌原生的时代,所有的单击事件都有300ms延迟鼻炎不可接受
+    *   现在移动端开发的web性能正在向追求并匹敌原生的时代,所有的单击事件都有300ms延迟必然不可接受
     *   300ms延迟解决方案:
     *     Android平台上的Chrome和Firefox通过利用meta标签实现禁止缩放等
     *     微软通过一个css属性touch-action设置为none可移除目标元素单击事件的300ms延迟
@@ -142,15 +168,36 @@
     *         window.addEventListener( "load", function(){ FastClick.attach( document.body ); }, false );
     *       tap.js  通过tap事件代替click事件
     *   还有其它的比如SVG、WebGL、地理定位window.geolocation对象获取设备信息(IP地址、设备GPS)
+    * 相关资源:
+    *   H5 API:https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
+    *   Canvas小游戏:https://playcanvas.com/play(需要翻墙)
+    *   3D及Canvas动画库three.js:https://threejs.org/
     *
-    *   CSS3之动画:
-    *     keyframes、transform变形动画、transition过渡动画、animation动画
-    *     http://www.cnblogs.com/starof/p/4560076.html
-    *     http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html
+    * CSS讲解:
+    * H5和CSS3属性浏览器兼容性:http://fmbip.com/litmus
     *
-    *   滚屏场景:
-    *     http://w.benbun.com/momo/shaibingxiang/
-    *     http://up.qq.com/2015/invitation/
+    * 响应式布局:1.响应式.html及responsive文件夹案例
+    *
+    * 滚屏场景:
+    *   http://w.benbun.com/momo/shaibingxiang/
+    *   http://up.qq.com/2015/invitation/
+    *
+    * WebApp:
+    *   普通H5页面组成:m.kuaidi100.com
+    *     主要使用技术:H5+CSS3+jquery/zepto.js
+    *     zepto.js是一个专门为移动端开发的一个小版jquery类库,用法大致和jquery一致
+    *     zepto.js与jquery的区别:
+    *       zepto.js体积更小(压缩后大概10-20kb)
+    *       去掉了一些不常用的选择器
+    *       新增了一些css动画特性
+    *       获取元素尺寸差异:
+    *         jq使用.width()和.css('width')都返回,结果一致;zepto使用.width()返回,.css('width')返回0
+    *         jq使用offset()返回width、height;zepto使用offset()返回top、left、width、height
+    *         jq可以获取隐藏元素宽高;zepto无法获取隐藏元素宽高
+    *       针对移动端,忽略了低版本IE的兼容问题
+    *   混合App:
+    *     React Native
+    *     AngularJS+Cordova+Ionic
     * */
 
     //本地存储localStorage、sessionStorage用法类似
@@ -174,7 +221,7 @@
 //    localStorage['page']=JSON.stringify(obj);
 //    var page=JSON.parse(localStorage['page']);
 //    console.log(page);
-
+//
 //    localStorage.removeItem('page');
 //    console.log(localStorage.page);
 
