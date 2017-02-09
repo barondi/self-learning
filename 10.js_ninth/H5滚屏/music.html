@@ -54,11 +54,19 @@
     var oDiv=document.querySelector('#audio_btn');
     var oMedia=document.getElementById('media');
     autoP();
-    setInterval(function(){
-        if(flag==true){
-            autoP();
-        }
-    },100000)
+
+/*audio循环播放方式二: 添加媒体结束事件*/
+    oMedia.addEventListener('ended',function(){
+        console.log('End*************');
+        autoP();
+    },false);
+
+/*audio循环播放方式一: 定时器*/
+//    setInterval(function(){
+//        if(flag==true){
+//            autoP();
+//        }
+//    },100000)
     function autoP(){
         oMedia.src='music.mp3';
         oMedia.play();

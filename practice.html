@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice</title>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        body{
+            border:5px solid;
+            margin:5px;
+            padding:5px
+        }
+        .nav{
+            width:200px;
+            height:100px;
+            padding:10px 20px;
+            border:5px solid #CCCCCC;
+            margin:5px
+        }
+        .parent{
+            border:5px solid;
+            margin:5px;
+            padding:5px;
+            width:300px;
+            height:150px;
+            position:relative;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div id="te" class="nav nav01 nav02  nav03">
+        这里是一个盒子div
+    </div>
+</div>
+
+
+<script src="./utils.js"></script>
+<script>
+    /*var all=document.querySelector('.toggle');
+    var list=document.querySelectorAll('.inList');
+    all.onclick=function(){
+        for(var i=0;i<list.length;i++){
+            all.checked == true ? list[i].checked=true : list[i].checked=false;
+        }
+    }
+    var num=0;
+    for(var i=0;i<list.length;i++){
+        (function(j){
+            list[j].onclick=function(){
+                for(var i=0;i<list.length;i++){
+                    if(list[i].checked===true){
+                        num++;
+                    }
+                }
+                num==list.length ? all.checked=true : all.checked=false;
+            }
+        })(i)
+    }*/
+//    var oDiv=document.getElementById('te');
+/*    console.log(oDiv.childNodes);
+    for(var i=0;i<oDiv.childNodes.length;i++){
+        if(oDiv.childNodes[i].nodeType===1){
+            //console.log(oDiv.childNodes[i]);
+        }
+    }*/
+//    console.log(oDiv.offsetLeft);
+//    console.log(oDiv.offsetTop);
+//    console.log(navigator.appName);
+//    console.log(navigator.appVersion);
+//    console.log(navigator.userAgent);
+//    var h=document.getElementById('te');
+//    console.log(h.currentStyle.height);
+
+
+</script>
+</body>
+</html>

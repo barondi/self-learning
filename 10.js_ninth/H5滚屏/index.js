@@ -4,6 +4,11 @@ var winW = document.documentElement.clientWidth;
 var winH = document.documentElement.clientHeight;
 var desW = 640;
 var desH = 960;
+/*
+* 计算是按照设备宽或高缩放的原理(类似于background-size:cover):以iphone6 375*627为例
+*   如果 winW/winH<desW/desH 按照宽缩放,则缩放后的高为375/h=640/960,h为562.5,高度小于设备高度627,不足以
+* 撑满整个屏幕,所以当 winW/winH<desW/desH 应该按照高度缩放
+* */
 if(winW/winH<desW/desH){
     main.style.webkitTransform = "scale("+winH/desH+")";
 }else{
@@ -43,14 +48,15 @@ function move(e){
     }else if(movePos<0){/*↑*/
         var pos = winH+movePos;
         this.prevsIndex = (index == oLis.length-1?0:index+1);//下一张的索引
-
     }
+    //console.log(movePos);
+    //console.log(pos);
     oLis[this.prevsIndex].className = "zIndex";
     oLis[this.prevsIndex].style.display = "block";
     oLis[this.prevsIndex].style.webkitTransform = "translate(0,"+pos+"px)";
-    this.style.webkitTransform = "scale("+(1-Math.abs(movePos)/winH*1/2)+")  translate(0,"+movePos+"px)";
-    console.log(this);
-    console.log(oLis[this.prevsIndex])
+    this.style.webkitTransform = "scale("+(1-Math.abs(movePos)/winH*1/2)+") translate(0,"+movePos+"px)";
+    //console.log(this);
+    //console.log(oLis[this.prevsIndex]);
 }
 function end(e){
     if(this.flag){
@@ -66,5 +72,6 @@ function end(e){
 
 }
 document.addEventListener("touchmove",function(e){
-    console.log(e.target.id);
+    //console.log(e.target.id);
+    console.dir(e.target);
 },false)

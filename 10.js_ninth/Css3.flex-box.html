@@ -18,7 +18,6 @@
         }
         .flex-item1{
             background-color:lightcoral;
-            /*width:80px;*/
             height:100px;
             -webkit-flex: 2;
             -moz-flex: 2;
@@ -27,7 +26,6 @@
         }
         .flex-item2{
             background-color:lightsalmon;
-            /*width:80px;*/
             height:50px;
             -webkit-flex: 1;
             -moz-flex: 1;
@@ -36,7 +34,6 @@
         }
         .flex-item3{
             background-color:lightyellow;
-            /*width:80px;*/
             height:80px;
             -webkit-flex: 1;
             -moz-flex: 1;
@@ -46,12 +43,42 @@
         .flex-item4{
             /*如果不给设置flex值,则默认为文本内容*/
             background-color:lightgreen;
-            /*width:80px;*/
             height:100px;
             -webkit-flex: 1;
             -moz-flex: 1;
             -ms-flex: 1;
             flex: 1;
+        }
+
+
+        .flex-container-1{
+            width:600px;
+            padding:20px;
+            margin:0 auto;
+            background-color:#ccc;
+            display:-webkit-flex;
+            display:flex;
+            justify-content: space-around;
+        }
+        .flex-item-sub1{
+            background-color:lightcoral;
+            width:80px;
+            height:100px;
+        }
+        .flex-item-sub2{
+            background-color:lightsalmon;
+            width:80px;
+            height:50px;
+        }
+        .flex-item-sub3{
+            background-color:lightyellow;
+            width:80px;
+            height:80px;
+        }
+        .flex-item-sub4{
+            background-color:lightgreen;
+            width:80px;
+            height:100px;
         }
     </style>
 </head>
@@ -61,6 +88,12 @@
     <div class="flex-item2">2</div>
     <div class="flex-item3">3</div>
     <div class="flex-item4">4</div>
+</div>
+<div class="flex-container-1">
+    <div class="flex-item-sub1"></div>
+    <div class="flex-item-sub2"></div>
+    <div class="flex-item-sub3"></div>
+    <div class="flex-item-sub4"></div>
 </div>
 <script>
     /*

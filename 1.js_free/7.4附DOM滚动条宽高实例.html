@@ -27,7 +27,7 @@
     * */
     var h1=div1.clientHeight;
     var h2=div1.offsetHeight;
-    var h3=getComputedStyle(div1,null).height;//这种方式值为字符串，带px单位
+    var h3=getComputedStyle(div1,null).height;//这种方式值为字符串，带px单位;针对IE的ele.currentStyle[attr]也为带px的字符串
     console.log(h1,h2,h3);
 
     /*

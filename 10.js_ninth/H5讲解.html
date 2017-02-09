@@ -70,6 +70,7 @@
 </section>
 <fieldset>
     <legend>HTML5 新元素--表单元素</legend>
+    <!--<input type="text" id="testPH" value="">-->
     <input id="getFocus" type="text" placeholder="请输入信息" ><br>
     <input type="button" value="获取焦点" onclick="getFocus()">
     <input type="text" placeholder="请输入信息2" autofocus><br>
@@ -110,6 +111,21 @@
         var focusDiv=document.getElementById('getFocus');
         focusDiv.focus();
     }
+
+//    var oInput=document.getElementById('testPH');
+//    var txt='please input your text!';
+//    window.onload=function(){
+//        oInput.value=txt;
+//        oInput.style.color='#ccc';
+//    }
+//    oInput.onblur=function(){
+//        oInput.value=txt;
+//        oInput.style.color='#ccc';
+//    }
+//    oInput.onfocus=function(){
+//        oInput.value=null;
+//        oInput.style.color='black';
+//    }
 </script>
 
 <script>
@@ -127,6 +143,7 @@
     * Weinre调试H5：
     *   配置好了以后cmd输入 weinre --httpPort 8081 -boundHost -all-
     *   10.116.60.202:8081/demo/H5_input_type.html
+    *   滚屏：10.116.60.202:8081/demo/H5/index.html
     *
     * 新特性:
     *   新增语义化标签:header、nav、footer、hgroup、aside、article、address、section及音频视频audio、video等
@@ -163,14 +180,15 @@
     *   300ms延迟解决方案:
     *     Android平台上的Chrome和Firefox通过利用meta标签实现禁止缩放等
     *     微软通过一个css属性touch-action设置为none可移除目标元素单击事件的300ms延迟
-    *     但以上都是各家浏览器相应的对策,一下是综合的、优化后的解决方案:
-    *       FastClick是一个专门解决移动浏览器300ms点击延迟的一个轻量级库(10来kb)
+    *     但以上都是各家浏览器相应的对策,真正跨平台方案出来之前一个很好的变通方案:
+    *       FastClick是一个专门解决移动浏览器300ms点击延迟的一个轻量级库(10来kb),当检测到user-scalable=no或者touch-action时会静默的退出
     *         window.addEventListener( "load", function(){ FastClick.attach( document.body ); }, false );
-    *       tap.js  通过tap事件代替click事件
+    *       通过jquery.tap.js插件或zepto.js中的.tap事件,或tap.js  通过tap事件代替click事件;没有fastclick响应快
     *   还有其它的比如SVG、WebGL、地理定位window.geolocation对象获取设备信息(IP地址、设备GPS)
     * 相关资源:
     *   H5 API:https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
     *   Canvas小游戏:https://playcanvas.com/play(需要翻墙)
+    *   http://www.qinqinjieh5.com/
     *   3D及Canvas动画库three.js:https://threejs.org/
     *
     * CSS讲解:

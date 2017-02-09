@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name = "viewport" content="width = device-width,initial-scale=1.0,user-scalable = no">
     <link rel="stylesheet" href="index.css"/>
+    <style>
+        @-webkit-keyframes drop-up{0%{opacity:0;-webkit-transform:translate3d(0,8px,0);transform:translate3d(0,16px,0)}
+            50%{opacity:1;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+            100%{opacity:0;-webkit-transform:translate3d(0,-8px,0);transform:translate3d(0,-8px,0)}
+        }
+        .drop-up{position:absolute;display:none;bottom:0;left:50%;width:60px;height:60px;margin:0 0 0 -30px}
+        .drop-up .icon-arrow-up{font-size:130px;color:#43b29a}
+        .drop-up{display:block;-webkit-animation:drop-up 2s ease infinite;-o-animation:drop-up 2s ease infinite;animation:drop-up 2s ease infinite}
+    </style>
 </head>
 <body>
     <div id="main">
@@ -15,6 +24,7 @@
                     <p>你是否已准备充分<br>学习新技能</p>
                     <p>曾破茧成蝶、重获新生？</p>
                 </div>
+                <div class="drop-up"><span class="icon-arrow-up">^</span></div>
             </li>
             <li >
                 <div class="a2">

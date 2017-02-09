@@ -10,12 +10,15 @@ var utils={
         }
         return arr;
     },
+
     toJSON:function(str){
         return "JSON" in window ? JSON.parse(str) : eval("("+str+")");
     },
+
     getElementStyle:function(ele,attr){
         return window.getComputedStyle ? getComputedStyle(ele,null)[attr] : ele.currentStyle[attr];
     },
+
     //计算网页上某个DOM元素距离浏览器的偏移量
     getOffset:function(ele){
         var l=ele.offsetLeft;
@@ -38,6 +41,7 @@ var utils={
         }
         return {left:l,top:t}
     },
+
     /*
     * 实现hasClass、addClass、removeClass、toggleClass方法
     * */

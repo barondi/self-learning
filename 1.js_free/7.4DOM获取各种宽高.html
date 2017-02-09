@@ -53,7 +53,7 @@
     console.log(window.screenTop);//浏览器窗口距离屏幕上方、左方的高度
     console.log(window.screenLeft);
     console.log('----------------------');
-    console.log(window.screen.width);//屏幕分辨率
+    console.log(window.screen.width);//屏幕分辨率(浏览器所处的屏幕)
     console.log(window.screen.height);
     console.log('----------------------');
     console.log(window.screen.availWidth);//屏幕可用区域分辨率
@@ -61,7 +61,7 @@
     console.log('********************************');
 
     /*
-     * 兼容所有浏览器获取当前屏幕宽高的原理:
+     * 兼容所有浏览器获取当前窗口宽高的原理:
      *   document.compatMode值为BackCompat表示怪异模式，对应document.body.clientWidth；
      * 值为CSS1Compat表示兼容模式(严格模式),对应document.documentElement.clientWidth
      * */
@@ -95,7 +95,7 @@
      *   2)offsetParent参照物的改变情况:类似于元素定位，比如当前元素默认相对于body定位的，如果给它
      *   上级id为div1元素position:relative(absolute、fixed)等，则offsetParent为div1
      *   3)document.body.offsetParent/document.documentElement.offsetParent为null
-     *   4)注意:偏移量的计算是从边框外边开始到它的offsetParent的边框内侧结束
+     *   4)注意:如果offsetParent为body,则offsetLeft、offsetTop为相对于当前窗口的偏移量;反之,偏移量的计算是从边框外边开始到它的offsetParent的边框内侧结束
      * */
     console.log(oDiv.offsetLeft);
     console.log(oDiv.offsetTop);
