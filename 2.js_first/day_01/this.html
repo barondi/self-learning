@@ -52,6 +52,8 @@
 //		div1.onclick=obj.fn;//<==>div1.onclick=function(){console.log(this.innerHTML);}
     	//this是div1
 
+//		div1.onclick=obj.fn();//this是obj
+
 //		;(function(){
 //			this-->window
 //		})()
@@ -59,7 +61,7 @@
 
 /*
 * 改变this指向：call、apply、bind(try-catch  with等不常用)
-* 	call和apply一样，直接饮用在方法上；而bind绑定this后后返回一个方法，核心还是apply，在对象字面量方式经常用
+* 	call和apply一样，直接应用在方法上；而bind绑定this后后返回一个方法，核心还是apply，在对象字面量方式经常用
 * 	function(){}.bind(this要绑定的对象,普通参数1,普通参数2,...)
 *
 * 下面为兼容IE6-8的自定义bind方法：

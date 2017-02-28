@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基础动画的实现</title>
+    <style>
+        *{margin:0;padding:0}
+        #box{position:absolute;top:0;left:0;padding:0;width:100px;height:100px;background:lightblue}
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+<script src="../../utils-zhufeng.js"></script>
+<script>
+    /*
+    * ->匀速运动实现之:通过每次走多长距离(步长)来计算
+    * */
+//    var box=document.getElementById('box');
+//    var maxLeft=(document.documentElement.clientWidth||document.body.clientWidth)-box.offsetWidth;
+//    var duration=2000;
+//    var step=(maxLeft/duration)*10;
+//    var timer=setInterval(function(){
+//        //var curLeft=parseInt(getComputedStyle(box,null).left);
+//        var curLeft=utils.css(box,'left');
+//        if(curLeft>=maxLeft){
+//            clearInterval(timer);
+//            return;
+//        }
+//        curLeft+=step;
+//        //box.style.left=curLeft+'px';
+//        utils.css(box,'left',curLeft);
+//    },10)
+
+    /*
+    * ->匀速运动实现之:每次所在的位置加上最初的位置(time/duration)*change+begin
+    * t当前走的时间、d总时间、b起始距离、c总距离
+    * */
+//    function Linear(t,b,c,d){
+//        return c*t/d+b;
+//    }
+//    var oBox=document.getElementById('box');
+//    var target=utils.win('clientWidth')-oBox.offsetWidth,begin=utils.css(oBox,'left'),change=target-begin;
+//    var duration=2000,time=null;
+//    var timer=setInterval(function(){
+//        time+=10;
+//        if(time>=duration){
+//            utils.css(oBox,'left',target);
+//            clearInterval(timer);
+//            return;
+//        }
+//        var curLeft=Linear(time,begin,change,duration);
+//        utils.css(oBox,'left',curLeft);
+//    },10)
+
+
+    /*
+     * ->匀速运动之指定步长
+     * 问题:当总距离/步长 不是一个整数,无论我们少走或多走都非目标位置
+     * 所以在进行边界判断的时候加上步长来处理
+     * */
+//    var oBox=document.getElementById('box');
+//    var maxLeft=utils.win('clientWidth')-oBox.offsetWidth;
+//    var step=5;
+//    var timer=setInterval(function(){
+//        var curLeft=utils.css(oBox,'left');
+//        if((curLeft+step)>=maxLeft){
+//            utils.css(oBox,'left',maxLeft);
+//            clearInterval(timer);
+//            return;
+//        }
+//        curLeft+=5;
+//        utils.css(oBox,'left',curLeft);
+//    },10)
+
+
+    /*
+    * ->匀速运动之递归思想完成setTimeout的轮循动画:每次在执行动画之前首先把上一次设置的无用定时器清除掉以节约内存
+    * */
+    var oBox=document.getElementById('box');
+    var maxLeft=utils.win('clientWidth')-oBox.offsetWidth;
+    var step=5;
+    var timer=null;
+    function move(){
+        clearTimeout(timer);
+        var curLeft=utils.css(oBox,'left');
+        if((curLeft+step)>=maxLeft){
+            utils.css(oBox,'left',maxLeft);
+            return;
+        }
+        curLeft+=5;
+        utils.css(oBox,'left',curLeft);
+        timer=setTimeout(move,10);
+    }
+    move();
+
+
+</script>
+</body>
+</html>

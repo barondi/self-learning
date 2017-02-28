@@ -8,15 +8,6 @@
             margin:0;
             padding:0;
         }
-        #div1{
-            height:300px;
-            width:100%;
-            background-color:green;
-            font-size:30px;
-            text-align: center;
-            font-weight:bolder;
-            margin:500px 0;
-        }
         .myImg{
             width:200px;
             height:200px;
@@ -31,9 +22,7 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<!--<div id="div1">
-    我还在准备变身...
-</div>-->
+
 
 <!--<img width="100px" height="100px;" style="margin-bottom:300px;" src="imgs/placeholder.jpg" alt="">-->
 
@@ -43,24 +32,6 @@
 <img class="myImg" realImg="http://pic1.win4000.com/pic/9/8c/0a08466928.jpg" src="imgs/placeholder.jpg">
 <script src="../utils.js"></script>
 <script>
-    /*
-    * 需求:当div1盒子完全进入到浏览器的可是窗口内部的时候把里面的文字变成:我变给你看
-    *   1、当浏览器滚动条变化时，进行计算
-    *   2、明确当前可是窗口的位置范围:scrollTop-scrollTop+document.documentElement.clientHeight
-    *   3、如何计算div1已经进到了可视窗口内:div1的底边 < 浏览器当前窗口的底边
-    * */
-//    window.onscroll=function(){
-//        var boxTop=utils.getOffset(div1).top;
-//        var boxBottom=boxTop+div1.offsetHeight;
-//        var broswerBottom=(document.documentElement.scrollTop||document.body.scrollTop)+(document.documentElement.clientHeight||document.body.clientHeight)
-//        if(boxBottom<broswerBottom){
-//            div1.innerHTML='我已经变身完毕...';
-//        }
-//        if(boxTop>broswerBottom){
-//            div1.innerHTML='我还在准备变身...';
-//        }
-//    }
-
     /*
     * 图片延时加载:
     *   外链资源的缓存机制:相同的外链资源,如果原来请求(下载),第二次再去请求则不会去远程服务器请求,而是本地下载

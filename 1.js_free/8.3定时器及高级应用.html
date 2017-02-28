@@ -72,7 +72,7 @@
         div.innerHTML += item;
     };
     (function(d){
-//        setTimeout链式写法，防止由于同步代码过长连续执行
+//        setTimeout实现  setTimeout链式写法，防止由于同步代码过长连续执行
         setTimeout(function(){
             var item= d.shift();
             printValue(item);
@@ -81,6 +81,14 @@
                 console.log(arguments.callee)
             }
         },100);
+
+//        setInterval实现
+//        setInterval(function(){
+//            if(d.length>0){
+//                var item= d.shift();
+//                printValue(item);
+//            }
+//        },200)
     })(data)
 
 

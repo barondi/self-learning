@@ -49,7 +49,7 @@
 		console.log(will.MiddleNumber);
 		console.log('*******************************');
 		Person.__proto__.__proto__.MinNumber=-9999;
-		console.log(will.MinNumber);
+		console.log(will.MinNumber);//我们在原型链中获取对象的属性和方法时,只会从对象和对象的prototype中查找,并参考1.3.1原型链大全 will=>will.__proto__(Person.prototype)=>will.__proto__.__proto__(Object.prototype)(Person.__proto__.__proto__定义的MinNumber)
 		console.log(Person.__proto__.__proto__);
 		
 		

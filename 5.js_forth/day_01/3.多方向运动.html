@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多方向运动</title>
+    <style>
+        *{margin:0;padding:0}
+        #box{position:absolute;top:0;left:0;padding:0;width:100px;height:100px;background:lightblue;opacity:1;filter:alpha(opacity=0)}
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+<script src="../../utils-zhufeng.js"></script>
+<script src="../../tween.js"></script>
+<script>
+//    function Linear(t,b,c,d){
+//        return c*t/d+b;
+//    }
+//    var oBox=document.getElementById('box');
+//    var beginLeft=utils.css(oBox,'left'),beginTop=utils.css(oBox,'top');
+//    var targetLeft=1000,targetTop=500;
+//    var changeLeft=targetLeft-beginLeft,changeTop=targetTop-beginTop;
+//    var duration=1000,time=0;
+//    oBox.timer=setInterval(function(){
+//        time+=10;
+//        if(time>=duration){
+//            utils.css(oBox,{
+//                left:targetLeft,
+//                top:targetTop
+//            });
+//            clearInterval(oBox.timer);
+//            return;
+//        }
+//        var curLeft=Linear(time,beginLeft,changeLeft,duration);
+//        var curTop=Linear(time,beginTop,changeTop,duration);
+//        utils.css(oBox,{
+//            left:curLeft,
+//            top:curTop
+//        });
+//    },10)
+
+
+    //->根据tween.js方法重写
+    var oBox=document.getElementById('box');
+    zhufengAnimate(oBox,{
+        left:1000,
+        top:500,
+        opacity:0.5
+    },2000,['Cubic','easeOut'],function(){
+        utils.css(this,'background','red');
+    });
+
+
+    //->回调函数:把一个函数A当做一个值传递给另一个函数B,这样在B方法执行的时候,可以在任何位置执行一到多次A方法
+//    function A(){
+//        console.log('A');
+//    }
+//    function B(callBack){
+//        for(var i=0;i<5;i++){
+//            callBack();
+//        }
+//        console.log('B');
+//    }
+//    B(A);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice</title>
+</head>
+<body>
+
+<script src="./utils.js"></script>
+<script>
+//    var number=2;
+//    var obj={
+//        number:4,
+//        fn1:(function(){
+//            console.log(this);
+//            this.number *= 2;
+//            number=number*2;
+//            console.log(number);
+//            var number=3;
+//            return function() {
+//                console.log(this);
+//                this.number *= 2;
+//                number*=3;
+//                alert(number);
+//            }
+//        })()
+//    };
+//    var fn1 = obj.fn1;//win-number-4;obj-number-4;fn1-number-3
+//    fn1();//win-number-8;obj-number-4;fn1-number-9
+//    obj.fn1();//win-number-8;obj-number-8;fn1-number-27
+//    alert(window.number);
+//    alert(obj.number);
+
+//    var n=9;
+//    function fn(){
+//        n=7;
+//        console.log(n);
+//        console.log(window.n);
+//        var n=6;
+//        console.log(n);
+//    }
+//    fn();
+
+/*
+    function fn(){
+        console.log(this);
+    }
+    var obj={};
+    obj.fn=fn;
+    (obj.fn)();//执行的只有obj.fn -> 里面的this不是obj而是window
+    (obj.fn)();//obj
+*/
+
+</script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice</title>
+</head>
+<body>
+<!--<div id="box" style="font-size:30px;">60</div>-->
+
+<div class="time" id="time">
+    <span id="t_d">00天</span>
+    <span id="t_h">00时</span>
+    <span id="t_m">00分</span>
+    <span id="t_s">00秒</span>
+</div>
+<script>
+    //->普通模式(问题所在)
+//    var box = document.getElementById('box');
+//    var num = 60;
+//    var T = setInterval(function(){
+//        box.innerHTML = --num;
+//        if(num <= 0){
+//            clearInterval(T);
+//        }
+//    }, 1000);
+
+
+    //->Web Worker实现
+//    var box = document.getElementById('box');
+//
+//    var w = new Worker('worker.js');
+//
+//    w.postMessage(60);
+//
+//    w.onmessage = function(event){
+//        box.innerHTML = event.data;
+//    }
+
+
+
+    var w=new Worker('worker.js');
+    var t_d=document.getElementById("t_d");
+    var t_h=document.getElementById("t_h");
+    var t_m=document.getElementById("t_m");
+    var t_s=document.getElementById("t_s");
+    var t1=1488278384114;
+    var t2=1488268384114;
+    w.postMessage([t1,t2]);
+    w.onmessage=function(event){
+        var data=event.data;
+        t_d.innerHTML = data[0] + "天";
+        t_h.innerHTML = data[1] + "时";
+        t_m.innerHTML = data[2] + "分";
+        t_s.innerHTML = data[3] + "秒";
+    }
+    /*
+    * Web Workers:H5提供的一个javaScript多线程解决方案,独立于其它脚本,不会影响页面性能.
+    * 1、var webworker=new Worker(url);
+    * 2、方法有postMessage、onMessage、onError、terminate等
+    * 3、不能操作DOM对象
+    * 4、创建的webworker线程js文件必须和当前页面遵循同源策略,线程之间的消息传递不能有Function对象
+    * 在safari浏览器中只能传递数字/字符串等基本值（连Object都不行）。并且所有线程之间的数据并不是
+    * 常规的引用方式，都是一份独立的拷贝。因此一般情况下，我们会将传递的参数转化为字符串进行传递，可以通过JSON.stringify()和JSON.parse()来处理
+    * */
+</script>
+</body>
+</html>
+
+

@@ -5,18 +5,38 @@
     <title>Vertical-align</title>
     <style>
         *{margin:0;padding:0;}
-        ul{list-style:none;}
-        ul li{vertical-align:middle;}
-        ul .special{width:100px;height:100px;display:inline-block;background-color:lightblue;color:#ffffff;}
-        ul .common{display:inline-block;}
+
+        .ul_1{list-style:none;}
+        .ul_1 li{vertical-align:middle;}
+        .ul_1 .special{width:100px;height:100px;display:inline-block;background-color:lightblue;color:#ffffff;}
+        .ul_1 .common{display:inline-block;}
+
+        .zxx_ul_image li{
+            float:left;
+            width:150px;
+            height:150px;
+            line-height:150px;
+        }
+        .zxx_ul_image li img{
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
-<ul>
+<ul class="ul_1">
     <li class="special">类似图片</li>
     <li class="common">标题一</li>
     <li class="common">标题二</li>
     <li class="common">标题三</li>
+</ul>
+
+<ul class="zxx_ul_image">
+    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" /></li>
+    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg" /></li>
+    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" /></li>
+    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm4.jpg" /></li>
+    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm5.jpg" /></li>
+    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm6.jpg" /></li>
 </ul>
 </body>
 </html>

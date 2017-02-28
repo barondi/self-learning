@@ -1,81 +1,108 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>practice</title>
-    <style>
-        *{
-            margin:0;
-            padding:0
-        }
-        body{
-            border:5px solid;
-            margin:5px;
-            padding:5px
-        }
-        .nav{
-            width:200px;
-            height:100px;
-            padding:10px 20px;
-            border:5px solid #CCCCCC;
-            margin:5px
-        }
-        .parent{
-            border:5px solid;
-            margin:5px;
-            padding:5px;
-            width:300px;
-            height:150px;
-            position:relative;
-        }
-    </style>
 </head>
 <body>
-<div class="parent">
-    <div id="te" class="nav nav01 nav02  nav03">
-        这里是一个盒子div
-    </div>
-</div>
-
 
 <script src="./utils.js"></script>
 <script>
-    /*var all=document.querySelector('.toggle');
-    var list=document.querySelectorAll('.inList');
-    all.onclick=function(){
-        for(var i=0;i<list.length;i++){
-            all.checked == true ? list[i].checked=true : list[i].checked=false;
-        }
-    }
-    var num=0;
-    for(var i=0;i<list.length;i++){
-        (function(j){
-            list[j].onclick=function(){
-                for(var i=0;i<list.length;i++){
-                    if(list[i].checked===true){
-                        num++;
-                    }
-                }
-                num==list.length ? all.checked=true : all.checked=false;
-            }
-        })(i)
-    }*/
-//    var oDiv=document.getElementById('te');
-/*    console.log(oDiv.childNodes);
-    for(var i=0;i<oDiv.childNodes.length;i++){
-        if(oDiv.childNodes[i].nodeType===1){
-            //console.log(oDiv.childNodes[i]);
-        }
-    }*/
-//    console.log(oDiv.offsetLeft);
-//    console.log(oDiv.offsetTop);
-//    console.log(navigator.appName);
-//    console.log(navigator.appVersion);
-//    console.log(navigator.userAgent);
-//    var h=document.getElementById('te');
-//    console.log(h.currentStyle.height);
+//    var number=2;
+//    var obj={
+//        number:4,
+//        fn1:(function(){
+//            console.log(this);
+//            this.number *= 2;
+//            number=number*2;
+//            console.log(number);
+//            var number=3;
+//            return function() {
+//                console.log(this);
+//                this.number *= 2;
+//                number*=3;
+//                alert(number);
+//            }
+//        })()
+//    };
+//    var fn1 = obj.fn1;//win-number-4;obj-number-4;fn1-number-3
+//    fn1();//win-number-8;obj-number-4;fn1-number-9
+//    obj.fn1();//win-number-8;obj-number-8;fn1-number-27
+//    alert(window.number);
+//    alert(obj.number);
 
+//    var n=9;
+//    function fn(){
+//        n=7;
+//        console.log(n);
+//        console.log(window.n);
+//        var n=6;
+//        console.log(n);
+//    }
+//    fn();
+
+/*
+    function fn(){
+        console.log(this);
+    }
+    var obj={};
+    obj.fn=fn;
+    (obj.fn)();//执行的只有obj.fn -> 里面的this不是obj而是window
+    (obj.fn)();//obj
+*/
 
 </script>
 </body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice</title>
+</head>
+<body>
+<div id="box">60</div>
+<!--<div class="time" id="time">-->
+    <!--<span id="t_d">00天</span>-->
+    <!--<span id="t_h">00时</span>-->
+    <!--<span id="t_m">00分</span>-->
+    <!--<span id="t_s">00秒</span>-->
+<!--</div>-->
+<script>
+    var box=document.getElementById('box');
+    var num=60;
+    var T=setInterval(function(){
+        box.innerHTML=--num;
+        if(num<=0){
+            clearInterval(T);
+        }
+    },1000);
+//    function GetRTime(nowTime,startTime){
+//
+//        var StartTime= startTime;
+//        var NowTime = nowTime;
+//        var t =StartTime.getTime() - NowTime.getTime();
+//        var d=0;
+//        var h=0;
+//        var m=0;
+//        var s=0;
+//        if(t>0){
+//            d=Math.floor(t/1000/60/60/24);
+//            h=Math.floor(t/1000/60/60%24);
+//            m=Math.floor(t/1000/60%60);
+//            s=Math.floor(t/1000%60);
+//        }
+//        document.getElementById("t_d").innerHTML = d + "天";
+//        document.getElementById("t_h").innerHTML = h + "时";
+//        document.getElementById("t_m").innerHTML = m + "分";
+//        document.getElementById("t_s").innerHTML = s + "秒";
+//    }
+//    var beginTime='2017-03-01';
+//    setInterval("GetRTime(new Date(),new Date(beginTime))",1000);
+</script>
+</body>
 </html>
+
+
