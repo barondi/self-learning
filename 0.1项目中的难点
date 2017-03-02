@@ -1,4 +1,4 @@
-1、->移动端[token验证]  需要H5页面一块打包进apk中,需要跨桥取读取用户的token信息,ios可以通过js方法读取cookie获取关于session_id等一些列的信息:
+1、->移动端[token验证]  需要H5页面一块打包进apk中(ios之bundle,android之assets),需要跨桥取读取用户的token信息,ios可以通过js方法读取cookie获取关于session_id等一些列的信息:
 而android需要JSBridge来注册一个获取token信息的管道实现.
 
 2、->移动端[定时器]  在做H5春节活动'开宝箱 迎新春'时,里面有一个倒计时功能,android当应用在后台休眠时,定时器可以正常的运行,再打开与服务器上

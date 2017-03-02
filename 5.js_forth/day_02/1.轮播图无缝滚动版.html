@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{margin:0;padding:0;font-family:'Microsoft YaHei';font-size:14px;-webkit-user-select:none;}
+        ul li{list-style:none;}
+        img{display:block;border:none;}
+        a,a:hover,a:active,a:visited,a:target,em{color:#000;text-decoration:none;display:block;}
+        .banner{width:1000px;height:300px;margin:0 auto;position:relative;overflow:hidden;}
+        .banner .inner{position:absolute;left:0;right:0;height:300px;width:1000px;/*需要根据动态读取的img数量来设置宽度*/}
+        .banner .inner a{width:1000px;height:300px;float:left;background:url("img/default.gif") no-repeat center center;}
+        .banner .inner a img{width:100%;height:100%;}
+        .bannerTip{position:absolute;right:50px;bottom:30px;}
+        .bannerTip li{width:16px;height:16px;border-radius:50%;background-color:lightblue;float:left;margin-left:12px;}
+        .bannerTip li.active{background-color:lightcoral;}
+        .banner em{display:none;width:30px;height:46px;position:absolute;top:50%;margin-top:-23px;opacity:0.5;filter:alpha(opacity=50);background-image:url('img/pre.png');background-repeat:no-repeat;}
+        .banner em.bannerLeft{background-position:0 0;left:20px;}
+        .banner em.bannerRight{background-position:-45px 0;right:20px;}
+        .banner em:hover{opacity:1;filter:alpha(opacity=100);}
+    </style>
+</head>
+<body>
+<div class="banner">
+    <div class="inner">
+        <!--<a href="javascript:;"><img src="img/banner1.jpg"></a>
+        <a href="javascript:;"><img src="img/banner2.jpg"></a>
+        <a href="javascript:;"><img src="img/banner3.jpg"></a>
+        <a href="javascript:;"><img src="img/banner4.jpg"></a>-->
+    </div>
+    <ul class="bannerTip">
+        <!--<li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>-->
+    </ul>
+    <em class="bannerLeft"></em>
+    <em class="bannerRight"></em>
+</div>
+<script src="../../utils-zhufeng.js"></script>
+<script src="../../tween.js"></script>
+<script>
+    var btnLeft=utils.getElementsByClass('bannerLeft')[0],btnRight=utils.getElementsByClass('bannerRight')[0],banner=utils.getElementsByClass('banner')[0];
+    var banner=utils.getElementsByClass('banner')[0],bannerInner=utils.getElementsByClass('inner')[0],bannerTip=utils.getElementsByClass('bannerTip')[0];
+    //->动态加载bannerData中的数据
+    var jsonData=null;
+    (function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('get','bannerData?_='+Math.random(),false);
+        xhr.onreadystatechange = function (){
+            if(xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)){
+                jsonData = utils.formatJSON(xhr.responseText);
+            }
+        }
+        xhr.send(null);
+
+    })()
+    console.log(jsonData);
+    //->动态添加图片和对应的小圆点
+    var str='';
+    if(jsonData){
+        for(var i=0;i<jsonData.length;i++){
+            i===0 ? str+='<a href="javascript:;"><img src='+jsonData[i].img+'></a>' : str+='<a href="javascript:;"><img data-src='+jsonData[i].img+'></a>';
+        }
+        //->实现向左的轮播,需要在最后追加第一张,让其到最后一张时立马显示第一张
+        str+='<a href="javascript:;"><img data-src='+jsonData[0].img+'></a>';
+        bannerInner.innerHTML=str;
+        var num=jsonData.length+1;
+        utils.css(bannerInner,'width',num*1000);
+        var lis='';
+        for(var j=0;j<jsonData.length;j++){
+            j===0 ? lis+='<li class="active"></li>' : lis+='<li></li>'
+        }
+        bannerTip.innerHTML=lis;
+    }
+    //->实现除第一张图片外其它图片延迟加载
+    var imgList=bannerInner.getElementsByTagName('img');
+    var lazyTimer=setTimeout(lazyLoadImg,1500);
+    function lazyLoadImg(){
+        for(var i=0;i<imgList.length;i++){
+            (function(i){
+                if(i>0){
+                    if(imgList[i].loaded){
+                        return;
+                    }
+                    var tempImg=new Image;
+                    var src=imgList[i].getAttribute('data-src');
+                    tempImg.src=src;
+                    tempImg.onload=function(){
+                        imgList[i].src=src;
+                        imgList[i].loaded=true;
+                    }
+                }
+            })(i)
+        }
+    }
+
+    //->实现自动轮播
+    var step= 0,interval=1000;
+    var autoTimer=setInterval(autoPlay,interval);
+    function autoPlay(){
+        if(step>=num-1){
+            step=0;
+            utils.css(bannerInner,'left',0);
+            //bannerInner.style.left=0;
+        }
+        step++;
+        zhufengAnimate(bannerInner,{left:-step*1000},500)
+        //utils.css(bannerInner,'left',-step*1000)
+        changeTip();
+    }
+
+    //->实现焦点对齐和单击焦点实现轮播图切换
+    var oLis=bannerTip.getElementsByTagName('li');
+    function changeTip(){
+        for(var i=0;i<oLis.length;i++){
+            var tempStep=step;
+            tempStep>=oLis.length ? tempStep=0 : tempStep;
+            i===tempStep ? utils.addClass(oLis[i],'active') : utils.removeClass(oLis[i],'active');
+        }
+    }
+    changeBanner();
+    function changeBanner(){
+        for(var i=0;i<oLis.length;i++){
+            (function(i){
+                oLis[i].onclick=function(){
+                    step=i;
+                    zhufengAnimate(bannerInner,{left:-step*1000},500);
+                    changeTip();
+                }
+            })(i)
+        }
+    }
+    //->实现左右按钮切换
+    btnRight.onclick=autoPlay;
+    btnLeft.onclick=function(){
+        if(step<=0){
+            step=num-1;
+            utils.css(bannerInner,'left',-step*1000);
+        }
+        step--;
+        zhufengAnimate(bannerInner,{left:-step*1000},500);
+        changeTip();
+    }
+
+    //->控制左右切换按钮的显示及停止和开启自动轮播
+    banner.onmouseover=function(){
+        clearInterval(autoTimer);
+        btnLeft.style.display='block';
+        btnRight.style.display='block';
+    }
+    banner.onmouseout=function(){
+        autoTimer=setInterval(autoPlay,interval);
+        btnLeft.style.display='none';
+        btnRight.style.display='none';
+    }
+</script>
+</body>
+</html>

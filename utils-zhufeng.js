@@ -295,7 +295,8 @@ var utils = (function () {
         var argTwo = arguments[1];
         if (typeof argTwo === "string") {//->第个参数值是一个字符串,这样的话很有可能就是在获取样式;为什么说是很有可能呢?因为还需要判断是否存在第三个参数,如果第三个参数存在的话,不是获取了,而是在单独的设置样式属性值
             var argThree = arguments[2];
-            if (!argThree) {//->第三个参数不存在
+            if (typeof argThree ==='undefined') {//->第三个参数不存在,不能使用if(!argThree)因为如果argThree为0先将0转换为false然后!变为真符合条件,可以改为if(!argThree && argThree!=0)
+
                 return utils.getCss.apply(this, arguments);
             }
             //->第三个参数存在则为单独设置

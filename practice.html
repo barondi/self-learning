@@ -61,46 +61,24 @@
 <head>
     <meta charset="UTF-8">
     <title>practice</title>
+    <style>
+        *{margin:0;padding:0;}
+        .test{/*position:absolute;left:50px;top:50px;*/width:100px;height:100px;background-color:lightblue;}
+    </style>
 </head>
 <body>
-<div id="box">60</div>
-<!--<div class="time" id="time">-->
-    <!--<span id="t_d">00天</span>-->
-    <!--<span id="t_h">00时</span>-->
-    <!--<span id="t_m">00分</span>-->
-    <!--<span id="t_s">00秒</span>-->
-<!--</div>-->
+<div class="test"></div>
+<div class="test"></div>
+<div class="test"></div>
+<script src="utils-zhufeng.js"></script>
 <script>
-    var box=document.getElementById('box');
-    var num=60;
-    var T=setInterval(function(){
-        box.innerHTML=--num;
-        if(num<=0){
-            clearInterval(T);
+    var oDiv=utils.getElementsByClass('test');
+    //utils.css(oDiv,'left',0);
+    for(var i=0;i<oDiv.length;i++){
+        oDiv[i].onclick=function(){
+            console.log(i);
         }
-    },1000);
-//    function GetRTime(nowTime,startTime){
-//
-//        var StartTime= startTime;
-//        var NowTime = nowTime;
-//        var t =StartTime.getTime() - NowTime.getTime();
-//        var d=0;
-//        var h=0;
-//        var m=0;
-//        var s=0;
-//        if(t>0){
-//            d=Math.floor(t/1000/60/60/24);
-//            h=Math.floor(t/1000/60/60%24);
-//            m=Math.floor(t/1000/60%60);
-//            s=Math.floor(t/1000%60);
-//        }
-//        document.getElementById("t_d").innerHTML = d + "天";
-//        document.getElementById("t_h").innerHTML = h + "时";
-//        document.getElementById("t_m").innerHTML = m + "分";
-//        document.getElementById("t_s").innerHTML = s + "秒";
-//    }
-//    var beginTime='2017-03-01';
-//    setInterval("GetRTime(new Date(),new Date(beginTime))",1000);
+    }
 </script>
 </body>
 </html>

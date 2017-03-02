@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图渐隐渐现</title>
+    <link rel="stylesheet" href="css/banner.css" />
+</head>
+<body>
+<div class="banner" id="banner">
+    <div class="bannerInner">
+        <!--<div><img src="" trueImg="img/banner1.jpg" /></div>
+        <div><img src="" trueImg="img/banner2.jpg" /></div>
+        <div><img src="" trueImg="img/banner3.jpg" /></div>
+        <div><img src="" trueImg="img/banner4.jpg" /></div>-->
+    </div>
+    <ul class="bannerTip">
+        <!--<li class="bg"></li>
+        <li></li>
+        <li></li>
+        <li></li>-->
+    </ul>
+    <a class="bannerLeft" href="javascript:;"></a>
+    <a class="bannerRight" href="javascript:;"></a>
+</div>
+<script type="text/javascript" src="../../utils-zhufeng.js"></script>
+<script type="text/javascript" src="../../tween.js"></script>
+<script type="text/javascript" src="./js/banner.js"></script>
+<script>
+    /*
+    * 轮播图渐隐渐现显示原理:
+    *   首先四张图片都是叠加在一起的,默认所有图片的z-index=0,opacity=0;
+    *   开始先让第一张图片的z-index=1,opacity=1,此时看到的只有第一张;
+    *   经过轮播时间以后,让第二张图片的z-index=1,然后其它的z-index=0,此时第二张透明度依然是0,只有第一张opacity=1,
+    * 这时用户看到的还是第一张,紧接着让第二张的opacity=1,其它的图片opacity=0;
+    * */
+</script>
+</body>
+</html>

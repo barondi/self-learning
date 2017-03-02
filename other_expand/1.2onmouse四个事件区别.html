@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice</title>
+    <style type='text/css'>
+        *{ margin:0; padding:0;}
+        #box3{
+            height:100px;
+            background:red;
+        }
+        #box2{
+            padding:50px;
+            background:blue;
+        }
+        #box1{
+            padding:50px;
+            background:green;
+        }
+    </style>
+</head>
+<body>
+<div id="box1">1
+    <div id="box2">2
+        <div id="box3">3</div>
+    </div>
+</div>
+<script>
+//    var oBox1 = document.getElementById('box1');
+//    oBox1.onmouseover = function(){  //可以直接通过ID这样调用，但不提倡
+//        console.log( 'over' );
+//    };
+//    oBox1.onmouseout = function(){  //可以直接通过ID这样调用，但不提倡
+//        console.log( 'out' );
+//    };
+//    oBox1.onmouseenter = function(){  //可以直接通过ID这样调用，但不提倡
+//        console.log( 'enter' );
+//    };
+//    oBox1.onmouseleave = function(){
+//        console.log( 'leave' );
+//    };
+
+    /*
+    * 需求:在进入2的时候不想触发1的onmouseover与onmouseout事件
+    * W3C在mouseover和mouseout事件中添加了relatedTarget属性:
+    *   在mouseover事件中，它表示鼠标来自哪个元素;
+    *   在mouseout事件中，它指向鼠标去往的那个元素.
+    * 而Microsoft在mouseover和mouseout事件中添加了两个属性:
+    *   fromElement，在mouseover事件中表示鼠标来自哪个元素;
+    *   toElement，在mouseout事件中指向鼠标去往的那个元素.
+    * */
+    var oBox1 = document.getElementById('box1');
+    oBox1.onmouseover=function(e){
+        if (!e) e = window.event;
+        var reltg = e.relatedTarget ? e.relatedTarget : e.fromElement;
+        while (reltg && reltg != this) reltg = reltg.parentNode;
+        if (reltg != this) {//->这里可以编写 onmouseenter 事件的处理代码
+            alert('111');
+        }
+    }
+    oBox1.onmouseout=function(e){
+        if (!e) e = window.event;
+        var reltg = e.relatedTarget ? e.relatedTarget : e.toElement;
+        while (reltg && reltg != this) reltg = reltg.parentNode;
+        if (reltg != this) {//->这里可以编写 onmouseleave 事件的处理代码
+            alert('222');
+        }
+    }
+</script>
+</body>
+</html>

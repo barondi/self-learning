@@ -16,6 +16,16 @@ box-sizing属性值有content-box(default):border和padding不计算入width内;
             FALLBACK:/html5/ /404.html 用404.html替代/html5/目录中的所有文件
             FALLBACK:*.html /404.html
 
+3、预加载与延迟加载:
+    1、预加载:提前加载资源(图片),用户需要时可以直接从本地缓存中渲染,相当于浏览器预先做了一个图片容器,用到时候直接取.
+    增强了用户体验,但增加了服务器前端压力.实现方式有CSS(background)、JS(Image)、HTML(<img />)
+    2、延迟加载:延迟或者符合某些条件时才进行加载某些图片
+
+4、onmouseover、onmouseout、onmouseenter、onmouseleave区别
+    onmouseover与onmouseout这一组是指鼠标移动到自身时候会触发事件，同时移动到其子元素身上也会触发事件;
+    onmouseenter与onmouseleave这一组是指鼠标移动到自身是会触发事件，但是移动到其子元素身上不会触发事件.
+
+
 1、全选与非全选
 
 2、9*9乘法表
