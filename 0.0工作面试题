@@ -25,6 +25,17 @@ box-sizing属性值有content-box(default):border和padding不计算入width内;
     onmouseover与onmouseout这一组是指鼠标移动到自身时候会触发事件，同时移动到其子元素身上也会触发事件;
     onmouseenter与onmouseleave这一组是指鼠标移动到自身是会触发事件，但是移动到其子元素身上不会触发事件.
 
+5、常见的浏览器兼容问题
+    css hack(属性前缀法(-和_只支持IE6,*和+支持IE67)、条件注释、!important不支持IE等)
+    IE6双边距:float的div在IE下设置的margin会加倍,解决办法设置div的display:inline
+    IE67小高度标签:在IE67中设置小高度标签(一般小于10px)如小圆角背景,会出现超过自己设置高度,给超出高度的标签设置overflow:hidden或line-height小于自己设置的高度
+    IE6不支持min: 1)display:inline-block;*display:inline;zoom:1;min-width:220px;_width:220px;white-space:nowrap;
+                   2)position:absolute;width:220px;_width:220px;white-space:nowrap;
+                   3)float:left;width:220px;_width:220px;white-space:nowrap;
+    div浮动,文本3pxBug:#box{float:left;width:800px;}#box #left{float:left;width:50%;}#right{width:50%},解决办法:*html #left{margin-right:-3px;}
+    IE捉迷藏:解决办法是使用line-height或者给元素设置固定宽高
+    IE6图片下空白:给img设置display:block或float:left
+
 
 1、全选与非全选
 

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery之DOM操作</title>
+</head>
+<body>
+<div class="box">
+    <p>这里是一个段落！</p>
+</div>
+
+<input type="button" value="点击触发ajax请求" id="ajaxReuqestID"/>
+<div id="ajaxStateID"></div>
+<script src="../../jquery-1.8.3.min.js"></script>
+<script>
+    //->append:容器.append(元素)  向指定元素的末尾位置追加一个新元素(原生JS对象、jQuery对象及html代码块都可处理)
+    //->appendTo:元素.appendTo(容器)
+    //->prepend prependTo:向指定元素的开头位置追加一个新元素
+    //->A.after(B)/A.before(B):在A后面/前面追加B
+    //->A.insertAfter(B)/A.insertBefore(B):把A追加到B后面
+//    $('.box').append('<div class="myDiv">我是append的元素！</div>');
+//    $('<div class="myDiv">我是appendTo的元素！</div>').appendTo($('.box'));
+//    $('.box').after('<div class="myDiv">我是after的元素！</div>');
+//    $('<div class="myDiv">我是insertAfter的元素！</div>').insertAfter('.box');
+
+    /*
+    * Ajax事件执行顺序:
+    *   ajaxStart->beforeSend->ajaxSend->success->ajaxSuccess->error->ajaxError->complete->ajaxComplete->ajaxStop
+    * jQuery.ajaxSetup:设置全局Ajax默认选项,和$.ajax参数一样
+    * */
+    $(function(){
+        $("#ajaxReuqestID").click(function(){
+            $.ajax({
+                url: "http://blog.csdn.net/gaoyusi4964238",
+                //->局部事件:beforeSend、success、error、complete
+                beforeSend:function(){
+                    $("#ajaxStateID").text("berforeSend");
+                    console.log("berforeSend");
+                },
+                success: function(){
+                    $("#ajaxStateID").text("success");
+                    console.log("success");
+                },
+                error:function(){
+                    $("#ajaxStateID").text("error");
+                    console.log("error");
+                },
+                complete:function(){
+                    $("#ajaxStateID").text("complete");
+                    console.log("complete");
+                }
+            });
+        });
+        //->全局事件
+        $("#ajaxStateID").ajaxStart(function(){
+            $(this).text("ajaxStart");
+            console.log("ajaxStart");
+        }).ajaxSend(function(){
+            $(this).text("ajaxSend");
+            console.log("ajaxSend");
+        }).ajaxSuccess(function(){
+            $(this).text("ajaxSuccess");
+            console.log("ajaxSuccess");
+        }).ajaxError(function(){
+            $(this).text("ajaxError");
+            console.log("ajaxError");
+        }).ajaxComplete(function(){
+            $(this).text("ajaxComplete");
+            console.log("ajaxComplete");
+        }).ajaxStop(function(){
+            $(this).text("ajaxStop");
+            console.log("ajaxStop");
+        });
+    });
+</script>
+</body>
+</html>

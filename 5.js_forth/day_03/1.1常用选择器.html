@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+</head>
+<body>
+<div id="div1" dijiasong="邸佳松">
+    <div>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div></div>
+    <div></div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+
+<input name="name1" />
+<div>
+    <input name="name2" />
+</div>
+<form>
+    <input name="name3" />
+    <label>Name:</label>
+    <input name="name4" />
+    <fieldset>
+        <label>Newsletter:</label>
+        <div>
+            <input name="name5" />
+        </div>
+    </fieldset>
+</form>
+<input name="name6" />
+<div>
+    <input name="name7" />
+</div>
+<input name="name8" />
+<script type="text/javascript" src="../../jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    //jQuery:原生JS封装的常用方法类库,解决了浏览器的兼容问题
+    /*
+    * jQuery包含:
+    *   核心、选择器、属性、筛选、css、文档处理、事件、动画、Ajax、工具
+    *
+    * 待思考:$(function(){}) 与 $(document).ready(){}区别
+    *   jQuery方法的三个用法
+    *   http://www.jb51.net/article/65153.htm
+    *   http://www.w3school.com.cn/jquery/core_jquery.asp
+    * */
+
+    //->1、jQuery选择器获取到的结果是一个jQuery对象,可以使用jQuery中提供的那些属性和方法,但是不能使用浏览器内置的属性和方法
+    var $oDiv=$('#div1');//<==>var $oDiv=jQuery('#div1')
+//    console.log($oDiv.innerWidth());
+//    console.log($oDiv.attr('dijiasong'));
+
+    //->2、原生JS对象和jQuery对象之间的转换
+    //->原生JS对象转换为jQuery:$(oDiv)
+    //->jQuery对象转换为原生JS对象:$oDiv[0] <==> $oDiv.get(0)
+    console.log($oDiv[0].getAttribute('dijiasong'));
+
+    //->3、选择器类型 div:eq(index) 获取索引值为index的元素,为jQuery对象 div:gt(index) 获取索引值>index的元素;div:lt(index)
+    $("form>input");//在form下面的儿子中查找
+    $("label+input");//获取所有标签名为label的下一个弟弟元素    [<input name="name" />,<input name="newsletter" />]
+    $("label~input");
+
+
+    //->通过JS获取的结果属于元素对象/元素集合/节点结合...它们可以使用浏览器为其提供的天生自带的属性和方法
+    var oDiv=document.getElementById('div1');
+//    console.log(oDiv.clientWidth);
+//    console.log(oDiv.getAttribute('dijiasong'));
+    console.log($(oDiv).attr('dijiasong'));
+</script>
+</body>
+</html>

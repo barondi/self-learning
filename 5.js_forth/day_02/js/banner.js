@@ -49,7 +49,7 @@ function lazyImg(){
                 if(i===0){
                     var curDiv=curImg.parentNode;
                     curDiv.style.zIndex=1;
-                    zhufengAnimate(curDiv,{opacity:1},200);
+                    zhufengAnimate(curDiv,{opacity:1},400);
                 }
                 oImg=null;
             }
@@ -59,7 +59,7 @@ function lazyImg(){
 
 //4、实现自动轮播
 var interval=2000,autoTimer=null,step=0;//->step记录当前展示图片索引
-setInterval(autoMove,interval);
+autoTimer=setInterval(autoMove,interval);
 function autoMove(){
     //->当我们已经把最后一张展示完成后(step等于最后一张索引),我们应该从新展示第一张,此时我们让step=0
     step===jsonData.length-1 ? step=0 : step++;
@@ -73,7 +73,7 @@ function setBanner(){
         if(i===step){
             utils.css(curDiv,'zIndex',1);
             //->让当前的透明度从0变为1,其它div透明度变为0
-            zhufengAnimate(curDiv,{opacity:1},200,function(){
+            zhufengAnimate(curDiv,{opacity:1},400,function(){
                 var curDivSib=utils.siblings(this);
                 for(var j= 0,len=curDivSib.length;j++;j++){
                     utils.css(curDivSib[j],'opacity',0);
@@ -87,4 +87,30 @@ function setBanner(){
     for(var i= 0,len=oLis.length;i<len;i++){
         i===step ? utils.addClass(oLis[i],'bg') : utils.removeClass(oLis[i],'bg');
     }
+}
+//->实现点击焦点切换
+(function(){
+    for(var i= 0,len=oLis.length;i<len;i++){
+        var curLi=oLis[i];
+        curLi.index=i;
+        curLi.onclick=function(){
+            step=this.index;
+            setBanner();
+        }
+    }
+})();
+//->实现左右切换
+bannerRight.onclick=autoMove;
+bannerLeft.onclick=function(){
+    step===0 ? step=jsonData.length-1 : step--;
+    setBanner();
+}
+//->实现鼠标悬停控制轮播的播放
+banner.onmouseover=function(){
+    clearInterval(autoTimer);
+    bannerLeft.style.display=bannerRight.style.display='block';
+}
+banner.onmouseout=function(){
+    autoTimer=setInterval(autoMove,interval);
+    bannerLeft.style.display=bannerRight.style.display='none';
 }

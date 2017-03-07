@@ -95,6 +95,8 @@
     * 7、node.hasChildNodes()
     *
     * */
+
+
     var oDiv=document.createElement('div');
     oDiv.id='div1';
     oDiv.style.width='300px';
@@ -148,6 +150,18 @@
     console.log(oDiv1.getAttribute('jiaSong'));
 
 </script>-->
+
+<script>
+    //->由于js没有提供insertAfter方法,我们可以自己实现:
+    function insertAfter(newEl, targetEl){
+        var parentEl = targetEl.parentNode;
+        if(parentEl.lastChild == targetEl){//->如果targetEl为parentEl的最后一个子元素,则直接在parentEl下appendChild
+            parentEl.appendChild(newEl);
+        }else{//->如果targetEl不是parentEl的最后一个子元素,则在targetEl的弟弟元素直接insertBefore
+            parentEl.insertBefore(newEl,targetEl.nextSibling);
+        }
+    }
+</script>
 
 <!--  仅以弹层模板为例，项目中通过DOM操作动态生成！  -->
 <input type="button" value="弹层" />

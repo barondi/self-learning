@@ -11,3 +11,5 @@
 3、->缓存问题  如果是针对view处理缓存的话可以直接利用url重写在后面加一个new Date()时间戳;但如果是针对js文件,则最理想的办法是通过手动方式
 去控制,当js文件发生变化以后,可以在后面加一个版本号来标识,而不是new Date()时间戳让它每次重新加载.例如:
     <script type="text/javascript" src="www.baidu.com/resources/js/common.js?v=20170328" ></script>
+
+4、->自定义插件中的this问题  有时候页面比较简单且有重复性的功能组件时没必要使用大的类库或插件,自定义插件中会有好多this问题

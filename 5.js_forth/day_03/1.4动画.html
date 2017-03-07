@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery动画方法</title>
+    <style>
+        *{margin:0;padding:0;}
+        .box{position:absolute;width:100px;height:100px;background-color:red;}
+        .box1{left:100px;top:200px;}
+
+        .content{display:none;width:100px;height:200px;background-color:lightblue;position:absolute;left:50%;top:100px;margin-left:-50px;}
+        .btn{position:absolute;top:350px;background-color:grey;cursor:pointer;}
+        .btn-left{left:40%;}
+        .btn-right{left:55%;}
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box box1"></div>
+<div class="content"></div>
+<div class="btn btn-left">显示</div>
+<div class="btn btn-right">隐藏</div>
+<script src="../../jquery-1.8.3.min.js"></script>
+<script>
+//    var $box=$('.box');
+//    $box.on('mouseover',function(){
+//        //->this:当前元素 原生JS对象  如果要调用jQuery方法,需要$(this)
+//        console.log('this:'+this);
+//    });
+//    $box.on('mouseout',function(){
+//        console.log(2);
+//    });
+
+//    console.log($.browser);
+
+    //jQuery中有两个each,this就是当前的item,原生js对象,如果要继续调用jQuery方法,需$(this)
+//    $('.box').each(function(index,item){
+//        console.log(item);
+//    });
+//    $.each([12,13,14],function(index,item){
+//        console.log(item);
+//    });
+//    $.each($('.box'),function(index,item){
+//        console.log(item);
+//    });
+//    $.each({name:'zhangsan',age:'7'},function(index,item){//->遍历对象时,index指向属性名,item指向属性值
+//        console.log(index+':'+item);
+//    });
+
+    //$.makeArray(obj):将类数组对象转换为数组对象
+    //$('selector').toArray():将jQuery集合中所有DOM元素恢复成一个数组
+//    var $box=$('.box');
+//    var mArray= $.makeArray($box);
+//    console.log('makeArray:'+mArray);
+//    var tArray=$box.toArray();
+//    console.log('toArray:'+tArray);
+
+    /*
+    * jQuery动画:
+    *   $('.box').animate({left:xxx,top:xxx,opacity:xxx...},duration,easing,callBack)
+    *       duration为动画过渡时间值可以是slow、normal、fast或者毫秒数;
+    *       easing默认为linear或者swing,如果要使用其它的,需引入easing.js方法库
+    *   stop:结束之前正在运行的动画,开启下一个新动画
+    *   delay:延迟
+    *   fadeIn/fadeOut:淡入/淡出
+    *   show/hide:显示/隐藏
+    *   slideDown/slideUp:向下展开/向上折起
+    * */
+//    $('.box1').animate({left:300,top:300},'normal','swing',function(){
+//        console.log(this);
+//    })
+
+    var $content=$('.content');
+    $('.btn-left').on('click',function(){
+        $content.fadeIn(3000);
+    });
+    $('.btn-right').on('click',function(){
+        $content.stop().fadeOut(3000);
+    });
+</script>
+</body>
+</html>
