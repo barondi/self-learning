@@ -1,0 +1,74 @@
+/*part1:public css*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul,li{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:' '}
+abbr,acronym{border:0;}
+a,a:link,a:visited,a:hover,a:active{text-decoration: none;cursor:pointer;color:#000000;}
+/*control the float*/
+.fl{float:left;}
+.fr{float:right;}
+/*clear float*/
+.clearfix:before,.clearfix:after{content:"";display:table;}
+.clearfix:after{clear:both;}
+.clearfix{*zoom:1;/*IE/7/6*/}
+/*IE6-7 not support inline-block*/
+.InBlock{display:inline-block;*display:inline;*zoom:1;}
+
+/*part2:mobile css bug*/
+/*某些Android手机圆角失效*/
+element{background-clip:padding-box;}
+/*输入框的兼容性解决*/
+input[type="text"],input[type="date"],input[type="tel"],input[type="email"],input[type="password"]{-webkit-appearance:none;/*消除默认样式如内阴影*/line-height:normal;/*手机上的line-height不能写成和height的值一样,会出现再次输入光标靠上的现象*/-webkit-transform: translateZ(0); -moz-transform: translateZ(0);-ms-transform: translateZ(0);-o-transform: translateZ(0);transform: translateZ(0);/*解决加入js后input框输入瞬间变白的现象*/}
+select{-webkit-appearance:none;border-radius:0;/*ios上的下拉框会有圆角*/}
+/*webkit表单输入框placeholder的颜色值*/
+input::-webkit-input-placeholder{color:#8a100a;}
+input:focus::-webkit-input-placeholder{color:#8a100a;}
+/*H5调用原生拨打手机号功能
+<a href="tel:15011077963">点击拨打手机</a>
+<a href="tel:4008002200,1034">4008002200转1034</a>
+*/
+/*安卓浏览器看背景图,有些设备会模糊:使用2x的背景图来代替img标签（一般情况都是用2倍）。例如一个div的宽高是100100，背景图必须得200200，然后background-size控制*/
+/*手机上多行省略*/
+.overflow-hidden{
+    display:box !important;
+    display:-webkit-box !important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp: 4;/*第几行出现省略号*//*text-align:justify;不能和溢出隐藏的代码一起写，会有bug*/
+}
+/*新版本andorid手机不识别flex布局*/
+.box{
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+}
+.box>li{
+    -webkit-box-flex: 1.0;
+    box-flex: 1.0;
+    -webkit-flex: 1.0;
+    flex: 1;
+    width: 0;/*解决兼容性问题*/
+}
+/*CSS3之ios原生滚动:手动设置scrollTop会有bug(滚动容器空白,手指触摸一下内容出来)
+解决方案:
+    el.WebKitOverflowScrolling = 'auto';
+    el.scrollTop = 500;
+    el.WebKitOverflowScrolling = 'touch';
+*/
+element{
+    -webkit-overflow-scrolling:touch;
+}
+/*position:fixed问题
+http://bbs.csdn.net/topics/390861003
+http://blog.csdn.net/ly2983068126/article/details/49306427
+http://blog.csdn.net/liu__hua/article/details/40106595
+http://blog.sina.com.cn/s/blog_7f95e24b0101los4.html
+http://www.android100.org/html/201405/20/10807.html
+*/
