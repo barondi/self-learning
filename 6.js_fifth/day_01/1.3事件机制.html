@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件传播机制</title>
+    <style>
+        * {margin: 0;padding: 0;}
+        html, body {width: 100%;height: 100%;background: #ccc;overflow: hidden;}
+        div {cursor: pointer;}
+        #outer {margin: 50px auto;width: 300px;height: 300px;background: green;}
+        #inner {margin: 50px auto;width: 200px;height: 200px;background: red;}
+        #center {margin: 50px auto;width: 100px;height: 100px;background: orange;}
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div id="center"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    /*
+    * 事件的传播机制(顺序):
+    * ->捕获阶段:从外向里一次查找元素
+    * ->目标阶段:当前事件源本身的操作
+    * ->冒泡阶段:从内到外依次触发相应的行为(最常用的是冒泡阶段)
+    *
+    * 使用DOM0级事件给元素绑定的某一行为的方法,都是在行为触发后的冒泡阶段执行的
+    * 优点:优点是所有浏览器都兼容，缺点是相同事件的监听函数只能有一个，后面会覆盖前面的
+    * */
+    var outer=document.getElementById('outer'),
+        inner=document.getElementById('inner'),
+        center=document.getElementById('center');
+
+    outer.onclick=function(e){
+        console.log('outer第一次绑定的事件');
+    }
+    outer.onclick=function(e){
+        console.log('outer第二次绑定的事件');
+    }
+    inner.onclick=function(e){
+        console.log('inner第一次绑定的事件');
+    }
+    inner.onclick=function(e){
+        console.log('inner第二次绑定的事件');
+    }
+
+//    document.body.onclick=function(e){
+//        console.log('body');
+//    }
+//    outer.onclick=function(e){
+//        console.log('outer');
+//    }
+//    inner.onclick=function(e){
+//        console.log('inner');
+//    }
+//    center.onclick=function(e){
+//        console.log('center');
+//    }
+
+    /*
+    * DOM2级事件addEventListener第一个参数是行为的类型,第二个参数是给当前的行为绑定的方法,第三个参数是控制在哪个阶段发生
+    * true:捕获阶段  false:冒泡阶段
+    * */
+//    outer.addEventListener("click", function () {
+//        console.log('outer');
+//    }, false);//outer
+//    inner.addEventListener("click", function () {
+//        console.log('inner');
+//    }, false);//inner、outer
+//    center.addEventListener("click", function () {
+//        console.log('center');
+//    }, false);//center、inner、outer
+
+//    outer.addEventListener("click", function () {
+//        console.log('outer');
+//    }, true);//outer
+//    inner.addEventListener("click", function () {
+//        console.log('inner');
+//    }, true);//outer、inner
+//    center.addEventListener("click", function () {
+//        console.log('center');
+//    }, true);//outer、inner、center
+
+//    outer.addEventListener("click", function () {
+//        console.log('outer');
+//    }, true);//outer
+//    inner.addEventListener("click", function () {
+//        console.log('inner');
+//    }, false);//outer、inner
+//    center.addEventListener("click", function () {
+//        console.log('center');
+//    }, false);//outer、center、inner
+</script>
+</body>
+</html>

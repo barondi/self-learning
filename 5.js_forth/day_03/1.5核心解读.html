@@ -3,16 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>jQuery核心解读</title>
+    <style>
+
+    </style>
 </head>
 <body>
+<div id="box"></div>
 <script type="text/javascript" src="../../jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
     /*
     * window.jQuery=window.$=jQuery,jQuery就是闭包中的私有函数
+    *   selector:[string]选择器的类型;  [object]JS原生对象(把原生的对象转换为jQuery对象)
+    * [function]回调函数(等价于$(document).ready...)
+    *   context:默认document(传递的是一个原生JS对象上下文,如果是一个jQuery对象,默认重构为选择器)
     * */
-    var jQuery=function(selector,context){
-        return new jQuery.fn.init(selector,context);
-    }
+//    var jQuery=function(selector,context){
+//        return new jQuery.fn.init(selector,context);
+//        //->每次执行可以理解为创建了一个jQuery的实例
+//    }
+//
+//    jQuery.fn=jQuery.prototype={
+//        constructor:jQuery
+//    }
+
+//    jQuery.extend=jQuery.fn.extend=function(){
+//        //jQuery.extend:把它当成一个普通对象,在对象中增加了extend方法
+//        //jQuery.fn.extend:在它的原型上也增加了一个extend方法
+//    }
+
+//    $('#box')===$('#box');//false  所以我们在频繁操作某组选择器时,应把这组选择器赋值给一个变量,去操作这个变量
+
+    /*
+    * jQuery这个类的原型上定义了很多的属性和方法,而通过选择器获取的每一个实例都可以调用这些方法:属性、CSS、文档操作、筛选、动画、事件...
+    * 如$('.box').css()
+    * */
+
+    /*
+    * 把jQuery当做一个普通的对象,在它自己的属性上增加了一些常用的方法:Ajax、工具...
+    * */
+
+    /*
+    * extend:扩展,向jQuery这个类库中增加一些其它常用的方法
+    * */
+    //->向jQuery属性名上扩展(把它当做一个对象),完善相关的类库,给类库增加核心的方法
+    jQuery.extend({
+        aa:function(){
+            console.log(this);
+        }
+    });
+    $.aa();
+
+    //->向jQuery原型上扩展(把它当做一个类),可以编写一些基于jQuery的插件
+    jQuery.fn.extend({
+        bb:function(){
+            console.log(this);
+        }
+    })
+    $().bb();
 </script>
 </body>
 </html>

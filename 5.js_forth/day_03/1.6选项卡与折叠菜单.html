@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery实现选项卡与折叠菜单</title>
+    <style>
+        *{margin:0;padding:0}
+        ul,li{list-style:none;}
+        .tab-container ul .tab-item{
+            width:100px;
+            height:44px;
+            float:left;
+            border:1px solid #ccc;
+            text-align:center;
+            background-color:lightgray;
+        }
+        .tab-container ul li.active{
+            background-color:lightblue;
+        }
+        .tab-container .tab-content{
+            width:400px;
+            height:300px;
+            border:1px solid #ccc;
+            text-align:center;
+            line-height: 300px;
+            display:none;
+            background-color:lightgray;
+        }
+        .tab-container div.active{
+            background-color:lightblue;
+            display:block;
+        }
+        .menu ul li{width:100px;}
+        .menu ul li h3{
+            background-color:lightyellow;
+        }
+        .menu ul li .sub-menu{
+            text-align:center;
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div class="tab-container">
+    <ul>
+        <li class="tab-item active">选项一</li>
+        <li class="tab-item">选项二</li>
+        <li class="tab-item">选项三</li>
+        <li class="tab-item">选项四</li>
+    </ul>
+    <div class="tab-content active">内容一</div>
+    <div class="tab-content">内容二</div>
+    <div class="tab-content">内容三</div>
+    <div class="tab-content">内容四</div>
+</div>
+<div class="tab-container">
+    <ul>
+        <li class="tab-item active">选项一</li>
+        <li class="tab-item">选项二</li>
+        <li class="tab-item">选项三</li>
+    </ul>
+    <div class="tab-content active">内容一</div>
+    <div class="tab-content">内容二</div>
+    <div class="tab-content">内容三</div>
+</div>
+
+<div class="menu">
+    <ul>
+        <li>
+            <h3>衬衫区</h3>
+            <ul class="sub-menu">
+                <li>衬衫1</li>
+                <li>衬衫2</li>
+                <li>衬衫3</li>
+            </ul>
+        </li>
+        <li>
+            <h3>外套区</h3>
+            <ul class="sub-menu">
+                <li>外套1</li>
+                <li>外套2</li>
+                <li>外套3</li>
+            </ul>
+        </li>
+        <li>
+            <h3>裤子区</h3>
+            <ul class="sub-menu">
+                <li>裤子1</li>
+                <li>裤子2</li>
+                <li>裤子3</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="../../jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    /*选项卡封装*/
+    function changeTab($tab){
+        var $tabItems=$tab.find('ul li'),
+            $tabContents=$tab.find('.tab-content');
+        $tabItems.on('click',function(){
+            _index=$(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $tabContents.each(function(index,item){
+                _index===index ? $(this).addClass('active') : $(this).removeClass('active');
+            })
+        })
+    }
+    $('.tab-container').each(function(index,item){
+        changeTab($(this));
+    })
+
+    /*折叠菜单->可以多个slide共存*/
+//    $('.menu ul li h3').on('click',function(){
+//        $(this).next('.sub-menu').stop().slideToggle(200);
+//    })
+
+    /*折叠菜单->只有一个slide存在*/
+        $('.menu ul li h3').on('click',function(){
+            $(this).next('.sub-menu').stop().slideToggle(200).parent().siblings().children('ul').slideUp(200);
+        })
+</script>
+</body>
+</html>

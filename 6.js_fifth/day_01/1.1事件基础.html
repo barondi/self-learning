@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js事件基础</title>
+    <style>
+        *{margin:0;padding:0}
+        #div1{width:100px;height:100px;background-color:red;}
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+
+<!--a标签的默认行为:跳转页面/锚点连接-->
+<!--href=''点击的时候是在刷新本页面; href='#box'页面的锚点连接,直接跳转到当前页面中ID为box这个盒子的位置(在URL地址栏加#xxx就是跳转到具体的一个位置); -->
+<!--<a href="http://www.zhufengpeixun.cn#course-list" id="link">珠峰前端课程</a>-->
+<a href="https://www.baidu.com/" id="link1">点击跳转到百度</a>
+<script>
+    /*
+    * 1、什么是事件?
+    *   行为本身:浏览器天生赋予其的行为,如onclick、onmouseover(onmouseenter)、onmouseout(onmouseleave)、onmousemove、onmousedown、
+    * onmouseup、onmousewheel、onscroll、onresize、onload、onunload、onfocus(文本框获取焦点)、onblur(文本框失去焦点)、onkeyup、onkeydown...
+    * 即使我们没有给上述行为绑定方法,事件也是存在的,当我们点击这个盒子的时候,同样会触发它的onclick行为,只是什么事情都没做
+    *   事件绑定:给元素的某一个行为绑定方法
+    * */
+    var oDiv=document.getElementById('div1');
+    /*
+    * DOM0级事件绑定   onclick这个行为定义在当前元素的私有属性上
+    *   重要:不仅把绑定的方法执行了,而且浏览器还默认的给这个方法传递了一个参数值MouseEvent:鼠标事件对象,
+    * 它是一个对象数据类型,里面包含了很多的属性名和属性值,用来记录当前鼠标的相关信息,
+    * MouseEvent->UIEvent->Event->Object
+    *   MouseEvent记录的是页面中唯一一个鼠标每次触发时候的相关信息,和到底是哪个元素上触发的没有关系
+    * */
+    /*
+     * 2、关于事件对象MouseEvent的兼容问题
+     *  事件对象本身的获取存在兼容问题:标准浏览器中是浏览器给方法传递的参数,我们只需要定义形参e就可以取到;
+     * 在IE6-8中浏览器不会给方法传递参数,需要到window.event中获取查到
+     * */
+    oDiv.onclick=function(e){
+        e=e||window.event;
+        /*
+        * e.type:存储的是当前鼠标触发的行为类型 'click'
+        * e.clientX/e.clientY:当前鼠标触发点距离当前屏幕左上角的x/y轴的坐标值
+        * [兼容性]e.target:事件源(当前鼠标触发的是哪个元素,那么它存储的就是哪个元素),但是在IE6-8中不存在这个属性(e.target值为undefined),在IE6~8中是不存在e.target的,只能使用e.srcElement
+        * [兼容性]e.pageX/e.pageY:当前鼠标的触发点距离BODY的X轴/Y轴的坐标(在IE6~8中是不存在这两个属性的)
+        * [兼容性]e.preventDefault:阻止默认行为(阻止浏览器天生的一些行为)
+        * */
+        e.target = e.target || e.srcElement;
+        e.pageX = e.pageX || ((document.documentElement.scrollLeft || document.body.scrollLeft) + e.clientX);
+        e.pageY = e.pageY || ((document.documentElement.scrollTop || document.body.scrollTop) + e.clientY);
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+        //->当我们触发oDiv的click行为的时候,会把绑定的这个函数执行
+        console.log(arguments);
+    };
+
+    /*
+    * 3、阻止事件的默认行为
+    *   HTML阻止默认行为：href="javascript:;" href="javascript:void 0;"
+    *   为了SEO的优化,我们肯能需要给一个真实的地址,但是点击还不想跳转页面,只能在JS中阻止默认的行为了
+    * */
+    var oLink=document.getElementById('link1');
+//    oLink.onclick=function(){
+//        return false;//->JS中最简单的阻止默认行为
+//    }
+    oLink.onclick=function(e){
+        e=e||window.event;
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;//->JS中利用事件对象阻止默认行为
+    }
+
+
+//    document.body.onclick=function(e){
+//        console.log(e);
+//    };
+    //->DOM2级事件绑定   addEventListener定义在当前元素所属EventTarget的这个类的原型上
+//    oDiv.addEventListener('click',function(){
+//        console.log(this);
+//    });
+</script>
+</body>
+</html>

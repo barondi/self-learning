@@ -117,7 +117,7 @@ var utils={
     },
 
     //计算网页上某个DOM元素距离浏览器的偏移量
-    getOffset:function(ele){
+    getOffset1:function(ele){
         var l=ele.offsetLeft;
         var t=ele.offsetTop;
         var p=ele.offsetParent;
@@ -137,6 +137,38 @@ var utils={
             p= p.offsetParent;
         }
         return {left:l,top:t}
+    },
+    /*
+     * [优化高大上]第二种获取某个DOM元素距离浏览器的偏移量:
+     *   1、ele.getBoundingClientRect()得到一个ClientRect对象里面包含{top:xxx,right:xxx,bottom:xxx,left:xxx,width:xxx,height:xxx}
+     * top,bottom,left,height兼容任何浏览器,width,height不兼容IE6-8
+     *   2、属性具体表示见1.2.2getBoundingClientRect图解
+     *   3、标准浏览器可视窗口起始坐标clientLeft,clientTop为(0,0),IE6-8起始坐标为(2,2)
+     *   4、  offsetTop=bcr.top+scrollTop-clientTop
+     *        offsetLeft=bcr.left+scrollLeft-clientLeft
+     *   5、更综合一下支持getBoundingClientRect()方法用getOffset,不支持用getOffset1
+     *   function getOffset(ele){
+            if(ele.getBoundingClientRect){
+                return getOffsetRect(ele);
+            }else{
+                return getOffsetSum(ele);
+            }
+         }
+     * */
+    getOffset:function(ele){
+        var obj={};
+        var bcr=ele.getBoundingClientRect();
+        var scrollTop=document.body.scrollTop||document.documentElement.scrollTop,
+            scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft,
+            clientTop=document.body.clientTop||document.documentElement.clientTop,
+            clientLeft=document.body.clientLeft||document.documentElement.clientLeft;
+        obj.offsetTop=bcr.top+scrollTop-clientTop,
+        obj.offsetLeft=bcr.left+scrollLeft-clientLeft,
+        obj.offsetBottom=bcr.bottom,
+        obj.offsetRight=bcr.right,
+        obj.width=bcr.width||obj.offsetRight-obj.offsetLeft,
+        obj.height=bcr.height||obj.offsetBottom-obj.offsetTop;
+        return obj;
     },
 
     /*

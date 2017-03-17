@@ -25,11 +25,11 @@
 		//B继承了A，拥有了A的所有属性和方法
 		B.prototype=p1;//给B的原型链上加了一个x1和get1
 		var p2=new B(2);//p2有了B私有的属性和方法x2、get2，并且拥有了原型链上的方法和属性x1、get1
-		console.log(p2.get1());
+		console.log(p2.get1());//1
 		p2.eat1();//A eat!!
 		B.prototype.aa=100;
-		console.log(p2.__proto__)
-		console.log(p1.aa);
+		console.log(p2.__proto__);//A
+		console.log(p1.aa);//100
 
 /***********************************/
 		//我们在原型链中获取对象的属性和方法时,只会从对象和对象的prototype中查找！
@@ -41,16 +41,16 @@
 		Person.prototype.MaxNumber=9999;
 		Person.__proto__.MinNumber=-9999;
 		var will=new Person('will',28);
-		console.log(will.MaxNumber);
-		console.log(will.MinNumber);
-		console.log(Person.__proto__);
+		console.log(will.MaxNumber);//9999
+		console.log(will.MinNumber);//undefined
+		console.log(Person.__proto__);//function(){}
 		console.log('*******************************');
 		will.__proto__.MiddleNumber=6666;
-		console.log(will.MiddleNumber);
+		console.log(will.MiddleNumber);//6666
 		console.log('*******************************');
 		Person.__proto__.__proto__.MinNumber=-9999;
-		console.log(will.MinNumber);//我们在原型链中获取对象的属性和方法时,只会从对象和对象的prototype中查找,并参考1.3.1原型链大全 will=>will.__proto__(Person.prototype)=>will.__proto__.__proto__(Object.prototype)(Person.__proto__.__proto__定义的MinNumber)
-		console.log(Person.__proto__.__proto__);
+		console.log(will.MinNumber);//-9999  我们在原型链中获取对象的属性和方法时,只会从对象和对象的prototype中查找,并参考1.3.1原型链大全 will=>will.__proto__(Person.prototype)=>will.__proto__.__proto__(Object.prototype)(Person.__proto__.__proto__定义的MinNumber)
+		console.log(Person.__proto__.__proto__);//Object
 		
 		
     </script>

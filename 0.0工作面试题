@@ -1,7 +1,7 @@
-1.bootstrap框架采用的是IE盒模型(怪异盒模型),给所有盒子加了box-sizing:border-box;IE8对box-sizing支持不完全,所以在media查询时才会出现max-width属性;
+1、bootstrap框架采用的是IE盒模型(怪异盒模型),给所有盒子加了box-sizing:border-box;IE8对box-sizing支持不完全,所以在media查询时才会出现max-width属性;
 box-sizing属性值有content-box(default):border和padding不计算入width内;padding-box:padding计算入width内;border-box:border和padding计算入width内.
 
-2.H5离线缓存:
+2、H5离线缓存:
     1、用法:给html新增一个manifest属性和html同名的manifest文件,如 <html lang="en" manifest="index.manifest">
     2、更新缓存三种方式:
         1)更新manifest文件
@@ -35,6 +35,50 @@ box-sizing属性值有content-box(default):border和padding不计算入width内;
     div浮动,文本3pxBug:#box{float:left;width:800px;}#box #left{float:left;width:50%;}#right{width:50%},解决办法:*html #left{margin-right:-3px;}
     IE捉迷藏:解决办法是使用line-height或者给元素设置固定宽高
     IE6图片下空白:给img设置display:block或float:left
+
+6、js实现继承的几种方式？
+    http://blog.csdn.net/junhua_peng/article/details/50498023
+
+7、css的z-index原理及IE6-7中的bug
+    元素含有position:relative(absolute,fixed)且z-index不为auto时在标准浏览器中会形成层叠上下文,需要比较两个元素的父级都有这个层叠上下文时取决于父级上面的有position:relative(absolute,fixed)的z-index值决定,
+而IE6-7中只会取决于第一层父元素,如果父级中的层叠上下文z-index相同,则取决于要比较的两个元素的z-index值(IE6-7会把auto当做0);
+    需要比较的两个元素中的父级元素没有形成层叠上下文的样式,则直接比较当前两个元素,遵循z-index谁大谁显示
+    [IE6-7Bug]<div style="position:relative;">
+                  <div style="position:absolute;z-index:100;width:100px;height:100px;background:red;">
+
+                  </div>
+              </div>
+              <div style="position:relative;">
+                  <div style="position:absolute;z-index:1000;width:20px;height:20px;background:black;">
+
+                  </div>
+              </div>
+    解决办法是给上述定位元素加上z-index:
+    <div style="position:relative;z-index:2">
+        <div style="position:absolute;z-index:100;width:100px;height:100px;background:red;">
+
+        </div>
+    </div>
+    <div style="position:relative;z-index:1">
+        <div style="position:absolute;z-index:1000;width:20px;height:20px;background:black;">
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 1、全选与非全选

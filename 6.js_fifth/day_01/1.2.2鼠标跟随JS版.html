@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {margin: 0;padding: 0;}
+        .clearfix:before,.clearfix:after{content:"";display:table;}
+        .clearfix:after{clear:both;}
+        .clearfix{*zoom:1;/*IE/7/6*/}
+        ul,li{list-style:none;}
+        .box{width:264px;margin:1000px auto 400px;position:relative;}
+        .box ul li{float:left;width:120px;height:80px;margin-right:10px;border:1px solid #ccc;}
+        .box ul li img{width:100%;height:100%;}
+        .mask{width:300px;height:200px;position:absolute;display:none;}
+    </style>
+</head>
+<body>
+<div id="box" class="box clearfix">
+    <ul class="clearfix">
+        <li><img src="./img/apple_1.jpg" bigImg="./img/apple_1_bigger.jpg" /></li>
+        <li><img src="./img/apple_2.jpg" bigImg="./img/apple_2_bigger.jpg" /></li>
+    </ul>
+    <div class="mask">
+        <img src="./img/apple_1_bigger.jpg" />
+    </div>
+</div>
+<script charset="utf-8" type="text/javascript" src="../../jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    var oBox=document.getElementById('box');
+    var oUl=oBox.getElementsByTagName('ul')[0];
+    var oLis=oUl.getElementsByTagName('li');
+    var oImgs=[];
+    for(var i=0;i<oLis.length;i++){
+        oImgs.push(oLis[i].getElementsByTagName('img')[0]);
+    }
+    var oMask=oBox.getElementsByTagName('div')[0];
+    var oMaskImg=oMask.getElementsByTagName('img')[0];
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onmouseover=function(e){
+            e=e||window.event;
+            e.target=e.target|| e.srcElement;
+            var oMaskOffset=getOffset(oBox);
+            var pagePos=getPagePos(e);
+            oMask.style.left= pagePos.pageX-oMaskOffset.offsetLeft+20+'px';
+            oMask.style.top= pagePos.pageY-oMaskOffset.offsetTop+20+'px';
+            oMaskImg.src=oImgs[this.index].getAttribute('bigImg');
+            oMask.style.display='block';
+        }
+        oLis[i].onmousemove=function(e){
+            e=e||window.event;
+            e.target=e.target|| e.srcElement;
+            var oMaskOffset=getOffset(oBox);
+            var pagePos=getPagePos(e);
+            oMask.style.left= pagePos.pageX-oMaskOffset.offsetLeft+20+'px';
+            oMask.style.top= pagePos.pageY-oMaskOffset.offsetTop+20+'px';
+        }
+        oLis[i].onmouseout=function(e){
+            oMask.style.display='none';
+        }
+    }
+
+    /*IE6-8不支持pageX pageY鼠标属性的方法*/
+    function getPagePos(e){
+        var scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft;
+        var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+        var clientLeft=document.body.clientLeft||document.documentElement.clientLeft;
+        var clientTop=document.body.clientTop||document.documentElement.clientTop;
+        if(!e.pageX){
+            e.pageX=e.clientX+scrollLeft-clientLeft;
+            e.pageY=e.clientY+scrollTop-clientTop;
+        }
+        return {pageX: e.pageX,pageY: e.pageY};
+    }
+    /*
+     * [优化高大上]第二种获取任意元素offset坐标位置:
+     *   1、ele.getBoundingClientRect()得到一个ClientRect对象里面包含{top:xxx,right:xxx,bottom:xxx,left:xxx,width:xxx,height:xxx}
+     * top,bottom,left,height兼容任何浏览器,width,height不兼容IE6-8
+     *   2、属性具体表示见1.2.2getBoundingClientRect图解
+     *   3、标准浏览器可视窗口起始坐标clientLeft,clientTop为(0,0),IE6-8起始坐标为(2,2)
+     *   4、  offsetTop=bcr.top+scrollTop-clientTop
+     *        offsetLeft=bcr.left+scrollLeft-clientLeft
+     * */
+    function getOffset(ele){
+        var obj={};
+        var bcr=ele.getBoundingClientRect();
+        var scrollTop=document.body.scrollTop||document.documentElement.scrollTop,
+                scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft,
+                clientTop=document.body.clientTop||document.documentElement.clientTop,
+                clientLeft=document.body.clientLeft||document.documentElement.clientLeft;
+        obj.offsetTop=bcr.top+scrollTop-clientTop,
+        obj.offsetLeft=bcr.left+scrollLeft-clientLeft,
+        obj.offsetBottom=bcr.bottom,
+        obj.offsetRight=bcr.right,
+        obj.width=bcr.width||obj.offsetRight-obj.offsetLeft,
+        obj.height=bcr.height||obj.offsetBottom-obj.offsetTop;
+        return obj;
+    }
+
+</script>
+</body>
+</html>
