@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标跟随实战案例</title>
+    <style>
+        *{margin:0;padding:0}
+        a:link,a:visited,a:hover,a:active{color:#000000;text-decoration:none;}
+        /*这里是导航的样式*/
+        ul,li{list-style:none;}
+        #nav{width:200px;background-color:red;position:relative;}
+        #nav li{height:30px;line-height:30px;padding-left:18px;cursor:pointer;}
+        #nav li:hover{background-color:lightgray;}
+        #nav li .detail{width:400px;height:300px;background-color:#ebecec;border:1px solid lightblue;position:absolute;left:200px;top:0;display:none;}
+        /*  关键点:一是div.detail要放在li下面绝对定位
+            二是如果ul#nav设置position:relative,则div.detail位置一直在固定位置不变;
+        如果ul#nav下面的li设置position:relative,则div.detail位置会随着是第几个li而变动
+        */
+    </style>
+</head>
+<body>
+<ul id="nav">
+    <li>
+        <a href="javascript:;">家用电器</a>
+        <div class="detail">这里是家用电器分类</div>
+    </li>
+    <li>
+        <a href="javascript:;">家具建材</a>
+        <div class="detail">这里是家具建材分类</div>
+    </li>
+    <li>
+        <a href="javascript:;">汽车用品</a>
+        <div class="detail">这里是汽车用品分类</div>
+    </li>
+    <li>
+        <a href="javascript:;">酒水饮料</a>
+        <div class="detail">这里是酒水饮料分类</div>
+    </li>
+</ul>
+<script type="text/javascript">
+    var oUl=document.getElementById('nav');
+    var oLis=oUl.getElementsByTagName('li');
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].curDiv=oLis[i].getElementsByTagName('div')[0];
+        oLis[i].onmouseenter=function(e){
+            this.curDiv.style.display='block';
+        }
+        oLis[i].onmouseleave=function(e){
+            this.curDiv.style.display='none';
+        }
+    }
+</script>
+</body>
+</html>

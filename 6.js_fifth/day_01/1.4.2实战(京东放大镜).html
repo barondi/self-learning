@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>京东放大镜</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        #box {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 300px;
+            height: 300px;
+            box-shadow: 4px 4px 10px 0 #616161;
+        }
+
+        #box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: #000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            cursor: move;
+        }
+
+        #boxDel {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 360px;
+            width: 300px;
+            height: 300px;
+            box-shadow: 4px 4px 10px 0 #616161;
+            overflow: hidden;
+        }
+
+        #boxDel img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%;
+            height: 300%;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="img/iphone.jpg"/>
+
+    <div id="mask"></div>
+</div>
+<div id="boxDel">
+    <img src="img/iphone_big.jpg"/>
+</div>
+<script type="text/javascript">
+    var box = document.getElementById("box"), mask = document.getElementById("mask");
+    var boxDel = document.getElementById("boxDel"), boxImg = boxDel.getElementsByTagName("img")[0];
+    box.onmouseenter=function(e){
+        mask.style.display='block';
+        boxDel.style.display='block';
+        setMarkPos(e);
+    }
+    box.onmousemove=setMarkPos;
+    box.onmouseleave=function(e){
+        mask.style.display='none';
+        boxDel.style.display='none';
+    }
+    function setMarkPos(e){
+        e=e||window.event;
+        var page=getPagePos(e);
+        var offset=getOffset(box);
+        var curL = page.pageX - offset.offsetLeft - mask.offsetWidth / 2;
+        var curT = page.pageY - offset.offsetTop - mask.offsetHeight / 2;
+
+        //->到达边界判断
+        var minL = 0, minT = 0, maxL = box.offsetWidth - mask.offsetWidth, maxT = box.offsetHeight - mask.offsetHeight;
+        curL = curL <= minL ? minL : (curL >= maxL ? maxL : curL);
+        curT = curT <= minT ? minT : (curT >= maxT ? maxT : curT);
+        mask.style.left=curL+'px';
+        mask.style.top=curT+'px';
+        boxImg.style.left=-3*curL+'px';
+        boxImg.style.top=-3*curT+'px';
+    }
+    /*IE6-8不支持pageX pageY鼠标属性的方法*/
+    function getPagePos(e){
+        var scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft;
+        var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+        var clientLeft=document.body.clientLeft||document.documentElement.clientLeft;
+        var clientTop=document.body.clientTop||document.documentElement.clientTop;
+        if(!e.pageX){
+            e.pageX=e.clientX+scrollLeft-clientLeft;
+            e.pageY=e.clientY+scrollTop-clientTop;
+        }
+        return {pageX: e.pageX,pageY: e.pageY};
+    }
+    /*
+     * [优化高大上]第二种获取任意元素offset坐标位置:
+     *   1、ele.getBoundingClientRect()得到一个ClientRect对象里面包含{top:xxx,right:xxx,bottom:xxx,left:xxx,width:xxx,height:xxx}
+     * top,bottom,left,height兼容任何浏览器,width,height不兼容IE6-8
+     *   2、属性具体表示见1.2.2getBoundingClientRect图解
+     *   3、标准浏览器可视窗口起始坐标clientLeft,clientTop为(0,0),IE6-8起始坐标为(2,2)
+     *   4、  offsetTop=bcr.top+scrollTop-clientTop
+     *        offsetLeft=bcr.left+scrollLeft-clientLeft
+     * */
+    function getOffset(ele){
+        var obj={};
+        var bcr=ele.getBoundingClientRect();
+        var scrollTop=document.body.scrollTop||document.documentElement.scrollTop,
+                scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft,
+                clientTop=document.body.clientTop||document.documentElement.clientTop,
+                clientLeft=document.body.clientLeft||document.documentElement.clientLeft;
+        obj.offsetTop=bcr.top+scrollTop-clientTop,
+                obj.offsetLeft=bcr.left+scrollLeft-clientLeft,
+                obj.offsetBottom=bcr.bottom,
+                obj.offsetRight=bcr.right,
+                obj.width=bcr.width||obj.offsetRight-obj.offsetLeft,
+                obj.height=bcr.height||obj.offsetBottom-obj.offsetTop;
+        return obj;
+    }
+
+
+
+
+
+
+
+
+//
+//    //->计算MARK的位置信息
+//    function computedMarkPos(e) {
+//        e = e || window.event;
+//        var curL = e.clientX - box.offsetLeft - mask.offsetWidth / 2;
+//        var curT = e.clientY - box.offsetTop - mask.offsetHeight / 2;
+//
+//        //->到达边界判断
+//        var minL = 0, minT = 0, maxL = box.offsetWidth - mask.offsetWidth, maxT = box.offsetHeight - mask.offsetHeight;
+//        curL = curL <= minL ? minL : (curL >= maxL ? maxL : curL);
+//        curT = curT <= minT ? minT : (curT >= maxT ? maxT : curT);
+//
+//        utils.css(mask, {
+//            left: curL,
+//            top: curT
+//        });
+//
+//        //->控制右侧的大图展示:左侧BOX和MARK的比例是横向/纵向(3:1),这样的话,左侧的MARK移动10,右侧的IMG就要移动-30
+//        utils.css(boxImg, {
+//            marginTop: -curT * 3,
+//            marginLeft: -curL * 3
+//        });
+//    }
+//
+//    //->实现具体的行为操作
+//    box.onmouseenter = function (e) {
+//        utils.css(mask, "display", "block");
+//        utils.css(boxDel, "display", "block");
+//        computedMarkPos(e);
+//    };
+//    box.onmousemove = computedMarkPos;
+//    box.onmouseleave = function (e) {
+//        utils.css(mask, "display", "none");
+//        utils.css(boxDel, "display", "none");
+//    };
+</script>
+</body>
+</html>

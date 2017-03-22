@@ -172,6 +172,21 @@ var utils={
     },
 
     /*
+     * 获取鼠标属性pageX、pageY的方法(兼容IE6-8)
+     * */
+    getPagePos:function(e){
+        var scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft;
+        var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+        var clientLeft=document.body.clientLeft||document.documentElement.clientLeft;
+        var clientTop=document.body.clientTop||document.documentElement.clientTop;
+        if(!e.pageX){
+            e.pageX=e.clientX+scrollLeft-clientLeft;
+            e.pageY=e.clientY+scrollTop-clientTop;
+        }
+        return {pageX: e.pageX,pageY: e.pageY};
+    },
+
+    /*
     * getElementsByCN:根据类名获取对应的元素
     * 如果是单个类名,则先通过eles=(context || document).getElementsByTagNmae('*')获取元素,然后传递给形参;
     * 如果是多个类名,则先通过下方strTrim方法对自己定义类名字符串格式化,然后通过split(' ')分割成数组,在循环中依次调用getElementsByCN.

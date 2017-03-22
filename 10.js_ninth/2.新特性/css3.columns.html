@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS3多列布局</title>
+    <style>
+        *{margin:0;padding:0}
+        .content1{
+            margin-bottom:20px;
+            width:100%;
+            -webkit-column-count:3;
+            -moz-column-count:3;
+            -ms-column-count:3;
+            column-count:3;
+        }
+        .content2{margin-bottom:20px;width:100%;-webkit-column-width:150px;-webkit-column-gap:50px;}
+        .content3{-webkit-column-count:3;-webkit-column-width:500px;/*<==>-webkit-columns:3 500px;*/}
+    </style>
+</head>
+<body>
+<div class="content1">
+    CSS里一直有一个让我们头疼的问题，就是创建布局很麻烦。当然，有很多方式，有很多技术都可以创建各种布局，但我们总觉得CSS里应该提供一些新属性，让我们能更好的管理布局。幸运的是，CSS3里提供了一批新的创建列式布局的column属性，有了这些属性，我们不需要再使用float,clear,margin等属性进行调控，避免了很多麻烦。
+</div>
+<div class="content2">
+    CSS里一直有一个让我们头疼的问题，就是创建布局很麻烦。当然，有很多方式，有很多技术都可以创建各种布局，但我们总觉得CSS里应该提供一些新属性，让我们能更好的管理布局。幸运的是，CSS3里提供了一批新的创建列式布局的column属性，有了这些属性，我们不需要再使用float,clear,margin等属性进行调控，避免了很多麻烦。
+</div>
+<div class="content3">
+    CSS里一直有一个让我们头疼的问题，就是创建布局很麻烦。当然，有很多方式，有很多技术都可以创建各种布局，但我们总觉得CSS里应该提供一些新属性，让我们能更好的管理布局。幸运的是，CSS3里提供了一批新的创建列式布局的column属性，有了这些属性，我们不需要再使用float,clear,margin等属性进行调控，避免了很多麻烦。
+</div>
+<script>
+    /*
+    *   1、css3 columns布局相关的三个属性:column-count、column-width、column-gap
+    * column-count设置列的具体个数,column-width设置列的宽度,column-gap列之间的缝隙间隔
+    *   2、浏览器兼容性:IE10及以上和标准浏览器,为保证最大兼容需要加上相应的前缀
+    * */
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS事件委托(代理)</title>
+    <style>
+        * {margin: 0;padding: 0;}
+        html, body {width: 100%;height: 100%;overflow: hidden;}
+        div {cursor: pointer;}
+        #outer {margin: 50px auto;width: 300px;height: 300px;background: green;}
+        #inner {margin: 50px auto;width: 200px;height: 200px;background: red;}
+        #center {margin: 50px auto;width: 100px;height: 100px;background: orange;}
+
+        /*购物车样式*/
+        #box{position: relative;margin: 20px auto;width: 140px;height: 40px;line-height: 40px;text-align: center;border: 1px solid #999;background: #fff;}
+        #box span{display: block;position: absolute;top: 0;left: 0;width: 140px;height: 40px;background: #fff;}
+        #mask{position: absolute;right: -1px;top: 40px;width: 310px;height: 70px;border: 1px solid #999;}
+        #box.bg span{height: 41px;border-bottom-color: #fff;z-index:2}
+        /*z-index:2涉及到一个混淆点,就是z-index的原理,由于父级div#box设置了position:relative形成了层叠上下文,所以子级span和div在默认z-index相等的情况下,后面的元素会覆盖前面的导致给span设置的border-bottom-color失效,解决办法是让span的z-index大于div的或者让span和div互换位置*/
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div id="center"></div>
+    </div>
+</div>
+
+<div id="box">
+    <span>购物车</span>
+    <div id="mask" style="display:none;">查看购物车中的详细信息</div>
+</div>
+<script type="text/javascript">
+//    var outer=document.getElementById('outer'),
+//        inner=document.getElementById('inner'),
+//        center=document.getElementById('center');
+//    document.body.onclick=function(e){
+//        e=e||window.event;
+//        e.target= e.target|| e.srcElement;
+//        console.log(e.target);
+//    }
+    /*
+    * 1、什么是事件委托(代理)?
+    *   利用事件的冒泡传播机制(触发当前元素的某个行为,它的父级所有元素的相关行为都会被触发),如果一个容器中有很多元素都要绑定点击事件,我们没有必要一个个的绑定,
+    * 只需要给最外层容器绑定一个点击事件即可,在这个方法执行的时候,通过事件源(e.target)区分来进行不同的操作
+    * */
+
+var box=document.getElementById('box'),
+    span=box.getElementsByTagName('span')[0],
+    mask=document.getElementById('mask');
+document.body.onclick=function(e){
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        //->如果点击的为#box或#box span,我们判断#mask是否显示,显示的话,让其隐藏;反之让其显示
+        if(e.target.id==='box'||(e.target.tagName.toLowerCase()==='span'&& e.target.parentNode.id==='box')){
+            if(mask.style.display==='none'){
+                mask.style.display='block';
+                box.className='bg';
+            }else{
+                mask.style.display='none';
+                box.className='';
+            }
+            return;
+        }
+        //->如果事件源是#mask,则不进行任何操作
+        if(e.target.id==='mask'){
+            return;
+        }
+        //->以上都不是的话,直接让#mask隐藏
+        mask.style.display='none';
+        box.className='';
+    }
+</script>
+</body>
+</html>
