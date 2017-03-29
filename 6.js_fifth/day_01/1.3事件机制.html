@@ -61,6 +61,8 @@
     /*
     * DOM2级事件addEventListener第一个参数是行为的类型,第二个参数是给当前的行为绑定的方法,第三个参数是控制在哪个阶段发生
     * true:捕获阶段  false:冒泡阶段
+    *   优势:可以给某一个元素的同一个行为绑定多个不同的方法;
+    * Dom0中有的行为类型,Dom2中一样可以绑定;而且在Dom2张还提供了一些Dom0中没有的行为类型如DOMContentLoaded
     * */
 //    outer.addEventListener("click", function () {
 //        console.log('outer');

@@ -207,6 +207,16 @@
         }
     }
     console.log("Total:"+total(100));
+
+    /*
+    *   var str=null与var str1=''区别:var str=null中str的引用为空;而str1引用了一个空串
+    * */
+    var str=null;
+    console.log(str==undefined);//true
+    var str1='';
+    console.log(str1==null);//false
+    console.log(str1==undefined);//false
+
 </script>
 </body>
 </html>

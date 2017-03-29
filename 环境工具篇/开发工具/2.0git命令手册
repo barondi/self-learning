@@ -1,0 +1,10 @@
+*********本地工程添加到git仓库**********
+1、在myProject根目录下执行git init转化成git工程
+2、在myProject根目录下配置提交的用户名和mail地址:
+    git config --global user.name "barondi"
+    git config --global user.email "15011077963@163.com"
+3、在myProject根目录下执行git remote add origin https://github.com/barondi/myCompany.git关联远程仓库,在工程下.git/config中会生成相关的git信息
+4、执行git add .添加所有文件到本地仓库
+5、执行git commit -m 'commit info'
+6、更新远程更新到本地:git pull origin master(看有没有必要)
+7、git push origin master

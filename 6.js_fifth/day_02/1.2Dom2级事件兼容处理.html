@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom2级事件兼容处理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        #box {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background-color: #ff6600;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="./event.js"></script>
+<script type="text/javascript">
+    function fn1(){
+        console.log(this);
+    }
+
+//    box.attachEvent('onclick',function(){
+//        fn1.call(box);
+//    })
+
+    //->这样虽然解决了this问题,但是又跑出了一个新问题,不知道如何移除事件(不知道匿名函数是谁)
+//    var tempFn=function(){
+//        fn1.call(box);
+//    };
+//    box.attachEvent('onclick',tempFn);
+//    box.detachEvent('onclick',tempFn);
+
+    //->核心是event.js Dom2级事件库
+
+    function fn2(){
+        console.log(2);
+    }
+    function fn3(){
+        console.log(3);
+    }
+    var oBox=document.getElementById('box');
+    myEvent.on(oBox,'click',fn1);
+    myEvent.on(oBox,'click',fn1);
+    myEvent.on(oBox,'click',fn1);
+    myEvent.on(oBox,'click',fn2);
+    myEvent.on(oBox,'click',fn3);
+    myEvent.on(oBox,'mouseover',fn2);
+
+    myEvent.off(oBox,'click',fn2);
+</script>
+</body>
+</html>

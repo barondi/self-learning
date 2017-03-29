@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>控制密码显示与隐藏</title>
+    <style>
+        *{margin:0;padding:0;}
+        /*::-ms-clear,::-ms-reveal{display: none;}*/
+        .box{width:240px;height:28px;position:relative;border:1px solid #ccc;border-radius:4px;}
+        .box input{outline:none;width:202px;height:100%;border:none;padding:0 5px;float:left;}
+        .box img{width:28px;height:28px;}
+        .box img:hover{opacity:0.6;filter:alpha(opacity=60);}
+        .box img.unActive{opacity:0.4;filter:alpha(opacity=40);}
+        .box label{display:block;position:absolute;width:30px;height:28px;right:28px;top:0;background-color:#ffffff;}
+    </style>
+</head>
+<body>
+<!--<div class="box">-->
+    <!--<input type="password" name="password" placeholder="请输入密码" />-->
+    <!--<img src="./eye.svg" class="togglePass unActive" />-->
+<!--</div>-->
+<br><br><br>
+<div class="myBox box">
+    <input type="text" name="password" placeholder='请输入密码' style="display:none;" />
+    <input type="password" name="password" placeholder='请输入密码' />
+    <img src="./eye.png" class="togglePass unActive" />
+    <label></label>
+</div>
+<script type="text/javascript" src="../../jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+//        var $togglePass=$('.togglePass'),
+//            $input=$('.box input');
+//        $togglePass.on('click',onTogglePassBtnClick);
+//        function onTogglePassBtnClick() {
+//            var $btn = $(this);
+//            if($btn.hasClass('unActive')){
+//                $btn.removeClass('unActive');
+//                $input.prop('type','text');
+//            }else{
+//                $btn.addClass('unActive');
+//                $input.prop('type','password');
+//            }
+//        }
+        //->以上方法在IE8及以下不支持给input type属性赋值
+
+        //->换个思路,既然改变不了input type属性值,那么直接去切换input框,然后把之前写的值传过去
+        var $togglePass=$('.myBox .togglePass'),
+            $input=$('.myBox input');
+        $togglePass.on('click',onTogglePassBtnClick);
+        function onTogglePassBtnClick() {
+            var $btn = $(this);
+            if($btn.hasClass('unActive')){
+                $btn.removeClass('unActive');
+                var val1=$input.eq(1).val();
+                console.log($input.eq(0))
+                $input.eq(0).val(val1);
+                $input.eq(1).hide();
+                $input.eq(0).show();
+            }else{
+                $btn.addClass('unActive');
+                var val2=$input.eq(0).val();
+                $input.eq(1).val(val2);
+                $input.eq(0).hide();
+                $input.eq(1).show();
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多级菜单-jQuery版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+        ul, li {
+            list-style: none;
+        }
+        em, span {
+            display: block;
+        }
+        .menu {
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+            border: 1px dashed green;
+            /*CSS3实现盒子圆角在PC端的处理方式->优雅降级:按照高版本兼容CSS3或HTML5的浏览器写样式,对于不兼容的浏览器我们根据具体的情况选择使用其它方式处理或者是不管,例如：圆角在IE6~8下不兼容就不需要处理了*/
+            border-radius: 5px;
+            /*CSS3实现背景颜色渐变在PC端的处理方式->渐进增强:先写一套兼容所有浏览器的,然后针对于谷歌火狐等这些最新的浏览器单独的增加更好的效果*/
+            background: #ffe470;
+            background: -webkit-linear-gradient(top left, lightblue, lightgreen, lightcyan, lightgoldenrodyellow, lightpink, lightsalmon);
+            background: -moz-linear-gradient(top left, lightblue, lightgreen, lightcyan, lightgoldenrodyellow, lightpink, lightsalmon);
+            background: -o-linear-gradient(top left, lightblue, lightgreen, lightcyan, lightgoldenrodyellow, lightpink, lightsalmon);
+            background: linear-gradient(top left, lightblue, lightgreen, lightcyan, lightgoldenrodyellow, lightpink, lightsalmon);
+        }
+        .menu li {
+            position: relative;
+        }
+        .menu li em {
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 16px;
+            height: 16px;
+            background-image: url("./img/icon.png");
+            background-position: -59px -28px;
+        }
+        /*如果想让EM中的图片变为“减号”,只需要让EM增加一个叫做BG的样式即可:如果当前是加点击后变成减,当前是减点击在变成加*/
+        .menu li em.bg {
+            background-position: -42px -28px;
+        }
+        .menu li span {
+            margin-left: 20px;
+            height: 30px;
+            line-height: 30px;
+        }
+        /*如果当前的LI里面有下一级内容,我们就给当前LI子级中的EM和SPAN增加一个CURSOR的样式->我们在JS中动态的增加*/
+        .cursor {
+            cursor: pointer;
+        }
+        .menuTwo, .menuThree, .menuFour {
+            display: none;
+        }
+        .menuTwo {
+            margin-left: 20px;
+        }
+        .menuThree {
+            margin-left: 40px;
+        }
+        .menuFour {
+            margin-left: 60px;
+        }
+    </style>
+</head>
+<body>
+<ul class="menu" id="menu">
+    <li>
+        <em></em><span>1-1</span>
+        <ul class="menuTwo">
+            <li><span>2-1</span></li>
+            <li>
+                <em></em><span>2-2</span>
+                <ul class="menuThree">
+                    <li>
+                        <em></em><span>3-1</span>
+                        <ul class="menuFour">
+                            <li><span>4-1</span></li>
+                            <li><span>4-2</span></li>
+                        </ul>
+                    </li>
+                    <li><span>3-2</span></li>
+                    <li><span>3-3</span></li>
+                </ul>
+            </li>
+            <li>
+                <em></em><span>2-3</span>
+                <ul class="menuThree">
+                    <li><span>3-1</span></li>
+                    <li><span>3-2</span></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <em></em><span>1-2</span>
+        <ul class="menuTwo">
+            <li><span>2-1</span></li>
+            <li>
+                <em></em><span>2-2</span>
+                <ul class="menuThree">
+                    <li>
+                        <em></em><span>3-1</span>
+                        <ul class="menuFour">
+                            <li><span>4-1</span></li>
+                            <li><span>4-2</span></li>
+                        </ul>
+                    </li>
+                    <li><span>3-2</span></li>
+                    <li><span>3-3</span></li>
+                </ul>
+            </li>
+            <li>
+                <em></em><span>2-3</span>
+                <ul class="menuThree">
+                    <li><span>3-1</span></li>
+                    <li><span>3-2</span></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<script charset="utf-8" type="text/javascript" src="../../jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    var $menu = $("#menu");
+    $menu.find("li").each(function (index, item) {
+        var $menuSpan = $(item).children("span"), $menuEm = $(item).children("em");
+        if ($menuEm.length > 0) {
+            $menuSpan.addClass("cursor");
+            $menuEm.addClass("cursor");
+        }
+    });
+
+    //->使用事件委托的原理实现多级菜单的展开和收起
+    $menu.on("click", function (e) {
+        //->e:jQuery中已经完成所有的兼容处理了,我们只需要按照标准浏览器下标准操作就可以了
+        var curTar = e.target;
+        if (curTar.tagName.toUpperCase() === "SPAN") {
+            commonFn($(curTar));
+            return;
+        }
+        if (curTar.tagName.toUpperCase() === "EM") {
+            commonFn($(curTar).next());
+        }
+    });
+
+    function commonFn($curTar) {
+        //->$curTar是一个jQuery对象
+        var isBlock = null;
+        var $nexUl = $curTar.next();
+        if ($nexUl.length > 0) {
+            isBlock = $nexUl.css("display");
+            $nexUl.stop().toggle();//->自己可以实现当前是展开的隐藏,当前是隐藏的展开
+            //->如果之前是显示的,我们除了让当前UL收起外,还需要让其后级元素中的UL也都是收起的才可以,同样也需要让后级中的EM移除BG的样式
+            if (isBlock === "block") {
+                $nexUl.find("ul").stop().hide();
+                $nexUl.find("em").removeClass("bg");
+            }
+        }
+        $curTar.prev().toggleClass("bg");
+    }
+</script>
+</body>
+</html>

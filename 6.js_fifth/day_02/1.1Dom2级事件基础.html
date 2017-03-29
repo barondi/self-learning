@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom2级事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        #box {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background-color: #ff6600;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript">
+    /*
+     * 1、我们使用Dom2事件绑定,具体过程是让box通过原型链查找直到EventTarget这个内置类原型上的addEventListener方法实现
+     * 2、Dom2事件的优势:可以给某一个元素的同一个行为绑定多个不同的方法;
+     * Dom0中有的行为类型,Dom2中一样可以绑定;而且在Dom2张还提供了一些Dom0中没有的行为类型如DOMContentLoaded(当页面中的DOM结构加载完成)触发的行为;
+     * */
+    //    box.addEventListener('DOMContentLoaded',function(e){
+    //
+    //    },false);
+
+    //->window.onload=function(){}当页面中的所有资源加载完成(HTML结构、图片、音频...)才会执行后面的函数;并且在一个页面中只能用一次,后面的再写会把前面的覆盖掉;因为它是Dom0事件绑定,所以只能绑定一次
+    //->jQuery:$(document).ready(function(){})<==>$(function(){})只要页面中的HTML结构加载完成就会执行对应的函数;并且在同一个页面中可以出现多次;因为它采用Dom2事件绑定，并且绑定的行为是Dom2中新增加的那个DOMContentLoaded
+    //    window.addEventListener('load',function(){},false);
+    //    window.addEventListener('load',function(){},false);
+
+    /*
+     * 3、Dom2级事件在移除的时候需要保证三个参数:行为、方法、哪个阶段发生,一点都不能差,所以在使用Dom2绑定的时候我们一般都给它绑定的是实名函数
+     * */
+    //    function fn1(e){
+    //        console.log(this);
+    //    }
+    //    box.addEventListener('click',fn1,false);
+    //    box.removeEventListener('click',fn1,false);
+
+    /*
+     * 4、Dom2事件只能给某个元素的同一个行为绑定多个[不同]的方法(如果方法相同了只能留一个),但不同行为可以绑定同一个方法;
+     * 当行为触发,会按照绑定的向后顺序依次把绑定的方法执行;
+     * 执行的方法中的this是当前被绑定事件的元素本身
+     * 5、事件池:用来存储当前元素行为绑定的方法的
+     * */
+    //    function fn1(){console.log(1);}
+    //    function fn2(){console.log(2);}
+    //    function fn3(){console.log(3);}
+    //    function fn4(){console.log(4);}
+    //    function fn5(){console.log(5);}
+    //    box.addEventListener('click',fn1,false);
+    //    box.addEventListener('click',fn2,false);
+    //    box.addEventListener('click',fn5,false);
+    //    box.addEventListener('click',fn3,false);
+    //    box.addEventListener('click',fn4,false);
+
+    /*
+     * 6、在IE6-8浏览器中,不支持addEventListener/removeEventListener,如果想实现Dom2事件绑定只能用attachEvent/detachEvent
+     * attachEvent/detachEvent只有两个参数,不能像addEventListener那样控制在哪个阶段发生,默认只能在冒泡阶段发生
+     * 且行为需要添加'on'
+     *   [Dom2事件兼容问题]和标准浏览器的事件池机制相比:
+     * 顺序问题:执行的时候顺序是混乱的,标准浏览器是按照绑定顺序依次执行
+     * 重复问题:IE6-8可以给同一个元素的同一个行为绑定多个相同的方法
+     * this问题:IE6-8中当方法执行的时候,方法中的this不是当前元素box而是window
+     * */
+    //    function fn1(){console.log(1);}
+    //    function fn2(){console.log(2);}
+    //    function fn3(){console.log(3);}
+    //    function fn4(){console.log(4);}
+    //    function fn5(){console.log(5);}
+    //    function fn6(){console.log(6);}
+    //    function fn7(){console.log(7);}
+    //    function fn8(){console.log(8);}
+    //    function fn9(){console.log(9);}
+    //    function fn10(){console.log(10);}
+    //    box.attachEvent('onclick',fn1);
+    //    box.attachEvent('onclick',fn2);
+    //    box.attachEvent('onclick',fn3);
+    //    box.attachEvent('onclick',fn7);
+    //    box.attachEvent('onclick',fn5);
+    //    box.attachEvent('onclick',fn6);
+    //    box.attachEvent('onclick',fn4);
+    //    box.attachEvent('onclick',fn8);
+    //    box.attachEvent('onclick',fn9);
+    //    box.attachEvent('onclick',fn10);
+
+
+</script>
+</body>
+</html>

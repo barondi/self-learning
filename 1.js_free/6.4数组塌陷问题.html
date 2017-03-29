@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组塌陷问题</title>
+</head>
+<body>
+<ul id="myUl">
+    <li>nodeList0</li>
+    <li>nodeList1</li>
+    <li>nodeList2</li>
+    <li>nodeList3</li>
+    <li>nodeList4</li>
+    <li>nodeList5</li>
+    <li>nodeList6</li>
+    <li>nodeList7</li>
+    <li>nodeList8</li>
+    <li>nodeList9</li>
+</ul>
+<script>
+    /*
+    *   数组塌陷问题的产生原因:在操作数组的过程中,改变了原有数组的length,同时还要继续操作数组索引产生
+    *   解决办法:1)顺序来,在循环体内让i--,这样每次删除只是删除位置为0的元素;
+    * 2)倒序来删除,这样每次删除的都是最后一个位置的元素
+    * */
+//    var myUl=document.getElementById('myUl');
+//    var oLis=myUl.getElementsByTagName('li');
+//    for(var i=0;i<oLis.length;i++){
+//        oLis[i].parentNode.removeChild(oLis[i]);
+//    }
+    //->上述代码中会剩余nodeList1、nodeList3、nodeList5、nodeList7、nodeList9
+
+    //->方法一
+//    var myUl=document.getElementById('myUl');
+//    var oLis=myUl.getElementsByTagName('li');
+//    for(var i=0;i<oLis.length;i++){
+//        oLis[i].parentNode.removeChild(oLis[i]);
+//        i--;
+//    }
+
+    //->方法二
+//    var myUl=document.getElementById('myUl');
+//    var oLis=myUl.getElementsByTagName('li');
+//    for(var i=oLis.length-1;i>=0;i--){
+//        oLis[i].parentNode.removeChild(oLis[i]);
+//    }
+
+</script>
+</body>
+</html>

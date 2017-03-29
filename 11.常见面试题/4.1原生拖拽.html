@@ -11,6 +11,13 @@
 <body>
 <div class="calculator" id="drag"></div>
 <script>
+    /*
+    * 1、拖拽原理:代码逻辑
+    * 2、bug:当鼠标移动过快的时候,我们的鼠标会脱离盒子,导致盒子的mouseup和mousemove事件移除不掉(鼠标焦点丢失)
+    *   解决:在IE和火狐浏览器中,我们在mousedown时使用拖拽元素drag.setCapture()方法将盒子和鼠标绑在一起;
+    * 在mouseup时使用拖拽元素drag.releaseCapture()将盒子和鼠标解绑,注意使用typeof drag.setCapture判断兼容性
+    * 但是这两个方法不兼容谷歌,会报错,谷歌浏览器解决方法是:将mousemove和mouseup绑定给document
+    * */
     window.onload = function() {
         //拖拽功能(主要是触发三个事件：onmousedown\onmousemove\onmouseup)
         var drag = document.getElementById('drag');
@@ -21,10 +28,6 @@
             var diffX = e.clientX - drag.offsetLeft; //鼠标点击物体那一刻相对于物体左侧边框的距离=点击时的位置相对于浏览器最左边的距离-物体左边框相对于浏览器最左边的距离
             var diffY = e.clientY - drag.offsetTop;
 
-            /*低版本ie bug:物体被拖出浏览器可是窗口外部时，还会出现滚动条，
-             解决方法是采用ie浏览器独有的2个方法setCapture()\releaseCapture(),这两个方法，
-             可以让鼠标滑动到浏览器外部也可以捕获到事件，而我们的bug就是当鼠标移出浏览器的时候，
-             限制超过的功能就失效了。用这个方法，即可解决这个问题。注：这两个方法用于onmousedown和onmouseup中*/
             if(typeof drag.setCapture!='undefined'){
                 drag.setCapture();
             }

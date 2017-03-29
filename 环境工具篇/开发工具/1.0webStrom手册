@@ -1,0 +1,11 @@
+************webStrom操作git*************
+
+************webStrom快捷键*************
+Ctrl+Alt+L:格式化代码
+Ctrl+R:在当前页面替换
+Ctrl+Shift+R:在当前工程下面替换
+Ctrl+G:跳到代码多少行
+Alt+F12:打开命令行Terminal
+比较项目树中的两个文件:选中要比较的文件->compare files(或Ctrl+D快捷键)
+比较项目树种的一个文件和当前编辑器激活状态文件的差异:选中项目树中的文件->compare with the editor
+比较项目树种的一个文件和外部文件对比:选中项目书中的文件->右键->compare with...
