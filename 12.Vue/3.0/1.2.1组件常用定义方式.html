@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-组件的另一种定义方式</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<div id="box">
+    <my-aaa></my-aaa>
+    <my-bbb></my-bbb>
+</div>
+
+<script>
+    Vue.component('my-aaa',{
+        template:'<h2>{{msg}}</h2>',
+        data(){
+            return {
+                msg:'全局组件的另一种定义方式'
+            }
+        }
+    });
+
+    var vm=new Vue({
+        el:'#box',
+        components:{
+            'my-bbb':{
+                template:'<h2 @click="change">{{msg}}</h2>',
+                data(){
+                    return {
+                        msg:'局部组件的另一种定义方式'
+                    }
+                },
+                methods:{
+                    change(){
+                        this.msg='changed'
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

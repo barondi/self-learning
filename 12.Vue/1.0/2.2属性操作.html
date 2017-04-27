@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-属性v-bind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        img{width:200px;height:100px;}
+        .red{color:red;}
+        .blue{background-color:blue;}
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+                    url:'https://www.baidu.com/img/bd_logo1.png',
+                    desc:'这是百度的logo'
+                },
+                methods:{
+                }
+            });
+            var box1=new Vue({
+                el:'.box1',
+                data:{
+                    red:'red',
+                    blue:'blue',
+                    a:true,
+                    b:false,
+                    myClass:{
+                        red:true,
+                        blue:false
+                    },
+                    c:{color:'red'},
+                    d:{backgroundColor:'blue'},
+                    myStyle:{
+                        color:'red',
+                        backgroundColor:'blue'
+                    }
+                }
+            })
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <!--<img src="{{url}}" alt="">-->
+        <!--<img v-bind:src="url" alt="">-->
+        <img :src="url" :title="desc" /><!--推荐使用:src简写-->
+    </div>
+    <div class="box1">
+        <p :class="[red,blue]">这里是数组格式...</p><!--这里是数组的形式-->
+        <p :class="{red:a,blue:b}">这里是json格式...</p><!--推荐 这里是json格式-->
+        <p :class="myClass">这里是json格式...</p><!--推荐 这里是json格式-->
+        <p :style="myStyle">这里是style属性...</p><!--推荐 与:class用法相同-->
+        <p :style="[c,d]">这里是style属性...</p>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

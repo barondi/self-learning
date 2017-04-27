@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-组件</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<div id="box">
+    <aaa></aaa>
+    <my-bbb></my-bbb>
+</div>
+
+<script>
+    //->全局组件
+    var Aaa=Vue.extend({
+//        data:function(){
+//            return {
+//                msg:'这里是标题^_^'
+//            }
+//        },
+        data(){
+            return {
+                msg:'这里是标题^_^'
+            }
+        },
+        methods:{
+            change:function(){
+                this.msg='changed';
+            }
+        },
+        template:'<h3 @click="change">{{msg}}</h3>'
+    });
+    Vue.component('aaa',Aaa);
+
+    var Bbb=Vue.extend({
+        template:'<h3>{{info}}</h3>',
+        data(){
+            return {
+                info:'这里是信息^_^'
+            }
+        }
+    })
+
+
+    var vm=new Vue({
+        el:'#box',
+        data:{
+            msg:'test'
+        },
+        //->局部组件
+        components:{
+            'my-bbb':Bbb
+        }
+    });
+
+</script>
+</body>
+</html>

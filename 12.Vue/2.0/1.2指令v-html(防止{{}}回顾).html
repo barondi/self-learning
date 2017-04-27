@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-防止{{}}闪烁回顾</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+<div id="box">
+    <span v-text="txt"></span>
+    <span>{{{msg}}}</span>
+    <span v-html="msg"></span>
+    <div v-cloak>
+        <ul>
+            <li v-for="item in item">{{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="(key,val) in item">{{key}}</li>
+        </ul>
+    </div>
+</div>
+<script>
+    setTimeout(function(){
+        new Vue({
+            el:'#box',
+            data:{
+                msg:'<strong>welcome</strong>',
+                txt:'测试',
+                item:{
+                    a:'red',
+                    b:'orange',
+                    c:'yellow'
+                }
+            }
+        });
+    },1000)
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

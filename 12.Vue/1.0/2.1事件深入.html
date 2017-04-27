@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-事件深入</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+
+                },
+                methods:{
+                    show:function(event){//->传递过来的$event实参变量为原生js的事件对象
+                        console.log(1)
+                        console.dir(event);
+                        ev.cancelBubble=true;
+                    },
+                    show2:function(){
+                        console.log(2);
+                    }
+                }
+            });
+            var box1=new Vue({
+                el:'.box1',
+                methods:{
+                    show:function($event){//->传递过来的$event实参变量为原生js的事件对象
+                        console.log(event.keyCode);
+                        if(event.keyCode==13){
+                            console.log('您按Enter了！')
+                        }
+                    },
+                    show2:function(){
+                        console.log(2);
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <div @click="show2()">
+            <input type="button" value="按钮" @click="show($event)">
+        </div>
+    </div>
+    <div class="box1">
+        <div>
+            <a href="https://www.baidu.com" @click.stop.prevent="show()">跳转链接</a>
+            <!--<input type="text" @keydown.13="show($event)">-->
+            <input type="text" @keydown.enter="show($event)">
+            <input type="text" @keydown.left.prevent="show($event)">
+            <!--按left默认光标会到文本框最左边所以需要组织默认事件  对应原生的为event.preventDefault();-->
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

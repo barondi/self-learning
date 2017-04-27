@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-计算属性</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        a => {{a}}
+        <br>
+        b => {{b}}
+        <br>
+        c => {{c}}
+        <br>
+        d => {{d}}
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#box',
+            data:{
+                a:1
+            },
+            computed:{
+                b:function(){
+                    //业务逻辑代码
+                    return 2;
+                },
+                c:function(){
+                    return this.a+100;
+                },
+                d:{
+                    get:function(){
+                        return this.a+100;
+                    },
+                    set:function(val){
+                        this.a=val;
+                    }
+                }
+            }
+        });
+        document.onclick=function(){
+            vm.a++;
+            vm.a=100;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

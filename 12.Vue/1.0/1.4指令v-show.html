@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指令-v-show/v-if</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+                    val:'隐藏',
+                    flag:true
+                },
+                methods:{
+                    change:function(){
+                        //console.dir(this);
+                        this.flag=!this.flag;
+                        this.flag==true ? this.val='隐藏' : this.val='显示';
+                    }
+                }
+            });
+            var box1=new Vue({
+                el:'.box1',
+                data:{
+                    param:true
+                },
+                methods:{
+                    change:function(){
+                        this.param=!this.param;
+                    }
+                }
+            });
+        };
+        //->v-else可以跟在v-show或v-if后面
+        //->Vue can't resolve directive: hide(不支持v-hide)
+    </script>
+</head>
+<body>
+    <div id="box">
+        <input type="button" value="{{val}}" v-on:click="change">
+        <div style="width:100px; height:100px; background: red" v-show="flag"></div>
+    </div>
+    <br>
+    <div class="box1">
+        <input type="button" value="显示另一个" v-on:click="change">
+        <div style="width:100px; height:100px; background: red" v-if="param"></div>
+        <div style="width:100px; height:100px; background: green" v-else></div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-过滤器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+<div id="box">
+    <input type="text" v-model="a">
+    <ul>
+        <li v-for="val in arr | filterBy a">
+            {{val}}
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li v-for="val in arr | limitBy 2">
+            {{val}}
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li v-for="val in arr | limitBy 2 arr.length-2">
+            {{val}}
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li v-for="val in arr | orderBy a">
+            {{val}}
+        </li>
+    </ul>
+    <hr>
+    <div>{{a | toDouble}}</div>
+    <div>{{a | myDefine 1 2}}</div>
+    <hr>
+    <div>{{dt | custDate}}</div>
+    <hr>
+    <div>
+        <input type="text" v-model="msg | fiterHtml">
+        <br>
+        <div v-html="msg">
+
+        </div>
+    </div>
+    <hr>
+    <div>
+        <input type="text" v-model="text | twoFilterHtml">
+        <br>
+        <div v-html="text">
+
+        </div>
+    </div>
+</div>
+<script>
+    Vue.filter('toDouble',function(val){
+        return val<10 ? '0'+val : val;
+    });
+    Vue.filter('myDefine',function(val,param1,param2){
+        console.log(param1+','+param2);
+        return val<10 ? '0'+val : val;
+    });
+    Vue.filter('custDate',function(val){
+        var oDate=new Date(val);
+        console.log(oDate)
+        return oDate.getFullYear()+'-'+(oDate.getMonth()+1)+'-'+oDate.getDate()+' '+oDate.getHours()+':'+oDate.getMinutes()+':'+oDate.getSeconds();
+    });
+    Vue.filter('fiterHtml',function(input){
+        return input.replace(/<[^<]+>/g,'');
+    });
+    var vm=new Vue({
+        data:{
+            dt:Date.now(),
+            arr:['backBone','heigth','background','orange'],
+            a:'',
+            msg:'',
+            text:''
+        },
+        methods:{
+
+        },
+        filters:{
+            twoFilterHtml:{
+                read:function(input){ //model -> view
+                    console.log('read');
+                    return input.replace(/<[^<]+>/g,'');
+                },
+                write:function(val){ //view -> model
+                    console.log('write');
+                    return val;
+                }
+            }
+        }
+    }).$mount('#box');
+    //->实例内定义过滤器方式,放到全局中相当于
+//    Vue.filter('fiterHtml',{
+//        read:function(input){ //model -> view
+//            console.log('read');
+//            return input.replace(/<[^<]+>/g,'');
+//        },
+//        write:function(val){ //view -> model
+//            console.log('write');
+//            return val;
+//        }
+//    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-Ajax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+    <script>
+        window.onload=function(){
+            var box1=new Vue({
+                el:'#box1',
+                methods:{
+                    get:function(){
+                        this.$http.get('a.txt').then(function(res){
+                            //success callback
+                            console.log(res.data);
+                        },function(res){
+                            //error callback
+                            console.dir(res);
+                            console.log(res.status);
+                        });
+                    }
+                }
+            });
+            var box2=new Vue({
+                el:'#box2',
+                methods:{
+                    post:function(){
+                        this.$http.post('post.php',{
+                            a:1,
+                            b:2
+                        },{emulateJSON:true}).then(function(res){
+                            console.dir(res);
+                            console.log(res.status);
+                        },function(res){
+                            console.log(res.status);
+                        });
+                    }
+                }
+            });
+            var box3=new Vue({
+                el:'#box3',
+                methods:{
+                    get:function(){
+                        this.$http.get('get.php',{
+                            a:1,
+                            b:2
+                        }).then(function(res){
+                            console.dir(res);
+                            console.log(res.status);
+                        },function(res){
+                            console.log(res.status);
+                        });
+                    }
+                }
+            });
+            var box4=new Vue({
+                el:'#box4',
+                methods:{
+                    jsonp:function(){
+                        this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                            word:'a'
+                        }).then(function(res){
+                            alert(res.data.s);
+                        },function(res){
+                            alert(res.status);
+                        });
+                    }
+                }
+            });
+            var box5=new Vue({
+                el:'#box5',
+                methods:{
+                    jsonpCB:function(){
+                        this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+                            wd:'a'
+                        },{
+                            jsonp:'cb'//默认为jsonp:'callback',这里我们自己指定
+                        }).then(function(res){
+                            alert(res.data.s);
+                        },function(res){
+                            alert(res.status);
+                        });
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div id="box1">
+        <input type="button" value="按钮" @click="get()">
+    </div>
+    <br>
+    <div id="box2">
+        <input type="button" value="按钮" @click="post()">
+    </div>
+    <br>
+    <div id="box3">
+        <input type="button" value="按钮" @click="get()">
+    </div>
+    <br>
+    <div id="box4">
+        <input type="button" value="按钮" @click="jsonp()">
+    </div>
+    <br>
+    <div id="box5">
+        <input type="button" value="按钮" @click="jsonpCB()">
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

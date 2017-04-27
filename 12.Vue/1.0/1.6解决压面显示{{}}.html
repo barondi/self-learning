@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-在new Vue对象之前出现{{}}</title>
+    <style>
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" v-cloak="">
+        {{msg}}
+        <br>
+        <div v-text="text"></div>
+    </div>
+</body>
+<script type="text/javascript" src="../lib/vue.js"></script>
+<script type="text/javascript">
+    setTimeout(function(){
+        var box=new Vue({
+            el:'#box',
+            data:{
+                msg:'v-cloak防止页面上显示{{}}',
+                text:'v-text防止页面上显示{{}}'
+            }
+        });
+    },2000)
+    //->避免页面上再new Vue之前出现{{}}的两种办法：
+    //->在style中设置[v-cloak]{display:none},并在元素上添加v-cloak指令
+    //->使用v-text指令
+</script>
+</html>

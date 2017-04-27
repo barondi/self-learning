@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-Vue实例</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        {{a}}
+    </div>
+    <script>
+//        var vm=new Vue({
+//            el:'#box',
+//            data:{
+//                a:1
+//            }
+//        });
+//        console.dir(vm);
+//        vm.$el.style.background='red';
+//        console.log(vm.$data.a);//vm._data
+
+        //->手动挂载
+        var vm=new Vue({
+            custA:111,//自定义属性
+            data:{
+                a:1
+            },
+            methods:{
+                getCustA:function(){
+                    console.log(vm.$options.custA);
+                }
+            }
+        }).$mount('#box');
+        vm.$el.style.backgroundColor='red';
+        console.log(vm.$log());
+        document.onclick=vm.getCustA;
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

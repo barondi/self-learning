@@ -1,0 +1,2 @@
+1、anime.js(JavaScript Animation Engine)包含了常见的动画效果及SVG动画等
+    http://anime-js.com/

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-事件</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{ //数据
+                    arr:['apple','banana','orange','pear'],
+                    json:{a:'apple',b:'banana',c:'orange'}
+                },
+                methods:{
+                    add:function(){
+                        this.arr.push('tomato');
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <input type="button" value="按钮" v-on:click="add">
+        <br>
+        <ul>
+            <!--注意：如果不使用track-by指令,会报'Duplicate value found in v-for="value in arr"'则add方法只能添加一次(但索引一直增加)；-->
+            <li v-for="value in arr" track-by="$index">
+                {{$index}} {{value}}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
