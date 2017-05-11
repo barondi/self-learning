@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue2-过滤器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="vue.js"></script>
+    <script>
+        window.onload=function(){
+            Vue.filter('toDouble',function(n,param1,param2){
+                console.log(param1+'||'+param2);
+                return n<10?'0'+n:''+n;
+            });
+
+            new Vue({
+                el:'#box',
+                data:{
+                    msg:{a:1,b:2,c:3},
+                    num:''
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    {{msg}}
+    <br>
+    <input type="text" v-model="num">
+    {{num | toDouble('10','20')}}
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

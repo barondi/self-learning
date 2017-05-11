@@ -21,6 +21,9 @@
     </ul>
 </template>
 
+<div id="replace" class="foo"></div>
+
+
 <script>
     var vm=new Vue({
         el:'#box',
@@ -40,6 +43,12 @@
                 template:'#aaa'
             }
         }
+    });
+    var vm1=new Vue({
+        el:'#replace',
+        replace:true,
+        //->true为默认值,replace与template一起使用表示是否用模板替换挂载元素;true表示模板将覆盖挂载元素，并合并挂载元素和模板根节点的 attributes;false表示模板将覆盖挂载元素的内容，不会替换挂载元素自身
+        template:'<p class="bar">replaced</p>'
     });
 
 </script>

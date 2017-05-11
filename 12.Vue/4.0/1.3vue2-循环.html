@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue2-循环</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="vue.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+                    list:['width','height','border'],
+                    json:{
+                        a:1,
+                        b:2,
+                        c:3
+                    }
+                },
+                methods:{
+                    add(){
+                        this.list.push('background');
+                    },
+                    show(){
+                        console.log(this.$el);
+                        console.log(this.$refs);
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <input type="button" value="添加" @click="add">
+    <ul>
+        <li v-for="value in list">
+            {{value}}
+        </li>
+        <hr>
+        <li v-for="(value,index) in list" :key="index">
+            {{value}} {{index}}
+        </li>
+        <hr>
+        <li v-for="(value,key) in json" @click="show">
+            {{key}} {{value}}
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

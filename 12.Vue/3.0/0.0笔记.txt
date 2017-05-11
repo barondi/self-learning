@@ -87,10 +87,9 @@ var vm=new Vue({
 vue-devtools	->  调试工具
 	https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
 --------------------------------------------
-vue默认情况下，子组件也没法访问父组件数据
-
+vue默认情况下，子组件无法访问父组件数据
 --------------------------------------------
-组件数据传递:	√
+组件数据传递:	√推荐
 1. 子组件就想获取父组件data
 	在调用子组件：
 		<bbb :m="数据"></bbb>
@@ -113,7 +112,7 @@ vm.$dispatch(事件名,数据)	子级向父级发送数据
 vm.$broadcast(事件名,数据)	父级向子级广播数据
 	配合: event:{}
 
-	在vue2.0里面已经，报废了
+在vue2.0里面已经，报废了
 --------------------------------------------
 slot:
 	位置、槽口
@@ -121,13 +120,13 @@ slot:
 
 	类似ng里面 transclude  （指令）
 --------------------------------------------
-vue-> SPA应用，单页面应用
+vue-> SPA应用 ，单页面应用
 	vue-resouce	交互
 	vue-router	路由
 
 	根据不同url地址，出现不同效果
 
-	咱上课: 0.7.13
+	学习使用version: 0.7.13
 
 主页	home
 新闻页	news
@@ -169,7 +168,7 @@ js:
 
 跳转:
 	router.redirect({
-		‘/’:'/home'
+		'/':'/home'
 	});
 --------------------------------------
 路由嵌套(多层路由):
@@ -251,7 +250,7 @@ ES6: 模块化开发
 	引入模块:
 		import 模块名 from 地址
 --------------------------------------------
-webpak准备工作:
+webpack准备工作:
 	cnpm install webpack --save-dev
 	cnpm install webpack-dev-server --save-dev
 

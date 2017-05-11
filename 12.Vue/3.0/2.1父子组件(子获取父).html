@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-父子组件</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<div id="box">
+    <aaa>
+    </aaa>
+</div>
+<template id="aaa">
+    <h1>父级组件</h1>
+    <bbb :param="msg" :my-msg="msg2"></bbb>
+</template>
+<template id="bbb">
+    <h2>我是子组件->{{param}}->{{myMsg}}</h2>
+</template>
+<script>
+    var vm=new Vue({
+        el:'#box',
+        data:{
+            a:'aaa'
+        },
+        components:{
+            'aaa':{
+                data(){
+                    return {
+                        msg:'我是父组件的数据',
+                        msg2:1024
+                    }
+                },
+                template:'#aaa',
+                components:{
+                    'bbb':{
+                        //->方式一
+                        props:{
+                            param:String,
+                            myMsg:Number
+                        },
+                        /*props:{
+                            'param':String,
+                            'my-msg':Number
+                        },*/
+                        //->方式二
+                        /*props:['param','myMsg'],*/
+                        /*props:['param','my-msg'],*/
+                        template:'#bbb'
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

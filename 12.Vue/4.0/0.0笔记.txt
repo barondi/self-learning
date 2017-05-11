@@ -1,0 +1,314 @@
+vue2.0:
+	bower info vue
+
+	http://vuejs.org/
+到了2.0以后，有哪些变化?
+---------------------------------------------
+1. 在每个组件模板，不在支持片段代码
+	组件中模板:
+		之前:
+			<template>
+				<h3>我是组件</h3><strong>我是加粗标签</strong>
+			</template>
+		现在:  必须有根元素，包裹住所有的代码
+			<template id="aaa">
+			        <div>
+			            <h3>我是组件</h3>
+			            <strong>我是加粗标签</strong>
+			        </div>
+			</template>
+2. 关于组件定义
+	Vue.extend	这种方式，在2.0里面有，但是有一些改动，这种写法，即使能用，咱也不用——废弃
+	
+	Vue.component(组件名称,{	在2.0继续能用
+		data(){}
+		methods:{}
+		template:
+	});
+
+	2.0推出一个组件，简洁定义方式：
+	var Home={
+		template:''		->   Vue.extend()
+	};
+3. 生命周期
+	之前:
+		init	
+		created
+		beforeCompile
+		compiled
+		ready		√	->     mounted
+		beforeDestroy	
+		destroyed
+	现在:
+		beforeCreate	组件实例刚刚被创建,属性都没有
+		created	实例已经创建完成，属性已经绑定
+		beforeMount	模板编译之前
+		mounted	模板编译之后，代替之前ready  *
+		beforeUpdate	组件更新之前
+		updated	组件更新完毕	*
+		beforeDestroy	组件销毁前
+		destroyed	组件销毁后
+3. 循环
+	2.0里面默认就可以添加重复数据,而1.0需要借助track-by='$index'
+
+	arr.forEach(function(item,index){
+
+	});
+
+	去掉了隐式一些变量
+		$index	$key
+
+	之前:
+		v-for="(index,val) in array"
+	现在:
+		v-for="(val,index) in array"
+
+
+4. track-by="id"
+	变成
+		<li v-for="(val,index) in list" :key="index">
+5. 自定义键盘指令
+	之前：Vue.directive('on').keyCodes.f1=17;	
+	
+	现在:  Vue.config.keyCodes.ctrl=17
+6. 过滤器
+	之前:
+		系统就自带很多过滤
+		{{msg | currency}}
+		{{msg | json}}
+		....
+		limitBy
+		filterBy
+		.....
+	一些简单功能，自己通过js实现
+
+	到了2.0， 内置过滤器，全部删除了
+
+
+	lodash	工具库	_.debounce(fn,200)
+
+
+	自定义过滤器——还有
+		但是,自定义过滤器传参
+
+		之前:	{{msg | toDou '12' '5'}}
+		现在: 	{{msg | toDou('12','5')}}
+------------------------------------------------------
+组件通信:
+	vm.$emit()
+	vm.$on();
+
+	父组件和子组件:
+
+	子组件想要拿到父组件数据:
+		通过  props
+
+	之前，子组件可以更改父组件信息，可以是同步  sync
+	Vue2.0，不允许直接给父级的数据，做赋值操作
+
+	问题，就想更改：
+		a). 父组件每次传一个对象给子组件, 对象之间引用	√
+		b). 只是不报错, mounted中转
+------------------------------------------------------
+可以单一事件管理组件通信:	vuex
+	var Event=new Vue();
+
+	Event.$emit(事件名称, 数据)
+
+	Event.$on(事件名称,function(data){
+		//data
+	}.bind(this));
+------------------------------------------------------
+debounce	废弃
+	->   lodash
+		_.debounce(fn,时间)
+------------------------------------------------------
+
+
+
+
+------------------------------------------------------
+
+7. vue动画
+
+transition 之前  属性
+<p transition="fade"></p>
+
+.fade-transition{}
+.fade-enter{}
+.fade-leave{}
+--------------------------------------
+
+到2.0以后 transition 组件
+
+<transition name="fade">
+	运动东西(元素，属性、路由....)
+</transition>
+
+class定义:
+.fade-enter{}	//初始状态
+.fade-enter-active{}  //变化成什么样  ->  当元素出来(显示)
+
+.fade-leave{}
+.fade-leave-active{} //变成成什么样   -> 当元素离开(消失)
+
+如何animate.css配合用？
+	<transition enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
+            	<p v-show="show"></p>
+        	</transition>
+
+多个元素运动:
+	<transition-group enter-active-class="" leave-active-class="">
+		<p :key=""></p>
+		<p :key=""></p>
+	</transition-group>
+------------------------------------------
+
+8. 路由:
+	http://router.vuejs.org/zh-cn/index.html
+基本使用:
+1.  布局
+	<router-link to="/home">主页</router-link>
+
+	<router-view></router-view>
+2. 路由具体写法
+	//组件
+	var Home={
+	    template:'<h3>我是主页</h3>'
+	};
+	var News={
+	    template:'<h3>我是新闻</h3>'
+	};
+
+	//配置路由
+	const routes=[
+	    {path:'/home', componet:Home},
+	    {path:'/news', componet:News},
+	];
+
+	//生成路由实例
+	const router=new VueRouter({
+	    routes
+	});
+
+	//最后挂到vue上
+	new Vue({
+	    router,
+	    el:'#box'
+	});
+3. 重定向
+	之前  router.rediect  废弃了
+	{path:'*', redirect:'/home'}
+------------------------------------------
+路由嵌套:
+	/user/username
+
+	const routes=[
+	    {path:'/home', component:Home},
+	    {
+	        path:'/user',
+	        component:User,
+	        children:[  //核心
+	            {path:'username', component:UserDetail}
+	        ]
+	    },
+	    {path:'*', redirect:'/home'}  //404
+	];
+------------------------------------------
+/user/strive/age/10
+
+:id
+:username
+:age
+------------------------------------------
+路由实例方法:
+	router.push({path:'home'});  //直接添加一个路由,表现切换路由，本质往历史记录里面添加一个
+	router.replace({path:'news'}) //替换路由，不会往历史记录里面添加
+------------------------------------------
+vue-cli
+------------------------------------------
+npm install
+------------------------------------------
+脚手架:  vue-loader
+	1.0  ->
+	new Vue({
+	  el: '#app',
+	  components:{App}
+	})
+	2.0->
+	new Vue({
+	  el: '#app',
+	  render: h => h(App)
+	})
+------------------------------------------
+vue2.0
+	vue-loader和vue-router配合
+------------------------------------------
+
+style-loader	css-loader
+
+	style!css
+------------------------------------------
+项目:
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+
+	
+	
+	
+	
+	
+	
+		
+
+	
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

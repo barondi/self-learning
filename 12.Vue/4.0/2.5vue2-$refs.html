@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue2-$refs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="vue.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+                    cMsg:'',
+                    giveData:{
+                        a:'我是父组件数据'
+                    }
+                },
+                methods:{
+                    show(){
+                        //->this.$el得到当前组件
+                        console.log(this.$el);
+                        //->this.$refs得到父组件下所有的子组件,进而父组件可以获取子组件信息
+                        console.log(this.$refs)
+                        console.log(this.$refs.childRef);
+                        this.cMsg=this.$refs.childRef.childMsg;
+                    }
+                },
+                components:{
+                    'child-com':{
+                        data(){
+                            return {
+                                childMsg:'我是子组件数据'
+                            }
+                        },
+                        template:'#child',
+                        methods:{
+                            post(){
+                                console.log('这里是子组件的方法');
+                            }
+                        }
+                    },
+                    'child-com2':{
+                        template:'#child2'
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+<template id="child">
+    <div>
+        <span>我是子组件</span>
+        <input type="button" value="按钮">
+        <strong>{{childMsg}}</strong>
+    </div>
+</template>
+<template id="child2">
+    <div>
+        <h3>这里是child2</h3>
+        <p>这里是段落</p>
+    </div>
+</template>
+<div id="box">
+    父级: ->{{giveData.a}} ->获取到的子数据为->{{cMsg}}
+    <input type="button" value="查看refs" @click="show">
+    <br>
+    <child-com ref="childRef"></child-com>
+    <child-com2 ref="child2Ref"></child-com2>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
