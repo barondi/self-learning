@@ -75,7 +75,7 @@
     function f1(){
         var n=999;
         nAdd=function(){
-            alert(this);//window
+            console.log(this);//window
             n+=1;
         };
         function f2(){
@@ -100,13 +100,11 @@
     };
     console.log(object.getNameFunc()());//The Window
 //    闭包例子三：
-    function outerFun()
-    {
+    function outerFun(){
         var a=0;
-        function innerFun()
-        {
+        function innerFun(){
             a++;
-            alert(a);
+            console.log(a);
         }
         return innerFun;  //注意这里
     }
@@ -117,25 +115,23 @@
     obj2();  //结果为1
     obj2();  //结果为2
 //    闭包例子四：
-    function outerFun()
-    {
+    function outerFun1(){
         var a =0;
-        alert(a);
+        console.log(a);
     }
     var a=4;
-    outerFun();
-    alert(a);
+    outerFun1();
+    console.log(a);
     //结果为0，4
 
-    function outerFun()
-    {
+    function outerFun2(){
         //没有var
-        a =0;
-        alert(a);
+        a=0;
+        console.log(a);
     }
     var a=4;
-    outerFun();
-    alert(a);
+    outerFun2();
+    console.log(a);
     //结果为0,0
 
 /*函数声明定义*/

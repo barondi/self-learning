@@ -26,6 +26,57 @@
     console.log(b+=b+=++b*--b);//18
     var c=3;
     console.log(c+++c);//7 可以理解为(c++)+c 3+4
+    //->4.面试题 数据类型null和undefined
+    console.log(5+null);//5
+    console.log(5+undefined);//NaN
+    //原因：+运算符两边需要为有效数字(或可转为有效数字),Number(null)=>0,而Number(undefined)=>NaN;在此补充 typeof null => 'object',typeof undefined => 'undefined'
+    //->5.面试题 instanceof检测数据类型
+    console.log('1' instanceof String);//false
+    console.log(new String('1') instanceof String);//true
+    console.log(1 instanceof Number);//false
+    console.log(true instanceof Boolean);//false
+
+    function Cat(){};
+    Cat.prototype = {};
+    function Dog(){};
+    Dog.prototype ={};
+
+    var dog1 = new Dog();
+    console.log(dog1 instanceof Dog);//true
+    console.log(dog1 instanceof Object);//true
+
+    Dog.prototype = Cat.prototype;
+    console.log(dog1 instanceof Dog);//false
+    console.log(dog1 instanceof Cat);//false
+    console.log(dog1 instanceof Object);//true;
+
+    var  dog2= new Dog();
+    console.log(dog2 instanceof Dog);//true
+    console.log(dog2 instanceof Cat);//true
+    console.log(dog2 instanceof Object);//true
+
+    Dog.prototype = null;
+    var dog3 = new Dog();
+    console.log(dog3 instanceof Cat);//false
+    console.log(dog3 instanceof Object);//true
+    //console.log(dog3 instanceof Dog);//error
+
+    //->6.面试题 constructor检测数据类型
+    console.log(("1").constructor === String);
+    console.log((1).constructor === Number);
+    console.log((true).constructor === Boolean);
+    console.log(([]).constructor === Array);
+    console.log((function() {}).constructor === Function);
+    console.log(({}).constructor === Object);
+    //console.log((null).constructor === Null);//报错
+    //console.log((undefined).constructor === Undefined);//报错
+    function Fn(){};
+    Fn.prototype=new Array();
+    var f=new Fn();
+    console.log(f.constructor===Fn);//false
+    console.log(f.constructor===Array);//true
+    console.log(Object.prototype.toString.call(f));//[object Object]
+    console.log(Object.prototype.toString.call(Fn));//[object Function]
 
 
     //js中的数据类型：
@@ -64,11 +115,12 @@
      *       数据类型转换规则：
      *           如果只有一个值，判断这个值是真还是假，遵循：只有0、NaN、""、null、undefined这五个是假的，其余均为真
      *           如果是两个值比较是否相等，遵循规则如下：
-     *           val1==val2 两个值可能祖师同一个数据类型的，如果是 == 比较的话，会进行默认的数据类型转换
+     *           ---能转字符串的先转字符串(toString())，然后能转数字的再转数字(Number())
+     *           val1==val2 两个值的数据类型不一定相同，如果是 == 比较的话，会进行默认的数据类型转换
      *               1)对象 == 对象  永远不相等
      *               2)对象 == 字符串 先将对象转换为字符串(调用toString()方法)，然后再比较
      *                   []会转换为字符串""
-     *                   {}会转换为字符串[Object Object]
+     *                   {}会转换为字符串[object Object]  var a={},a.toString()=>'[object Object]'
      *               3)对象 == 布尔类型    对象先转换为字符串(调用toString())，然后再转换为数字(调用Number(), " "转换为0)，最后布尔类型也转换为数字(true==>1 false==>0),然后让两个比较
      *                   [] == false  ==>true
      *               4)对象 == 数字  对象先转换为字符串，然后再把字符串转换为数字
@@ -116,11 +168,17 @@
      *           "number","string","boolean","undefined","object","function"
      *           typeof null或typeof(null)的结果是"object"
      *           typeof NaN结果为"number"
-     *           typeof不能检查object下细分的类
-     *           console.log(typeof typeof typeof typeof []);    ==> "string"
+     *           不同点：typeof不能检查object下细分的类
+     *           console.log(typeof typeof typeof typeof []);  typeof [] ==> 'object',typeof 'object' ==> "string"
      *       2、instanceof运算符
+     *          不同点：能检测Object下细分的类,检测[某个对象]是不是另一个对象的实例,且检测null和undefined会报错
+     *          实现原理参见：js_first/day_02
      *       3、constructor
-     *       4、Object.prototype.toString.call()
+     *          不同点：能检测Object下细分的类,被检测的值需先转成Function类型(()包起来),且检测null和undefined会报错
+     *              但不适合prototype改变的引用类型
+     *          实现原理参见：js_first/day_02
+     *       4、Object.prototype.toString.call() 全兼容检测
+     *          Object.prototype.toString方法返回的字符串,去掉前面固定的"[object "和后面固定的"]",就是内部属性[[class]]的值,也就达到了判断对象类型的目的.jQuery中的工具方法$.type()；原生对象的[[class]]内部属性的值一共有10种："Array", "Boolean", "Date", "Error", "Function", "Math", "Number", "Object", "RegExp", "String"
      *
      * Function:
      *      定义一个函数的步骤：
@@ -209,7 +267,7 @@
     console.log("Total:"+total(100));
 
     /*
-    *   var str=null与var str1=''区别:var str=null中str的引用为空;而str1引用了一个空串
+    *   var str=null与var str1=''区别:var str=null中str的引用为空,没有分配空间,没有实例化;而str1引用了一个空串,分配了空间,已经实例化
     * */
     var str=null;
     console.log(str==undefined);//true
