@@ -105,17 +105,18 @@
 /*
 * 复选框全选和非全选
 * */
+    var num=0;
     var toggle=document.getElementsByClassName('toggle')[0];
     var oInputs=document.getElementsByClassName('inList');
     toggle.onclick=function(){
         for(var i=0;i<oInputs.length;i++) {
-            toggle.checked === true ? oInputs[i].checked = true : oInputs[i].checked = false;
+            toggle.checked === true ? (oInputs[i].checked = true) && (num=5) : oInputs[i].checked = false;
         }
     }
-    var num=0;
     for(var i=0;i<oInputs.length;i++){
         (function(index){
             oInputs[index].onclick=function(){
+                console.log(num);
                 oInputs[index].checked===true?num++:num--;
                 num===5?toggle.checked=true : toggle.checked=false;
             }

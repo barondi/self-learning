@@ -6,120 +6,130 @@
 </head>
 <body>
 <script>
-/***方法一：以下方法一为准   效率最高    *****************************************/
-//    var randomNums = [];
-//    for(var i=0;i<50000;i++){
-//        randomNums.push(Math.random());
-//    }
-//    var str1=randomNums;
-//    var str1=['sdf',321,'df',12,'234',21,34,534,'sdf',321,'df',12,'234',21,34,534,13,34,23,'sdf',321,'df',12,'234',21,34,534,13,34,23,'sdf',321,'df',12,'234',21,34,534,13,34,23,'sdf',321,'df',12,'234',21,34,534,13,34,23,'sdf',321,'df',12,'234',21,34,534,13,34,23,00,13,34,23]
-//    var obj = {};
-//    var str2=[];
-//    var date1 = new Date();
-//    for(var i=0;i<str1.length;i++){
-//        if(!obj[str1[i]]){
-//            str2.push(str1[i]);
-//            obj[str1[i]]=true;//不能给obj[str1[i]]=i因为obj[str1[i]]得到的是i值
-//        }
-//    }
-//    console.log(str2);
-//    var date2 = new Date();
-//    console.log((date2-date1));//100-160ms
+    //数组length量级为1280000
+    var str1=[];
+    for(var i=0;i<5000;i++){
+        str1.push(Math.random());
+    }
+    for(var i=0;i<8;i++){
+        str1 = str1.concat(str1);
+    }
+    console.log(str1.length);
 
 
-/***方法一：hash(对象)实现   效率最高    *****************************************/
-//    var randomNums = [];
-//    for(var i=0;i<50000;i++){
-//        randomNums.push(Math.random());
-//    }
-//    Array.prototype.unique2 = function(){
-//        var n = {},r=[]; //n为hash表，r为临时数组
-//        for(var i = 0; i < this.length; i++) //遍历当前数组
-//        {
-//            if (!n[this[i]]) //如果hash表中没有当前项
-//            {
-//                n[this[i]] = true; //存入hash表
-//                console.log(n[this[i]])
-//                r.push(this[i]); //把当前数组的当前项push到临时数组里面
-//            }
-//        }
-//        return r;
-//    }
-//    var date1=new Date();
-//    randomNums.unique2();
-//    var date2=new Date();
-//    console.log(date2-date1);//100-160ms
+    // function unique0(arr) {
+    //     //定义常量 res,值为一个Map对象实例
+    //     const res = new Map();
+    //
+    //     //返回arr数组过滤后的结果，结果为一个数组
+    //     //过滤条件是，如果res中没有某个键，就设置这个键的值为1
+    //     return arr.filter((a) => !res.has(a) && res.set(a, 1))
+    // }
+    // var date1 = new Date();
+    // str1 = unique0(str1);
+    // console.log(str1.length);
+    // var date2 = new Date();
+    // console.log((date2 - date1));//75ms
 
+    //参考：https://segmentfault.com/a/1190000011861891
 
+    /***方法一：ES6迭代器(集合)    *****************************************/
+    // var date1 = new Date();
+    // str1 = Array.from(new Set(str1));
+    // console.log(str1.length);
+    // var date2 = new Date();
+    // console.log((date2 - date1));//75ms上下
 
-/***方法二：indexOf(arr[i])实现   效率低   *****************************************/
-//    Array.prototype.unique1 = function () {
-//        var newArr = []; //一个新的临时数组
-//        for (var i = 0; i < this.length; i++) //遍历当前数组
-//        {
-//            //如果当前数组的第i已经保存进了临时数组，那么跳过，
-//            //否则把当前项push到临时数组里面
-//            if (newArr.indexOf(this[i]) == -1) newArr.push(this[i]);
-//        }
-//        return newArr;
-//    }
-//    var randomNums = [];
-//    for(var i=0;i<50000;i++){
-//        randomNums.push(Math.random());
-//    }
-//    var date1 = new Date();
-//    console.log(randomNums.unique1());
-//    var date2 = new Date();
-//    console.log(date2-date1);//1300ms左右
+    /***方法二：ES6迭代器(集合)    *****************************************/
+    // var date1 = new Date();
+    // str1 = [...new Set(str1)];
+    // console.log(str1.length);
+    // var date2 = new Date();
+    // console.log((date2 - date1));//75ms
 
+    /***方法三：对象实现    *****************************************/
+    // var obj = {};
+    // var str2 = [];
+    // var date1 = new Date();
+    // for (var i = 0; i < str1.length; i++) {
+    //     if (!obj[str1[i]]) {
+    //         str2.push(str1[i]);
+    //         obj[str1[i]] = true;//不能给obj[str1[i]]=i因为obj[str1[i]]得到的是i值
+    //     }
+    // }
+    // console.log(str2.length);
+    // var date2 = new Date();
+    // console.log((date2 - date1));//300ms上下
 
+    /***方法四：hash(对象)实现    *****************************************/
+    // Array.prototype.unique2 = function () {
+    //     var n = {}, r = []; //n为hash表，r为临时数组
+    //     for (var i = 0; i < this.length; i++) //遍历当前数组
+    //     {
+    //         if (!n[this[i]]) //如果hash表中没有当前项
+    //         {
+    //             n[this[i]] = true; //存入hash表
+    //             //console.log(n[this[i]])
+    //             r.push(this[i]); //把当前数组的当前项push到临时数组里面
+    //         }
+    //     }
+    //     return r;
+    // }
+    // var date1 = new Date();
+    // str1.unique2();
+    // console.log(str1.length);
+    // var date2 = new Date();
+    // console.log(date2 - date1);//300ms上下
 
-//    var randomNums = [];
-//    for(var i=0;i<50000;i++){
-//        randomNums.push(Math.random());
-//    }
-//    Array.prototype.unique3 = function()
-//    {
-//        var n = [this[0]]; //结果数组
-//        for(var i = 1; i < this.length; i++) //从第二项开始遍历
-//        {
-//            //如果当前数组的第i项在当前数组中第一次出现的位置不是i，
-//            //那么表示第i项是重复的，忽略掉。否则存入结果数组
-//            if (this.indexOf(this[i]) == i) n.push(this[i]);
-//        }
-//        return n;
-//    }
-//    var date1=new Date();
-//    randomNums.unique3();
-//    var date2=new Date();
-//    console.log(date2-date1);//1300ms
+    /***方法五：    *****************************************/
+    // Array.prototype.unique4 = function () {
+    //     this.sort();
+    //     //思想：先拿出要去重数组中的第一项给要接收去重后的新数组，然后从第二项开始，让需要去重的数组依次跟接收的新数组比较
+    //     var re = [this[0]];
+    //     for (var i = 1; i < this.length; i++) {
+    //         if (this[i] !== re[re.length - 1]) {
+    //             re.push(this[i]);
+    //         }
+    //     }
+    //     return re;
+    // }
+    // var date1 = new Date();
+    // str1.unique4();
+    // var date2 = new Date();
+    // console.log(date2 - date1);//1500ms上下
 
+    /***方法六：indexOf(arr[i])实现   *****************************************/
+    // Array.prototype.unique1 = function () {
+    //     var newArr = []; //一个新的临时数组
+    //     for (var i = 0; i < this.length; i++) //遍历当前数组
+    //     {
+    //         //如果当前数组的第i已经保存进了临时数组，那么跳过，
+    //         //否则把当前项push到临时数组里面
+    //         if (newArr.indexOf(this[i]) == -1) newArr.push(this[i]);
+    //     }
+    //     return newArr;
+    // }
+    // var date1 = new Date();
+    // str1 = str1.unique1();
+    // console.log(str1.length);
+    // var date2 = new Date();
+    // console.log(date2 - date1);//2600ms上下
 
-/*****方法三：*/
-//    var randomNums = [];
-//    for(var i=0;i<50000;i++){
-//        randomNums.push(Math.random());
-//    }
-//    Array.prototype.unique4 = function()
-//    {
-//        this.sort();
-//        思想：先拿出要去重数组中的第一项给要接收去重后的新数组，然后从第二项开始，让需要去重的数组依次跟接收的新数组比较
-//        var re=[this[0]];
-//        for(var i = 1; i < this.length; i++)
-//        {
-//            if( this[i] !== re[re.length-1])
-//            {
-//                re.push(this[i]);
-//            }
-//        }
-//        return re;
-//    }
-//    var date1=new Date();
-//    randomNums.unique4();
-//    var date2=new Date();
-//    console.log(date2-date1);//220-280ms
-
-
+    /***方法七：    *****************************************/
+    // Array.prototype.unique3 = function () {
+    //     var n = [this[0]]; //结果数组
+    //     for (var i = 1; i < this.length; i++) //从第二项开始遍历
+    //     {
+    //         //如果当前数组的第i项在当前数组中第一次出现的位置不是i，
+    //         //那么表示第i项是重复的，忽略掉。否则存入结果数组
+    //         if (this.indexOf(this[i]) == i) n.push(this[i]);
+    //     }
+    //     return n;
+    // }
+    // var date1 = new Date();
+    // str1.unique3();
+    // var date2 = new Date();
+    // console.log(date2 - date1);//2600ms上下
 </script>
 </body>
 </html>

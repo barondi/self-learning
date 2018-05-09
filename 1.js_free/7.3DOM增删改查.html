@@ -109,7 +109,7 @@
     oBefore.style.width='300px';
     oBefore.style.height='200px';
     oBefore.style.border='10px solid lightblue';
-    document.body.insertBefore(oBefore,oDiv);//在此直到oDiv的parentNode，《==》oDiv.parentNode.insertBefore(oBefore,oDiv);
+    document.body.insertBefore(oBefore,oDiv);//在此知道oDiv的parentNode，《==》oDiv.parentNode.insertBefore(oBefore,oDiv);
 
     oDiv.parentNode.removeChild(oDiv);//删除元素
 
