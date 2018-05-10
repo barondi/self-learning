@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域</title>
+</head>
+<body>
+<script>
+    //js中我们代码运行的环境叫做 作用域
+    //在全局作用域下定义的变量或者函数(系统自带的一些方法)，相当于给全局window增加了一些属性名，我们可以直接写a或者window.a都没有问题，不写默认是window.
+    //作用域:全局的作用域(window)  私有作用域(函数执行时产生的那个作用域)  块级作用域(ES6新增 {})
+    // console.log(eval('({a:1,b:2})'));
+    // console.log(eval('{a:1,b:2}'));//Error(Unexpected token :) 浏览器解析成块级作用域{a:1,b:2}
+
+
+    /*
+    * 私有作用域:一个函数执行就会形成一个私有作用域,一个函数可执行多次,每次都会形成一个私有作用域,每个作用域都无关
+    * */
+
+    /*
+    * 闭包:函数执行过程中会形成私有作用域来保护里面私有变量不受外界干扰都机制
+    *   作用:
+    *       1 保护私有变量不受外界干扰
+    *       2 读取私有作用域中的变量,并将值始终保持在内存中
+    *   私有变量:
+    *       1 在私有作用域下声明过的变量:使用var function let const关键字声明过的变量
+    *       2 形参
+    * 函数执行过程:
+    *   1 函数执行形成私有作用域
+    *   2 预解释(包括var function let const关键字声明过的变量 和 形参)
+    *   3 代码执行
+    * */
+
+    var a=1;
+    var x1=10;
+    function FF(a,b){
+        var x1=12;
+        var x2=13;
+        console.log(a + b);//50
+        a=x2;
+        console.log(a + b);//43
+    }
+    FF(20,30);
+    console.log(x1);//10
+    console.log(a);//1
+
+    /*
+    * 在私有作用域下遇到变量了,先看是不是自己的私有变量,如果是就使用自己的私有变量,如果不是,则依次往上级找直到全局作用域(window),如果还没找到就会报错.
+    * 这个变量查找的过程就是作用域链
+    * */
+    var a=1;
+    var b=2;
+    function AA(a){
+        a++;//a=NaN
+        b++;
+        console.log(a);//NaN
+        console.log(b);//3
+    }
+    AA();
+    console.log(a);//1
+    console.log(b);//3
+</script>
+</body>
+</html>

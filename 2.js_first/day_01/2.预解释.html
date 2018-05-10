@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预解释</title>
+</head>
+<body>
+<script>
+    /*
+    * 'use strict'严格模式的好处:
+    *   限制函数中的arguments;
+    *   未声明变量 会报Error;
+    *   重复的形参会报Error;
+    *   检查对象中的重复键,会在编辑器抛出重复异常;
+    * */
+    // 'use strict';
+    // var run = function(fromWhom){
+    //     "use strict";
+    //     arguments[0] = 'alien';
+    //     console.log(fromWhom);
+    // }
+    // run('zombie');//'zombie'  如果不是严格模式结果为:'alien'
+    // //b = 1;
+    // function double(fromWhere,formWhere){}
+    // var obj = {
+    //     a:0,
+    //     b:1,
+    //     a:2
+    // }
+
+
+    // b;//b is not defined
+    //b = 1;//等价于 var b = 1 如果在'use strict'模式下会报Error
+
+    console.log(m);//undefined
+    //console.log(n);//Error
+    var m = n  = 1;//只会对m预解释,如果是 var m = 1,n = 1则都会预解释
+
+    /*自执行函数不预解释*/
+    //console.log(fn);//Error fn is not defined
+    (function fn(){})();
+
+    /*等号右边不预解释*/
+    //console.log(fn1);//Error fn is not defined
+    var f = function fn1(){};
+
+    /*预解释是不管条件的,但var和function都只声明不定义(由于ES6的块级作用域),当条件成立第一步先给函数赋值*/
+    console.log(a);//undefined
+    console.log(F);//undefined
+    if(true){
+        console.log(a);//undefined
+        console.log(F);//f F(){}
+        var a = 1;
+        console.log(a);//1
+        function F(){
+
+        }
+    }
+
+    // f = function(){return true;};
+    // g = function(){return false;};
+    // (function(){
+    //     //ES6块级作用域里进行预解释,不管条件是否成立,有带function关键字 g = undefined
+    //     if(g()&&[]==![]){//Error g is not a function
+    //         f=function f(){return false;};
+    //         function g(){return true};
+    //     }
+    // })();
+
+</script>
+</body>
+</html>

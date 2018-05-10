@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*基本数据类型(Undefined,Null,Boolean,Number,String)与引用数据类型(Object)的区别:
+			基本数据类型存的是值
+			引用数据类型存的是对我新创建内存块的引用地址
+		*/
+
+
+
+    	/*var num=1;
+		var str="";
+		var boo=true;
+		
+		var obj={name:"珠峰培训"};    
+    	function fn(){
+				
+		}*/
+
+        /*
+        * 变量提升:在作用域形成之后代码执行之前,将所有的带var和function关键字变量提前声明或定义
+        *   var只是提前声明;而function既声明又定义
+        * */
+		console.log(a);//undefined
+		var a=12;
+		
+		console.log(b);//undefined
+		var b = 1;
+		fn();//1
+		function fn(){
+            console.log(1);
+        }
+        console.log(b);//1
+
+        // fn2();//Error fn2 is not a function
+        // var fn2 = function(){
+        //     console.log(2);
+        // }
+
+        /*
+        * 预解释只发生在[当前的作用域]
+		*   刚开始，只预解释window下的，当函数执行的时候，我们在私有作用域下在重新的预解释
+		*   在私有作用域下，首先也要预解释，声明(定义的)变量和函数都属于私有作用域的,所以一个函数中出现了变量，如果想看他是全局的还是私有的，就看有没有预解释就可以了，有的话是私有的，没有的话往上一级找，直到找到window，如果还没有的话报错;
+        * */
+
+
+        /*
+        * ES6中let和const
+        *   没有变量提升;
+        *   不可以重复声明;
+        *   定义的变量不会给window增加属性;
+        *   如果const定义的是个常量,定义之后不可修改;
+        *   且const一旦声明必须赋值;
+        * */
+        // console.log(m);//Error m is not defined
+        let m;
+        console.log(m);//undefined
+
+
+        /*
+        * 变量重名:
+        * */
+        // f();//100
+        // var f = 10;
+        // function f(){
+        //     console.log(100);
+        // }
+        // f();//Error f is not a function
+
+        ff();//2
+        var ff;
+        ff();//2 如果 var ff 改为 var ff = 2,则该行输出直接报错 ff is not a function
+        function ff(){
+            console.log(2);
+        }
+        var ff = function(){
+            console.log(1);
+        }
+        ff();//1
+
+
+    </script>
+    
+</body>
+</html>
