@@ -32,30 +32,41 @@
     // b;//b is not defined
     //b = 1;//等价于 var b = 1 如果在'use strict'模式下会报Error
 
-    console.log(m);//undefined
-    //console.log(n);//Error
-    var m = n  = 1;//只会对m预解释,如果是 var m = 1,n = 1则都会预解释
+    // console.log(m);//undefined
+    // //console.log(n);//Error
+    // var m = n  = 1;//只会对m预解释,如果是 var m = 1,n = 1则都会预解释
 
     /*自执行函数不预解释*/
-    //console.log(fn);//Error fn is not defined
-    (function fn(){})();
+    // //console.log(fn);//Error fn is not defined
+    // (function fn(){})();
 
     /*等号右边不预解释*/
-    //console.log(fn1);//Error fn is not defined
-    var f = function fn1(){};
+    // //console.log(fn1);//Error fn is not defined
+    // var f = function fn1(){};
+
+    /*function中return后面的返回值 不预解释*/
+    // function fn(){
+    //     console.log(b);
+    //     //console.log(a);//Error a is not defined
+    //     return function a(){
+    //
+    //     }
+    //     var b=12;
+    // }
+    // fn();
 
     /*预解释是不管条件的,但var和function都只声明不定义(由于ES6的块级作用域),当条件成立第一步先给函数赋值*/
-    console.log(a);//undefined
-    console.log(F);//undefined
-    if(true){
-        console.log(a);//undefined
-        console.log(F);//f F(){}
-        var a = 1;
-        console.log(a);//1
-        function F(){
-
-        }
-    }
+    // console.log(a);//undefined
+    // console.log(F);//undefined
+    // if(true){
+    //     console.log(a);//undefined
+    //     console.log(F);//f F(){}
+    //     var a = 1;
+    //     console.log(a);//1
+    //     function F(){
+    //
+    //     }
+    // }
 
     // f = function(){return true;};
     // g = function(){return false;};
@@ -66,6 +77,8 @@
     //         function g(){return true};
     //     }
     // })();
+
+    /*预解释发生在一个脚本块中*/
 
 </script>
 </body>

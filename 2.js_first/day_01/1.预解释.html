@@ -26,16 +26,16 @@
         * 变量提升:在作用域形成之后代码执行之前,将所有的带var和function关键字变量提前声明或定义
         *   var只是提前声明;而function既声明又定义
         * */
-		console.log(a);//undefined
-		var a=12;
-		
-		console.log(b);//undefined
-		var b = 1;
-		fn();//1
-		function fn(){
-            console.log(1);
-        }
-        console.log(b);//1
+        // console.log(a);//undefined
+        // var a=12;
+        //
+        // console.log(b);//undefined
+        // var b = 1;
+        // fn();//1
+        // function fn(){
+        //     console.log(1);
+        // }
+        // console.log(b);//1
 
         // fn2();//Error fn2 is not a function
         // var fn2 = function(){
@@ -58,12 +58,12 @@
         *   且const一旦声明必须赋值;
         * */
         // console.log(m);//Error m is not defined
-        let m;
-        console.log(m);//undefined
+        // let m;
+        // console.log(m);//undefined
 
 
         /*
-        * 变量重名:
+        * 预解释忽略重新声明，不忽略重新定义
         * */
         // f();//100
         // var f = 10;
@@ -72,16 +72,31 @@
         // }
         // f();//Error f is not a function
 
-        ff();//2
-        var ff;
-        ff();//2 如果 var ff 改为 var ff = 2,则该行输出直接报错 ff is not a function
-        function ff(){
-            console.log(2);
-        }
-        var ff = function(){
-            console.log(1);
-        }
-        ff();//1
+        // ff();//2
+        // var ff;
+        // ff();//2 如果 var ff 改为 var ff = 2,则该行输出直接报错 ff is not a function
+        // function ff(){
+        //     console.log(2);
+        // }
+        // var ff = function(){
+        //     console.log(1);
+        // }
+        // ff();//1
+
+
+        // console.log(a); //function a(){console.log(2)}
+        // var a;
+        // console.log(a);//function a(){console.log(2)}
+        // function a() {
+        //     console.log(1);
+        // }
+        // function a(){
+        //     console.log(2);
+        // }
+        // a();//2
+        // console.log(a);//function a(){console.log(2)}
+        // var a=3;
+        // console.log(a);//3
 
 
     </script>

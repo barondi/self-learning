@@ -45,7 +45,7 @@
     console.log(a);//1
 
     /*
-    * 在私有作用域下遇到变量了,先看是不是自己的私有变量,如果是就使用自己的私有变量,如果不是,则依次往上级找直到全局作用域(window),如果还没找到就会报错.
+    * 在私有作用域下遇到变量了,如果想看他是全局的还是私有的，就看有没有预解释就可以了，有的话是私有的，没有的话往上一级找，直到找到window，如果还没有的话报错.
     * 这个变量查找的过程就是作用域链
     * */
     var a=1;
@@ -59,6 +59,20 @@
     AA();
     console.log(a);//1
     console.log(b);//3
+
+    var n=9;
+    function fn(){
+        console.log(n);//undefined
+        s="珠峰培训";
+        console.log(s);//'珠峰培训'
+        n=7;
+        console.log(n);//7
+        var n=6;
+        console.log(n);//6
+    }
+    fn();
+    console.log(n);//9
+    console.log(s);//undefined
 </script>
 </body>
 </html>
