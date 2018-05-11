@@ -29,50 +29,107 @@
     *   1 函数执行形成私有作用域
     *   2 预解释(包括var function let const关键字声明过的变量 和 形参)
     *   3 代码执行
+    * function的生命周期:
+    *   出生：从预解释开始，开辟一个新的内存块，让函数名存储对这个内存块的引用地址;
+    *   成长：函数执行，形成一个私有的作用域，然后里面开始类似于window的新一轮预解释，代码从上倒下执行;
+    *   死亡:一般情况下，私有作用域下的代码执行完成后，整个私有作用域就销毁了
+    *
     * */
 
-    var a=1;
-    var x1=10;
-    function FF(a,b){
-        var x1=12;
-        var x2=13;
-        console.log(a + b);//50
-        a=x2;
-        console.log(a + b);//43
-    }
-    FF(20,30);
-    console.log(x1);//10
-    console.log(a);//1
+    // var a=1;
+    // var x1=10;
+    // function FF(a,b){
+    //     var x1=12;
+    //     var x2=13;
+    //     console.log(a + b);//50
+    //     a=x2;
+    //     console.log(a + b);//43
+    // }
+    // FF(20,30);
+    // console.log(x1);//10
+    // console.log(a);//1
 
     /*
     * 在私有作用域下遇到变量了,如果想看他是全局的还是私有的，就看有没有预解释就可以了，有的话是私有的，没有的话往上一级找，直到找到window，如果还没有的话报错.
     * 这个变量查找的过程就是作用域链
     * */
-    var a=1;
-    var b=2;
-    function AA(a){
-        a++;//a=NaN
-        b++;
-        console.log(a);//NaN
-        console.log(b);//3
-    }
-    AA();
-    console.log(a);//1
-    console.log(b);//3
+    // var a=1;
+    // var b=2;
+    // function AA(a){
+    //     a++;//a=NaN
+    //     b++;
+    //     console.log(a);//NaN
+    //     console.log(b);//3
+    // }
+    // AA();
+    // console.log(a);//1
+    // console.log(b);//3
 
-    var n=9;
-    function fn(){
-        console.log(n);//undefined
-        s="珠峰培训";
-        console.log(s);//'珠峰培训'
-        n=7;
-        console.log(n);//7
-        var n=6;
-        console.log(n);//6
-    }
-    fn();
-    console.log(n);//9
-    console.log(s);//undefined
+    // var a=3;
+    // function A(a,b){
+    //     b++;
+    //     console.log(a);//3
+    //     var a;
+    //     return b+a;
+    // }
+    // var b=A(a++,a);
+    // /*
+    // * 关键点:A(a++,a)a++在函数执行完之后才会+1;
+    // * 如果改为A(++a,a)则结果为:4   4 9
+    // * */
+    // console.log(a,b);//4 8
+
+    // var n=9;
+    // function fn(){
+    //     console.log(n);//undefined
+    //     s="珠峰培训";
+    //     console.log(s);//'珠峰培训'
+    //     n=7;
+    //     console.log(n);//7
+    //     var n=6;
+    //     console.log(n);//6
+    // }
+    // fn();
+    // console.log(n);//9
+    // console.log(s);//undefined
+
+
+    /*
+    * 函数没有执行的时候没有任何意义的;
+    * 开辟一个新的内存，里面存储的是我们看上去像代码的字符串,然后让sum里面存储的是对新的内存地址的引用
+    * */
+    // function sum(){
+    //     var total=1+12;
+    //     var obj={name:"珠峰"};
+    //     console.log(total);
+    // }
+    // sum();//13
+    // sum();//13
+
+    /*
+    * 一个function运行的时候会形成一个私有的作用域，如果这个没有返回一个function(外面没有其他的东西占用者他的内存的话)，这个私有作用域执行完自动销毁,但是，如果返回了一个function，而且函数外面还用到了这个function的话 那么这个function行成的作用域就销毁不掉了
+    * */
+    // function fn(){
+    //     var n=12;
+    //     return function(){
+    //         n++;
+    //         console.log(n);
+    //     }
+    // }
+    // var f=fn();
+    // //f=function(){n++;concole.log(n);}
+    // f();//13
+    // f();//14
+    //
+    // var g=fn()();//13
+    // var g=fn()();//13
+    //
+    // var z=fn();
+    // z();//13
+    // z();//14
+
+
+
 </script>
 </body>
 </html>
