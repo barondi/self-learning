@@ -17,16 +17,16 @@
 				return function() {
 					this.number *= 2;
 					number*=3;
-					alert(number);
+					console.log(number);
 				}
 			})()
 		};
-		var fn1 = obj.fn1;
-		alert(number);
-		fn1();
+		var fn1 = obj.fn1;//NaN
+		console.log(number);//4
+		fn1();//9
 		obj.fn1();
-		alert(window.number);
-		alert(obj.number);
+		// alert(window.number);
+		// alert(obj.number);
 		
 		
 /*		

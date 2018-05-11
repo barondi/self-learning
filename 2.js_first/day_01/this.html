@@ -70,23 +70,23 @@
 //			Function.prototype.bind=function(context){
 //				var self=this;
 //				var args=Array.prototype.slice.call(arguments);
-//				JQ源码也类似，将类数组对象转换为真实数组，类数组虽然有length属性，可用for遍历，却不嫩使用slice方法
+//				JQ源码也类似，将类数组对象转换为真实数组，类数组虽然有length属性，可用for遍历，却不能使用slice方法
 //				return function(){
 //					return self.apply(context,args.slice(1));
 //				}
 //			}
 //		}
 
-//		var div1=document.getElementById('div1');
-//		div1.onclick=function(){
-//			console.log(this.id);
-//		}
+		// var div1=document.getElementById('div1');
+        // div1.onclick=function(){
+        // 	console.log(this.id);
+        // }
 
-//		var div1=document.getElementById('div1');
-//		var text1=document.getElementById('text1');
-//		div1.onclick=function(){
-//			console.log(this.id);
-//		}.bind(text1);
+		// var div1=document.getElementById('div1');
+		// var text1=document.getElementById('text1');
+		// div1.onclick=function(){
+		// 	console.log(this.id);
+		// }.bind(text1);
 
 
 
