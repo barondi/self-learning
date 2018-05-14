@@ -49,6 +49,7 @@
     // console.log(x1);//10
     // console.log(a);//1
 
+
     /*
     * 在私有作用域下遇到变量了,如果想看他是全局的还是私有的，就看有没有预解释就可以了，有的话是私有的，没有的话往上一级找，直到找到window，如果还没有的话报错.
     * 这个变量查找的过程就是作用域链
@@ -64,6 +65,30 @@
     // AA();
     // console.log(a);//1
     // console.log(b);//3
+
+
+    // var obj={
+    //     name:myName,
+    //     age:f3()
+    // };
+    // var myName='QQ';
+    // var age=18;
+    // function f3(){
+    //     return ++age;
+    // }
+    // console.log(obj);//{name:undefined,age:NaN}  解释参见图解4.作用域.png
+
+
+    // var ary=[1,2,3];
+    // function Fn(ary){
+    //     ary.push(100);
+    //     ary.shift();
+    //     ary=ary[ary.length-1];
+    //     return ary;
+    // }
+    // console.log(Fn(ary));//100
+    // console.log(ary);//[2,3,100]  由于数组操作方法push和shift会改变原有数组
+
 
     // var a=3;
     // function A(a,b){
@@ -106,9 +131,29 @@
     // sum();//13
     // sum();//13
 
+
     /*
-    * 一个function运行的时候会形成一个私有的作用域，如果这个没有返回一个function(外面没有其他的东西占用者他的内存的话)，这个私有作用域执行完自动销毁,但是，如果返回了一个function，而且函数外面还用到了这个function的话 那么这个function行成的作用域就销毁不掉了
+    * 内存:
+    *   堆内存:存储引用类型的
+    *   栈内存:作用域
+    *
+    * 堆内存释放:当某个堆内存的地址不再被变量占用,浏览器会在空闲的时候将其销毁
+    *   注意:在开发中后期不再使用的引用类型手动将其赋值为null
+    * 栈内存释放:
+    *   全局作用域:关闭浏览器时全局作用域销毁
+    *   私有作用域:
+    *       销毁:当一个作用域没有被外界占用,此时就销毁了
+    *       不销毁:当一个作用域返回一个地址且被外界占用,此时这个作用域不销毁
+    *       (一个function运行的时候会形成一个私有的作用域，如果这个没有返回一个function(外面没有其他的东西占用者他的内存的话)，这个私有作用域执行完自动销毁,但是，如果返回了一个function，而且函数外面还用到了这个function的话 那么这个function行成的作用域就销毁不掉了)
+    *
     * */
+    // var arr=[1,2,3,4];//arr=xxxfff000->[1,2,3,4]
+    // arr=[1,2,3];//arr=xxxfff111->[1,2,3],当前地址xxxfff000不再被变量占用,浏览器会在空闲时将其销毁
+    //
+    // var obj={name:'zhangSan'};
+    // obj=null;
+
+
     // function fn(){
     //     var n=12;
     //     return function(){
@@ -128,6 +173,60 @@
     // z();//13
     // z();//14
 
+
+    // var zf='DJS';
+    // function B(){
+    //     console.log(zf);
+    // }
+    // function A(b){
+    //     var zf='DiJiaSong';
+    //     b=B;
+    //     return b;
+    // }
+    // B();//'DJS'
+    // var b=A(B);
+    // b();//'DJS' 引用类型function B(){}  赋值为对内存地址(空间)的引用变量如xxxfff
+
+
+    /*
+    * 块级作用域:只要是{}包起来的都是
+    *   注意function(){} 私有作用域
+    *   {},if(){},for{},while(){}等
+    *   1.在块级作用域中不能使用var和function定义同一个变量
+    *   2.块级作用域针对let const相当于私有作用域,里面声明的变量外界是拿不到的
+    * */
+    // function fn(){
+    //     var a=1;
+    // }
+    // //console.log(a);//Error
+    // {
+    //     var b=1;
+    //     var b=10;
+    //     // function b(){};//b has already been declared
+    // }
+    // console.log(b);//外界可以拿到块级作用域变量
+
+
+    // {
+    //     let zf='邸佳松';
+    // }
+    // // console.log(zf);//Error zf is not defined
+    // if(2){
+    //     const num='123';
+    // }
+    // // console.log(num);//Error
+
+
+    // for(var i=0;i<4;i++){
+    //     console.log(i);
+    // }
+    // console.log(i);
+
+
+    // for(let i=0;i<4;i++){
+    //     console.log(i);
+    // }
+    // //console.log(i);//Error
 
 
 </script>
