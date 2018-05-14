@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数形参赋值</title>
+</head>
+<body>
+<script>
+    /*
+    * 给函数形参赋值时,遇到变量先看是不是自己小括号中的,如果是就使用自己的,不是则继续往上级查找
+    * */
+    // var m=2;
+    // function Fn(x=m,y){
+    //     var m=1;
+    //     console.log(x);//2
+    // }
+    // Fn();
+
+
+    // var n=2,x=10;
+    // function Fn1(x=1,y=x){
+    //     var n=1,x=10;
+    //     console.log(x);//10
+    //     console.log(y);//1
+    // }
+    // Fn1();
+</script>
+</body>
+</html>
