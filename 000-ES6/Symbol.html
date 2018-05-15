@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Symbol</title>
+</head>
+<body>
+<script>
+    /*
+    * ES5数据类型:
+    *   基本数据类型:Number,String,Boolean,Null,Undefined
+    *   复杂数据类型:Object
+    * ES6新增数据类型:Symbol
+    *   注意:
+    *       1.Symbol值是独一无二的,即使是传入相同的参数,二者的值也不同,如果想让两者相等,可以使用Symbol.for()
+    *       2.Symbol是基本数据类型(类字符串形式),不是对象.
+    *           Symbol()前不能有new操作符;
+    *           不能为Symbol添加方法;
+    *           可以转化为字符串(toString()或String())和Boolean,但不能转化为Number
+    *       3.Symbol作为属性名，该属性不会出现在for...in、for...of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回;[只能通过Object.getOwnPropertySymbols获取Symbol属性名]
+    *       4.弱封装机制,只在当前作用域有效
+    *       5.以symbol为键的属性属性与数组元素类似,不能使用.访问,只能使用[]访问
+    * 获取Symbol的三种方法:
+    *   1.调用Symbol()
+    *   2.调用Symbol.for()
+    *   3.使用标准自定义Symbol 如Symbol.iterator
+    * 浏览器不支持ES6新特性解决方案:
+    *   1.Babel和Broccoli
+    *   2.polyfill
+    *
+    * 应用场景:
+    *   假设正在写一个JS库,通过CSS transitions使DOM元素在屏幕上移动.但在一个div元素上同时应用多重CSS transitions时并不会生效,所以需要给元素标志是否已经移动.
+    *   解决上述问题:
+    *       可以通过创建一个数组来标记相关信息,但当数组庞大时,线性检索非常缓慢
+    *       也可以通过自定义属性来标记相关信息,会影响for-in或Object.keys()
+    *   所以,ES6中Symbol就应运而生了
+    *
+    * */
+    // var symbol=Symbol();
+    // console.log(symbol);//Symbol()
+    // var mySymbol=Symbol('mySymbol');//推荐形式
+    // console.log(mySymbol);
+
+    // var s1=Symbol('djs');
+    // var s2=Symbol('djs');
+    // console.log(s1===s2);//false
+
+    // var s1=Symbol.for('djs');
+    // var s2=Symbol.for('djs');
+    // console.log(s1 === s2);//true
+
+    // const obj = {};
+    // let isFlagA = Symbol('isFlagA');
+    // let isFlagB = Symbol('isFlagB');
+    // obj[isFlagA] = 'Hello,A';
+    // obj[isFlagB] = 'Hello,B';
+    // const objectSymbols = Object.getOwnPropertySymbols(obj);
+    // console.log(objectSymbols);
+
+    /*
+    * 面试题:让jQuery对象支持for-of
+    * */
+    //jQuery.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+</script>
+</body>
+</html>

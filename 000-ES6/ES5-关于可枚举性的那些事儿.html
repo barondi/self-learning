@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>可枚举的那些事</title>
+</head>
+<body>
+<script>
+    /*
+    * 涉及到对象的enumerable属性,先来聊聊对象的每个属性都有一个描述对象Descriptor通过Object.getOwnPropertyDescriptor(obj,key)
+    * enumerable
+    *
+    * */
+    console.log(Object.getOwnPropertyDescriptor([1,2,3], 'length'));//{value: 3, writable: true, enumerable: false, configurable: false}
+    console.log(Object.getOwnPropertyDescriptor([1,2,3], 'length').enumerable);//false
+
+</script>
+</body>
+</html>

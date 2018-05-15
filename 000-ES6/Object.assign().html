@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6新特性</title>
+</head>
+<body>
+<script>
+    /*
+    * Object.assign()
+    *   1.Object.assign(target, source1, source2);
+    *       对象合并,将源对象的所有可枚举属性复制到目标对象;
+    *       如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性
+    * */
+    var target = { a: 1, b: 1 };
+    var source1 = { b: 2, c: 2 };
+    var source2 = { c: 3 };
+    Object.assign(target, source1, source2);
+    console.log(target);
+</script>
+</body>
+</html>

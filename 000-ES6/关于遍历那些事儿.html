@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关于遍历那些事儿</title>
+</head>
+<body>
+<script>
+    /*
+    * 数组遍历
+    * */
+    var arr=['我','是','邸','佳','松'];
+    /*for循环*/
+    // for(var i=0;i<arr.length;i++){
+    //     console.log(arr[i]);
+    // }
+
+    /*
+    * Array.forEach
+    *   函数中两个参数第一个为数组项值,第二个为数组项索引
+    *   不支持continue break及return
+    * */
+    // arr.forEach(function(value){
+    //     console.log(value);
+    // })
+    // arr.forEach(function(value,index){
+    //     console.log(value,index);
+    // })
+
+    /*
+    * for-in(非常不建议遍历数组)
+    *   index为字符串,本身就是为遍历对象属性设计的
+    *   还会遍历自定义属性及原型链上的属性,造成执行的额外开销
+    * */
+    // for(var index in arr){
+    //     console.log(typeof(index));//string
+    //     console.log(arr[index]);
+    // }
+
+    /*
+    * ES6之for-of:
+    *
+    * */
+    var aa=[1,2,3,2,3,4,5];
+    aa=[...new Set(aa)];
+    console.log(aa);
+    for(var [index,value] of arr){
+        console.log(index);
+    }
+    var str='你好邸佳松';
+    for(var key of Object.keys(str)){
+        console.log(str[key]);
+    }
+
+
+    function P(){
+        this.a ='nihao';
+        this.b ='yes';
+        this.c =function(){
+            console.log('1');
+        }
+    }
+    P.prototype.look = function(){
+        console.log('2');
+    }
+    var b = new P();
+    Object.defineProperty(b,'age',{value:18,enumerable:false});
+    Object.defineProperties(b,{name:{value:'djs',enumerable:false},sex:{value:'男',enumerable:false}});
+    for(var i in b){
+        console.log(b[i]);
+    }
+    console.log(Object.keys(b));
+    console.log(JSON.stringify(b));
+    console.log(Object.assign(b));
+    console.log(Object.getOwnPropertyNames(b));
+    for(var obj of Object.keys(Object.assign(b))){
+        console.log(obj);
+    }
+</script>
+</body>
+</html>

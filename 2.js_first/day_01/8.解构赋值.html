@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    /*数组解构赋值*/
+    /****数组解构赋值****/
     /*基本赋值*/
     // let [x,y]=[1,2];
     // let [x1,y1]=[1];
@@ -30,15 +30,8 @@
     // console.log(arr.toString());
     // console.log(arr.join());
 
-    /*两个变量交换位置*/
-    // var num1=1;
-    // var num2=2;
-    // [num1,num2]=[num2,num1];
-    // console.log(num1);
-    // console.log(num2);
 
-
-    /*对象解构赋值*/
+    /****对象解构赋值****/
     /*变量名和属性名相同的情况,name和age是变量,且对象的无序性*/
     // let {name,age}={age:10,name:'邸佳松'}
 
@@ -49,12 +42,78 @@
     // let {a:a1=10,b,c}={b:'BB',c:'CC'};
     // console.log(a1);//10
 
-    var obj={name:'djs',age:10,fe:['html','js','css']};
-    let {name,age,fe:[x1,x2,x3]}=obj;
-    console.log(name);
-    console.log(age);
-    console.log(x1);
+    // var obj={name:'djs',age:10,fe:['html','js','css']};
+    // let {name,age,fe:[x1,x2,x3]}=obj;
+    // console.log(name);
+    // console.log(age);
+    // console.log(x1);
 //    http://www.cnblogs.com/tugenhua0707/p/6751778.html#_labe1
+
+
+    /****字符串解构赋值****/
+    // const [a,b,c,d,e]='hello';
+    // console.log(a,b,c,d,e);//'h''e''l''l''o'
+    // let {length:len}='hello';
+    // console.log(len);//5
+
+
+    /****函数参数解构赋值****/
+    // function add([x, y]) {
+    //     return x + y;
+    // }
+    // console.log(add([1, 2])); // 3
+
+    // function move({x = 0, y = 0} = {}) {
+    //     /*
+    //     * 函数参数{x=0,y=0}={}设置了函数参数(是个对象)的默认值为{},且函数参数(对象)中属性默认值为0
+    //     * */
+    //     return [x, y];
+    // }
+    // console.log(move()); // [0, 0]
+    // console.log(move({})); // [0, 0]
+    // console.log(move({x: 3})); // [3, 0];
+    // console.log(move({x:3, y:8})); // [3, 8]
+
+    // function scroll({x, y} = {x:0,y:0}) {
+    //     /*
+    //     * 函数参数{x,y}={x:0,y:0}只设置了函数参数(是个对象)的默认值
+    //     * */
+    //     return [x, y];
+    // }
+    // console.log(scroll());//[0,0]
+    // console.log(scroll({}));//[undefined,undefined]
+    // console.log(scroll({x:3})); // [3, undefined]
+    // console.log(scroll({x:3, y:8})); // [3, 8]
+
+
+    /****变量解构的用途****/
+    /*两个变量交换位置*/
+    // var num1=1;
+    // var num2=2;
+    // [num1,num2]=[num2,num1];
+    // console.log(num1);
+    // console.log(num2);
+
+    /*取值*/
+    // function example() {
+    //     return [1, 2, 3];
+    // }
+    // var [a, b, c] = example();
+    // console.log([a, b, c]); // [1, 2, 3]
+    // console.log(a); // 1
+    // console.log(b); // 2
+    // console.log(c); // 3
+    // function example2() {
+    //     return {
+    //         foo: 1,
+    //         bar: 2
+    //     }
+    // }
+    // var {foo, bar} = example2();
+    // console.log(foo); // 1
+    // console.log(bar); // 2
+
+    /*输入模块指定方法*/
 
 
 </script>
