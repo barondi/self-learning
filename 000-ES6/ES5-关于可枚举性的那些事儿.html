@@ -8,11 +8,40 @@
 <script>
     /*
     * 涉及到对象的enumerable属性,先来聊聊对象的每个属性都有一个描述对象Descriptor通过Object.getOwnPropertyDescriptor(obj,key)
-    * enumerable
+    * Object.getOwnPropertyNames(obj)返回对象自身可枚举属性,包括方法
+    * 引入enumerable的目的:让某些属性可以规避for...in操作,不然所有内部属性和方法都可以被遍历.如对象原型上的toString方法,数组中的length属性...
+    * enumerable影响的操作:
+    *   for...in循环:只遍历自身和继承(原型链上)的可枚举属性,包括方法;
+    *   Object.keys(obj):返回对象自身可枚举属性的键名,包括方法;
+    *   JSON.stringify(obj):只串行化对象自身可枚举属性;
+    *   Object.assign(obj):ES6方法,只拷贝对象自身可枚举属性,包括方法;
+    *   ES6中所有Class的原型方法都是不可枚举的
     *
     * */
-    console.log(Object.getOwnPropertyDescriptor([1,2,3], 'length'));//{value: 3, writable: true, enumerable: false, configurable: false}
-    console.log(Object.getOwnPropertyDescriptor([1,2,3], 'length').enumerable);//false
+    // console.log(Object.getOwnPropertyDescriptor([1,2,3], 'length'));//{value: 3, writable: true, enumerable: false, configurable: false}
+    // console.log(Object.getOwnPropertyDescriptor([1,2,3], 'length').enumerable);//false
+
+    function Person(){
+        this.name ='张三';
+        this.age ='22';
+        this.swim =function(){
+            console.log('游泳');
+        }
+    }
+    Person.prototype.eat = function(){
+        console.log('吃');
+    }
+    var b = new Person();
+    Object.defineProperty(b,'school',{value:'燕山大学',enumerable:false});
+    Object.defineProperties(b,{hometown:{value:'石家庄',enumerable:false},sex:{value:'男',enumerable:false}});
+    var target={a:1};
+    for(var i in b){
+        console.log(b[i]);//张三 22 f(){console.log('游泳')} f(){console.log('吃')}
+    }
+    console.log(Object.keys(b));//["name", "age", "swim"]
+    console.log(JSON.stringify(b));//{"name":"张三","age":"22"}
+    console.log(Object.assign(target,b));//{a: 1, name: "张三", age: "22", swim: ƒ}
+    console.log(Object.getOwnPropertyNames(b));//["name", "age", "ob", "swim", "school", "hometown", "sex"]
 
 </script>
 </body>

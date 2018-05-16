@@ -38,44 +38,47 @@
     // }
 
     /*
-    * ES6之for-of:
+    * ES6之for-of:默认遍历的是值
+    *   可以遍历字符串,数组(类数组NodeList等),对象,集合等
     *
     * */
-    var aa=[1,2,3,2,3,4,5];
-    aa=[...new Set(aa)];
-    console.log(aa);
-    for(var [index,value] of arr){
-        console.log(index);
-    }
-    var str='你好邸佳松';
-    for(var key of Object.keys(str)){
-        console.log(str[key]);
-    }
+    // var str='hello';
+    // for(var value of str){
+    //     console.log(value);
+    // }
+    // //使用Object.keys(obj)来选择可枚举的属性
+    // console.log(Object.keys(str));//["0", "1", "2", "3", "4"]
+    //
+    // for(var value of arr){
+    //     console.log(value);//我 是 邸 佳 松
+    // }
+    // //使用ES6数组新增的方法Array.entries(),对数组进行解构
+    // for(var [index,value] of arr.entries()){
+    //     console.log(index, value);//0 '我' ... 4 '松'
+    // }
+
+    /*
+    * 遍历ES6的Set和Map对象
+    *   Set对象由不重复的值构成,Map对象由键值对构成
+    *
+    * */
+    // var arr1=[1,2,3,1,4,3,'2'];
+    // var obj1=new Set(arr1);
+    // for(var value of obj1){
+    //     console.log(value,typeof value);
+    // };
+    // var map=new Map([['a',1],['b',2]]);
+    // map.set('c',3);
+    // map.set('d',4);
+    // for(var [key,value] of map){
+    //     console.log(key,value);
+    // };
+    // console.log(map.get('a'));
+    // map.clear();
+    // console.log(map);
 
 
-    function P(){
-        this.a ='nihao';
-        this.b ='yes';
-        this.c =function(){
-            console.log('1');
-        }
-    }
-    P.prototype.look = function(){
-        console.log('2');
-    }
-    var b = new P();
-    Object.defineProperty(b,'age',{value:18,enumerable:false});
-    Object.defineProperties(b,{name:{value:'djs',enumerable:false},sex:{value:'男',enumerable:false}});
-    for(var i in b){
-        console.log(b[i]);
-    }
-    console.log(Object.keys(b));
-    console.log(JSON.stringify(b));
-    console.log(Object.assign(b));
-    console.log(Object.getOwnPropertyNames(b));
-    for(var obj of Object.keys(Object.assign(b))){
-        console.log(obj);
-    }
+
 </script>
 </body>
 </html>
