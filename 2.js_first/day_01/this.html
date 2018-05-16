@@ -2,14 +2,22 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>珠峰培训</title>
+    <title>this</title>
 </head>
 <body>
 	<div id="div1">我是div1</div>
 	<div id="text1">我是text1</div>
 	<script type="text/javascript">
     	//this
-		//this是谁和在哪定义和在哪执行半毛钱关系都没有,和函数执行时候的主体有关系(只与谁调用它有关系).this出现在作用域下
+		/*
+		* this是谁和在哪定义和在哪执行半毛钱关系都没有,和函数执行时候的主体有关系(只与谁调用它有关系).this出现在作用域下
+		* 规则:
+		*   1.看函数执行的时候前面有没有.,有.,则.前面是谁,this就是谁
+		*   2.给元素绑定事件时,给谁绑的this就是谁
+		*   3.自执行函数中this是window
+		*   4.当一个函数是回调函数(作为参数)时,里面的this是window,但是有些可以修改
+		*   5.ES6中箭头函数是没有this指向的,它里面的this是谁取决于这个箭头函数所属的作用域中的this是谁它就是谁(会一直往上找直到window)
+		* */
 		var innerHTML="我是window";
 		function fn(){
 			console.log(this.innerHTML);	
@@ -36,8 +44,6 @@
 //		}
 
 
-
-
 //		var innerHTML="我是window";
 //		function fn(){
 //			console.log(this.innerHTML);
@@ -57,6 +63,47 @@
 //		;(function(){
 //			this-->window
 //		})()
+
+        // setTimeout(function(){
+        //     console.log(this);//window
+        // },2000);
+        //
+        // [1].forEach(function(value){
+        //     console.log(this);//obj
+        // },obj)
+
+        // let fn=(a)=>{
+        //     console.log(this);//window
+        // }
+        // fn();
+        // let fn1=a=>a//<==>let fn1=(a)=>{return a}
+        // var a=fn1(1);
+        // console.log(a);//1
+
+        var obj={
+            fn:()=>{
+                let a=()=>{
+                    console.log(this);
+                }
+                a();
+            }
+        };
+        obj.fn();//this是window
+        var obj1={
+            fn(){
+                let a=()=>{
+                    console.log(this);
+                }
+                a();
+            }
+        };
+        obj1.fn();//this是obj1
+
+        var arr=[1,2,3];
+        arr.forEach((item,index,arr)=>{
+            console.log(item);
+        })
+        //给元素绑定事件的时候一般不用箭头函数
 
 
 /*

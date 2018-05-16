@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this</title>
+</head>
+<body>
+<script>
+    // console.log(getA);//undefined
+    // if('a' in window){
+    //     var a='';
+    //     function getA(a){
+    //         a=a||this.a;
+    //         console.log(this.a);//''
+    //     }
+    //     getA(a);
+    // }
+
+    // var a=2;//window.a=2
+    // var obj1={
+    //     a:1,//obj1.a=1
+    //     fn1:(function(a){//自执行函数私有变量a=2
+    //         this.a=a;//window.a=2
+    //         a++;//私有变量a=3
+    //         return function(){//私有作用域不销毁
+    //             this.a=a++;
+    //             console.log(a);
+    //         }
+    //     })(a)//(window.a=2)
+    // };
+    // obj1.fn1();//4
+    // var fn1=obj1.fn1;
+    // fn1();//5
+
+    // var b='b';
+    // var obj2={
+    //     b:'B',
+    //     getB:function(b){
+    //         this.b=b+this.b;
+    //         return this.b
+    //     }
+    // };
+    // console.log(obj2.getB('是'));//'是B'
+
+    // function g1(){
+    //     this.g='gg';
+    // }
+    // var obj4={
+    //     g1:g1,
+    //     gg:function(){
+    //         g1();
+    //     }
+    // };
+    // obj4.g1();//obj4.g='gg'
+    // obj4.gg();//window.g='gg'
+    // console.log(obj4);//{g1: ƒ, gg: ƒ, g: "gg"}
+    // console.log('g' in window);//true
+
+    // var c=3;//window.c=3
+    // function getC(){//xxxfff000
+    //     this.c++;
+    //     return function(c){
+    //         c=this.c*2;
+    //         console.log(c);
+    //     }
+    // }
+    // var obj3={
+    //     c:2,//obj3.c=2
+    //     getC:(function(){
+    //         this.c-=1;//window.c=2
+    //         return this.getC//xxxfff000
+    //     })()
+    // }
+    // getC();//window.c=3
+    // obj3.getC();//obj3.c=3
+    // var f3=obj3.getC;//f3=xxxfff000
+    // f3();//window.c=4
+    // console.log(window.c);//4
+    // console.log(obj3.c);//3
+
+</script>
+</body>
+</html>
