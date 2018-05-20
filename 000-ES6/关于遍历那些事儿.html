@@ -6,6 +6,53 @@
 </head>
 <body>
 <script>
+    //Iterator详解  https://www.jianshu.com/p/ea0648c00006
+    /*
+    * ES6三个方法:
+    *   Object.keys() 返回数组,包含对象自身可枚举属性的键名,包括方法;
+    *   Object.values() 返回数组,包含对象自身可枚举属性的值,包括方法;
+    *   Object.entries() 返回数组,包含对象自身可枚举属性的键和值,包括方法;
+    *   Array.entries() 返回由数组键值构成的Iterator
+    * */
+    // var obj={
+    //     name:'djs',
+    //     age:25,
+    //     eat:function(){
+    //         console.log('eat');
+    //     }
+    // }
+    // let {keys, values, entries} = Object;
+    // console.log(keys(obj));//['name','age','eat']
+    // console.log(keys([1,2]));//['0','1']
+    // console.log(values(obj));//["djs", 25, ƒ]
+    // console.log(entries(obj));//[['name','djs'],['age','25'],['eat',f]]
+    // console.log(Object.entries({[Symbol()]: 123, foo: 'abc'}));//[['foo','abc']] 属性名是Symbol为不可枚举
+    //
+    // let obj1 = { a: 1, b: 2, c: 3 };
+    // for (let key of keys(obj1)) {
+    //     console.log(key); // 'a', 'b', 'c'
+    // }
+    // for (let value of values(obj1)) {
+    //     console.log(value); // 1, 2, 3
+    // }
+    // for (let [key, value] of entries(obj1)) {
+    //     console.log([key, value]); // ['a', 1], ['b', 2], ['c', 3]
+    // }
+
+    // var arr=['a','b','c'];
+    // var args=arr.entries();
+    // // console.log(args.next());//{value: Array(2), done: false}
+    // // console.log(args.next());//{value: Array(2), done: false}
+    // // console.log(args.next());//{value: Array(2), done: false}
+    // // console.log(args.next());//{value: undefined, done: true}
+    // for(let i=0;i<arr.length;i++){
+    //     console.log(args.next());
+    // }
+    // for(let [key,value] of args){
+    //     console.log(key,value)
+    // }
+
+
     /*
     * 数组遍历
     * */
@@ -52,7 +99,7 @@
     // for(var value of arr){
     //     console.log(value);//我 是 邸 佳 松
     // }
-    // //使用ES6数组新增的方法Array.entries(),对数组进行解构
+    // //使用ES6数组新增的方法Array.entries()转化为Iterator,对数组进行解构
     // for(var [index,value] of arr.entries()){
     //     console.log(index, value);//0 '我' ... 4 '松'
     // }
@@ -76,6 +123,22 @@
     // console.log(map.get('a'));
     // map.clear();
     // console.log(map);
+
+
+    /*ES6之6种遍历对象属性的方法
+    1.for ... in 循环遍历对象自身的和继承的可枚举属性(不含Symbol属性).
+
+    2.Obejct.keys(obj),返回一个数组,包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性).
+
+    3.Object.getOwnPropertyNames(obj),返回一个数组,包含对象自身的所有属性(不含Symbol属性,但是包括不可枚举属性).
+
+    4.Object.getOwnPropertySymbols(obj),返回一个数组,包含对象自身的所有Symbol属性.
+
+    5.Reflect.ownKeys(obj),返回一个数组,包含对象自身的所有属性,不管属性名是Symbol或字符串,也不管是否可枚举.
+
+    6.Reflect.enumerate(obj),返回一个Iterator对象,遍历对象自身的和继承的所有可枚举属性(不含Symbol属性),与for ... in 循环相同.
+    7.JQuery中each方法
+    */
 
 
 
