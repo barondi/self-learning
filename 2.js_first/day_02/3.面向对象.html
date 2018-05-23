@@ -72,6 +72,8 @@
 		console.log(Fn.prototype.isPrototypeOf(p1));
 		
 		//我们在调用实例上的属性名的时候，遵循这样的顺序:先找私有的，私有的没有，在通过__proto__找他所在类的原型上的属性,如果在私有的中找到了，就不在找了
+
+        //我们在判断实例属性是公有属性还是私有属性可以通过这种方式: 先通过 prop in obj 来判断属性是否在obj实例上;如果有的话再通过obj.hasOwnProperty(prop),返回true表示私有属性,返回false表示公有属性
 		
 		
 		 

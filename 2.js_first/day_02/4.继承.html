@@ -28,10 +28,12 @@
 		console.log(p2.get1());//1
 		p2.eat1();//A eat!!
 		B.prototype.aa=100;
-		console.log(p2.__proto__);//A
+		console.log(p2.__proto__);//类A的实例
+		console.log(p2.constructor);//类A
 		console.log(p1.aa);//100
+        console.log(p1.hasOwnProperty('aa'));//true
 
-/***********************************/
+        /***********************************/
 		//我们在原型链中获取对象的属性和方法时,只会从对象和对象的prototype中查找！
 		console.log('*******************************');
 		function Person(name,age){
