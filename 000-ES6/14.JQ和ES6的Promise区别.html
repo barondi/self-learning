@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise</title>
+</head>
+<body>
+<script type="text/javascript" src="../jquery-1.8.3.min.js"></script>
+<script>
+    //1.使用jquery Promise  依次输出 2 3 4 5 1 由于jquery的promise不保证是异步的
+    // var log = console.log;
+    // function MyPromise(fun){
+    //     var deferred = $.Deferred();
+    //     fun(deferred.resolve, deferred.reject);
+    //     return deferred.promise();
+    // }
+    // setTimeout(function () {
+    //     log(1);
+    // });
+    // new MyPromise(function(resolve, reject){
+    //     log(2);
+    //     resolve();
+    //     log(3);
+    // }).then(function(){
+    //     log(4);
+    // });
+    // log(5);
+
+    //2.使用ES6 Promise 依次输出 2 3 5 4 1
+    // var log = console.log;
+    // setTimeout(function () {
+    //     log(1);
+    // });
+    // new Promise(function (resolve) {
+    //     log(2);
+    //     resolve();
+    //     log(3);
+    // }).then(function () {
+    //     log(4);
+    // });
+    // log(5);
+
+    //3.依次输出 2 4 3 5 1
+    var log = console.log;
+    // function MyPromise(fun){
+    //     return {
+    //         then: function(resolve, reject){
+    //             fun(resolve, reject);
+    //         }
+    //     };
+    // }
+    // setTimeout(function () {
+    //     log(1);
+    // });
+    // new MyPromise(function(resolve, reject){
+    //     log(2);
+    //     resolve();
+    //     log(3);
+    // }).then(function(){
+    //     log(4);
+    // });
+    // log(5);
+
+    // new Promise((resolve,reject)=>{
+    //     resolve('11');
+    //     console.log('22');
+    // }).then(data=>{
+    //     console.log(data);
+    // })
+</script>
+</body>
+</html>
