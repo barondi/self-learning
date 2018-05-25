@@ -1,3 +1,16 @@
+/*
+* 数组方法大归纳:
+*   1.ES5
+*       原有数组改变 push pop unshift shift reverse sort splice
+*       原有数组不变 slice reduce concat join indexOf lastIndexOf filter map
+*   2.ES6
+*       entries Array.of Array.from find findIndex some every includes fill copyWithin
+*   3.从Object继承的方法
+*       toString keys(es6)
+*
+*   部分方法用法参见1.js_free 6.1数组及扩展.html
+* */
+
 //reduce 原数组不发生变化 返回叠加后的结果 回调函数(四个参数)中return的值会作为下一次的prev
 
 // let sum=[1,2,3,4,5].reduce(function(prev,next,index,arr){
@@ -12,6 +25,7 @@
 // console.log(sum4)
 
 //面试:数组扁平化(降纬)
+
 let arr5=[[1,2,3],[4,5,6],[7,8,9]];
 let sum6=arr5.reduce(function(prev,next,index,arr){
     return prev.concat(next);
@@ -49,6 +63,31 @@ console.log(sum6);//[ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 // console.log(arr1.join(''));
 
 
+//ES6-entries() 原数组不变 返回[object Array Iterator](通过Object.prototype.toString.call()检测)
+
+// for(let [key,value] of ['a','b','c'].entries()){
+//     console.log(key,value)
+// }
+
+//ES6-Array.of(args) 返回一个数组 参数args部分类型只分数量(数量为0返回[])
+
+// console.log(Array.of());//[]
+// console.log(Array.of('123'));//[ '123' ]
+// console.log(Array.of('1','2','3'));//[ '1', '2', '3' ]
+// console.log(Array.of(['1','2','3']));//[ [ '1', '2', '3' ] ]
+// console.log(Array.of(undefined));//[ undefined ]
+
+//ES6-Array.from() 转化为数组
+
+// console.log(Array.from('123'));//[ '1', '2', '3' ]
+// console.log(Array.from({'0':'w','1':'b',length:2}))//["w", "b"],返回数组的长度取决于对象中的length，故此项必须有！
+// console.log(Array.from({'0':'w','1':'b',length:4}))//["w", "b", undefined, undefined],数组后2项没有属性去赋值，故undefined
+// console.log(Array.from({'0':'w','1':'b',length:1}))//["w"],length小于key的数目，按序添加数组
+// let aa=Array.from([1,2,3],function(x){
+//     return x+1;
+// })
+// console.log(aa);
+
 //ES6-includes
 //ES6-find 原数组不变 返回找到的那一项(没找到返回undefined) 回调函数中返回true表示找到了,找到后停止循环
 //ES6-some 结构同find 找true 找到true后停止 返回true 找不到返回false
@@ -60,6 +99,20 @@ console.log(sum6);//[ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 //     return item.toString().indexOf(5)>-1
 // })
 // console.log(arr3);
+
+//ES6-findIndex
+
+// var arr6=[1,2,3,4,-2];
+// let arr7=arr6.findIndex(function(value){
+//     return value<2;
+// })
+// arr6.findIndex(function(value,index,arr){
+//     if(value<2){
+//         console.log(index,value)
+//     }
+// })
+// console.log(arr6, arr7);
+
 
 // function a(b){
 //     return function(c){
