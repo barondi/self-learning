@@ -1,0 +1,23 @@
+{
+  "name": "201710node",
+  "version": "1.0.0",
+  "description": "- 操作dom",
+  "main": "1.arr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhufengzhufeng/201710node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhufengzhufeng/201710node/issues"
+  },
+  "homepage": "https://github.com/zhufengzhufeng/201710node#readme",
+  "dependencies": {
+    "vue": "^2.5.3"
+  }
+}

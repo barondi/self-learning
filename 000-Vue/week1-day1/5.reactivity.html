@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{arr}}
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            arr:[1,2,3,4,5],
+            a:{}
+        }
+    }); // 去改变数组中的某一项是监控不到的,也不能使用改变数组长度的方法
+    // 错误：vm.arr[0] = 100; vm.arr.length -=2;
+    // 变异方法：pop push shift unshift sort reserve splice
+    vm.arr = vm.arr.map(item=>item*=3);//filter map
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>珠峰培训 http://www.zhufengpeixun.cn</title>
+  <style>
+    div>div{
+      width: 100px;height: 100px;background: red;opacity: 0.3;
+    }
+   /* .jw-enter{opacity: 0;}
+    .jw-enter-active{transition: 1s linear;}
+    .jw-leave-active{opacity: 0;transition: 1s linear}*/
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--v-if v-show if操作的是dom show操作的是样式-->
+  <!--如果频繁的切换dom使用v-show,当数据一开时就确定下来使用v-if更好一些，如果if不通过内部指令不会在执行了-->
+  <!--只有dom从显示到隐藏 或者隐藏到显示 才能使用vue的动画-->
+  <button @click="flag=!flag">切换</button>
+  <!--vue自定义的标签 （组件）-->
+  <transition name="jw">
+    <div v-show="flag">我爱你</div>
+  </transition>
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+      el:'#app',
+      data:{
+          flag:true
+      }
+  })
+</script>
+</body>
+</html>

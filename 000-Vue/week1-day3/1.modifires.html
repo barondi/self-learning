@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<div id="app">
+  <!--stopPropagation 阻止事件传播-->
+  <div @click="parent">parent
+    <div @click.self="child">child
+      <div @click="grandson">grandson</div>
+    </div>
+  </div>
+  <a href="http://www.zhufengpeixun.cn" @click.prevent="parent">去珠峰</a>
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        methods:{
+          parent(){alert('parent')},
+          child(){alert('child')},
+          grandson(e){ alert('grandson');}
+        },
+        data:{}
+    })
+</script>
+</body>
+</html>
+

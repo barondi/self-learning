@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>珠峰培训 http://www.zhufengpeixun.cn</title>
+  <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+  <style>
+    div>div{
+      width: 100px;height: 100px;background: red;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button @click="flag=!flag">切换</button>
+  <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+    <div v-if="flag">我爱你</div>
+  </transition>
+
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+      el:'#app',
+      data:{
+          flag:true
+      }
+  })
+</script>
+</body>
+</html>

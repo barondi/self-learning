@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="a">
+    {{msg}}
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{a:'',msg:''},
+        /*watch:{ //只有值变化的时候才会触发 支持异步了,其他情况我们更善于使用computed
+            a(newVal,oldVal){ // watch的属性名字要和观察的人的名字一致
+                this.msg = '...........'
+                setTimeout(()=>{
+                    if(newVal.length<3){
+                        return this.msg = '太少'
+                    }
+                    if(newVal.length>6){
+                        return this.msg = '太多'
+                    }
+                    this.msg = '';
+                },2000)
+            }
+        }*/
+    });
+    vm.$watch('a',(newVal,oldVal)=>{ // watch的属性名字要和观察的人的名字一致
+        vm.msg = '...........';
+        setTimeout(()=>{
+            if(newVal.length<3){
+                return vm.msg = '太少'
+            }
+            if(newVal.length>6){
+                return vm.msg = '太多'
+            }
+            vm.msg = '';
+        },2000);
+    })
+</script>
+</body>
+</html>
+
+<!--当给a赋值的时候影响了 错误信息的改变 错误的-->
+<!--
+    computed:{
+          a:{ // 如果写了set方法，并且val给了别人，那当前的a就不会被赋予结果了
+              get(){
+                  return this.msg
+              },
+              set(val){
+                  this.msg = val;
+              }
+          }
+        },
+        data:{
+            msg:''
+        }
+
+
+-->
