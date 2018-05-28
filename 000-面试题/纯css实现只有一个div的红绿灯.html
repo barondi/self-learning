@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文字环绕图片</title>
+    <style>
+        .container{
+            width:400px;
+        }
+        .container img{
+            float:left;
+        }
+
+        @keyframes redLamp{
+            0%{background-color: #999;}
+            9.9%{background-color: #999;}
+            10%{background-color: red;}
+            40%{background-color: red;}
+            40.1%{background-color: #999;}
+            100%{background-color: #999;}
+        }
+        @keyframes yellowLamp{
+            0%{background-color: #999;}
+            39.9%{background-color: #999;}
+            40%{background-color: yellow;}
+            70%{background-color: yellow;}
+            70.1%{background-color: #999;}
+            100%{background-color: #999;}
+        }
+        @keyframes greenLamp{
+            0%{background-color: #999;}
+            69.9%{background-color: #999;}
+            70%{background-color: green;}
+            100%{background-color: green;}
+        }
+        #lamp,#lamp:before,#lamp:after{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #999;
+            position: relative;
+        }
+        #lamp{
+            left: 100px;
+            animation: yellowLamp 10s ease infinite;
+        }
+        #lamp:before{
+            display: block;
+            content: '';
+            left: -100px;
+            animation: redLamp 10s ease infinite;
+        }
+        #lamp:after{
+            display: block;
+            content: '';
+            left: 100px;
+            top: -100px;
+            animation: greenLamp 10s ease infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="./example.jpg" width="120px" />
+    HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局HTML文字环绕图片布局
+</div>
+
+<div id="lamp"></div>
+</body>
+</html>

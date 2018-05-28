@@ -18,7 +18,7 @@
         }
     }); // 去改变数组中的某一项是监控不到的,也不能使用改变数组长度的方法
     // 错误：vm.arr[0] = 100; vm.arr.length -=2;
-    // 变异方法：pop push shift unshift sort reserve splice
+    // 变异方法：pop push shift unshift sort reverse splice
     vm.arr = vm.arr.map(item=>item*=3);//filter map
 </script>
 </body>

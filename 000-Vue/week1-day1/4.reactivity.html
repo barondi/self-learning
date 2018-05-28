@@ -17,8 +17,8 @@
             a:{} // 1.school:''
         }
     });
-    // 使用变量时 先要初始化，否则新加的属性不会导致页面刷新
-    // Vue.set = vm.$set
+    // 1.使用变量时 先要初始化(增加getter和setter)，否则新加的属性不会导致view更新
+    // 2.Vue.set = vm.$set
     vm.$set(vm.a,'school',1); //2.此方法可以给对象添加响应式的数据变化
     // 3.替换原对象
     //vm.a = {school:'zfpx',age:8,address:'xxx'}
