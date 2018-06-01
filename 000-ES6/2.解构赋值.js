@@ -28,7 +28,7 @@
 // let [,,...arr1]=[1,2,3,4,5];
 // console.log(arr1);
 
-/*默认值:只有赋值为undefined时才会走默认值*/
+/*默认值(使用=):只有赋值为undefined时才会走默认值*/
 // var a=[1,2,3,4];
 // let [n=10,m]=a;
 // console.log(n);//1   如果a=[],则n为默认值10

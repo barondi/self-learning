@@ -16,18 +16,23 @@
 <script>
     let vm = new Vue({
         el:'#app',
+        data:{
+            val:'',
+            arr:[]
+        },
         methods:{
-            add(e){
-                this.arr.unshift(this.val);
+            add(event){
+                this.arr.push(this.val);
                 this.val = '';
             },
-            remove(i){this.arr = this.arr.filter((item,index)=>index!==i)}
-        },
-        data:{
-            arr:[],
-            val:'',
+            remove(i){
+                //方法一:
+                // this.arr.splice(index,index+1);
+                //方法二:
+                this.arr = this.arr.filter((value,index)=>index !== i);
+            }
         }
-    });
+    })
 </script>
 </body>
 </html>

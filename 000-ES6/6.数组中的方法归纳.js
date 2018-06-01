@@ -69,7 +69,7 @@ console.log(sum6);//[ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 //     console.log(key,value)
 // }
 
-//ES6-Array.of(args) 返回一个数组 参数args部分类型只分数量(数量为0返回[])
+//ES6-Array.of(args) 返回一个数组 参数args不分类型只分数量(数量为0返回[])
 
 // console.log(Array.of());//[]
 // console.log(Array.of('123'));//[ '123' ]
@@ -77,7 +77,13 @@ console.log(sum6);//[ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 // console.log(Array.of(['1','2','3']));//[ [ '1', '2', '3' ] ]
 // console.log(Array.of(undefined));//[ undefined ]
 
-//ES6-Array.from() 转化为数组
+/*
+* 详情参见150...@163.com账号的ES6笔记
+* ES6-Array.from(arrayLike[, mapFn[, thisArg]]) 将其它对象转化为数组
+* 可以转化的对象分为两类:
+*   - 部署了Iterator接口的对象，比如：Set，Map，Array
+*   - 类数组对象
+* */
 
 // console.log(Array.from('123'));//[ '1', '2', '3' ]
 // console.log(Array.from({'0':'w','1':'b',length:2}))//["w", "b"],返回数组的长度取决于对象中的length，故此项必须有！

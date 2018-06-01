@@ -86,6 +86,12 @@
           },
           checkOne(){ //根据下面点击的结果控制上面全选的结果
               this.checkAll = this.products.every(item=>item.isSelected);
+
+              // let i = 0;
+              // this.products.forEach((item,index)=>{
+              //     item.isSelected === true ? i++ : i;
+              // })
+              // i==this.products.length ? this.checkAll=true : this.checkAll=false;
           },
           change(){
               // 根据当前自己的状态设置 其他人的状态 实现全选和反选

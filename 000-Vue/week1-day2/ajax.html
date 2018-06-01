@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>珠峰培训 http://www.zhufengpeixun.cn</title>
+  <title>Vue</title>
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
   let vm = new Vue({
       el:'#app',
       created(){
-        ajax({url:'./cart.json'}).then((res)=>{
+        ajax({url:'./cart.json'}).then((res)=>{//使用箭头函数的原因解决this问题,箭头函数中this找上级作用域为vm实例,不使用箭头函数this为window,this.data.products取不到
           console.log(res)
         },(err)=>{
           console.log(err)

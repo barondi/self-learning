@@ -61,6 +61,45 @@
     * 面试题:让jQuery对象支持for-of
     * */
     //jQuery.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
+
+    //用[...]将类数组转数组需要当前类数组实现迭代器
+    function a(){
+        console.log(arguments);//Arguments(3) [1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+        console.log(Array.from(arguments));
+        console.log(Array.of(arguments))
+        console.log([...arguments]);//[1, 2]
+    }
+    a(1,2,3);
+    //属性Symbol.iterator是Symbol类型,值为一个函数
+    /*
+    * 迭代器
+    *   - 迭代器需要返回一个有next方法的对象,每次调用next方法会返回一个新对象,对象上有两个属性value和done
+    *   - 自己实现一个迭代器方法如下:
+    * */
+    let obj={0:1,1:2,2:3,length:3,[Symbol.iterator]:function(){
+        let index = 0;
+        //解决this方法一
+        /*let self = this;
+        return {
+            next:function(){
+                return {
+                    value:self[index],
+                    done:index++ === self.length ? true : false
+                }
+            }
+        }*/
+        //解决this方法二
+        return {
+            next:()=>{
+                return {
+                    value:this[index],
+                    done:index++ === this.length ? true : false
+                }
+            }
+        }
+    }}
+    console.log([...obj]);
 </script>
 </body>
 </html>

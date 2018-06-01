@@ -8,13 +8,15 @@
 <div id="app">
     <input type="text" v-model="a">
     {{msg}}
-
 </div>
 <script src="node_modules/vue/dist/vue.js"></script>
 <script>
     let vm = new Vue({
         el:'#app',
-        data:{a:'',msg:''},
+        data:{
+            a:'',
+            msg:''
+        },
         /*watch:{ //只有值变化的时候才会触发 支持异步了,其他情况我们更善于使用computed
             a(newVal,oldVal){ // watch的属性名字要和观察的人的名字一致
                 this.msg = '...........'
