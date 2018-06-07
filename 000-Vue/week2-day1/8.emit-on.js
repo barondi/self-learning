@@ -15,15 +15,15 @@ Girl.prototype.emit = function (eventName,...args) { //[我，你，他]
     // Array.from(arguments).slice(1);
     if(this._events[eventName]){
         this._events[eventName].forEach(cb=>cb(...args));
+        // this._events[eventName].forEach(cb=>cb.apply(this,args));
     }
 };
 let girl = new Girl();
-let girl1 = new Girl();
-let cry = (who) =>{console.log(who+'哭');};
-let shopping = (who) =>{console.log(who+'购物');};
+let cry = (who1,who2) =>{console.log(who1+'陪'+who2+'哭');};
+let shopping = (who1,who2) =>{console.log(who1+'陪'+who2+'购物');};
 let eat = (who) =>{console.log(who+'吃');};
 girl.on('失恋',cry); // {失恋:[cry]}
 girl.on('失恋',eat); // {失恋:[cry,eat]}
 girl.on('失恋',shopping); // {失恋:[cry,eat,shopping]}
-girl1.emit('失恋');
+girl.emit('失恋','我','你');
 
