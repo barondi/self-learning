@@ -9,7 +9,7 @@
     <!--modifiers-->
     <input type="text" v-model="val" @keyup.ctrl.enter="add">
     <ul>
-        <li v-for="(a,index) in arr">{{a}} <button @click="remove(index)">删除</button></li>
+        <li v-for="(value,index) in arr">序号:{{index+1}}  value:{{value}} <button @click="remove(index)">删除</button></li>
     </ul>
 </div>
 <script src="node_modules/vue/dist/vue.js"></script>
