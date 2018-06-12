@@ -50,4 +50,16 @@
 * */
 
 
+/*
+* 3、不用循环创建一个长度为100的数组，并且每个元素的值等于它的下标
+*   1)  [...Array(100).keys()]
+*   2)  [...Array.from({ length: 100 }).keys()]
+*   3)  Array.from(new Array(100).keys());
+*   4)  Object.keys(Array.from({ length: 100 })).map(function(item) {
+	        return +item;
+        });
+* */
+
+
+
 
